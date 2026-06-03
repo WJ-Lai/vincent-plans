@@ -21,171 +21,148 @@
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  min-height: 100vh;
+  background: var(--bg); color: var(--text); line-height: 1.6;
 }
 .lock-screen {
-  position: fixed; inset:0; z-index:9999;
-  background: var(--bg);
-  display: flex; align-items:center; justify-content:center;
-  flex-direction: column; gap: 20px;
+  position:fixed; inset:0; z-index:9999; background:var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:20px;
 }
-.lock-screen.hidden { display: none; }
+.lock-screen.hidden { display:none; }
 .lock-screen input {
-  padding: 12px 20px; border-radius: 12px;
-  border: 2px solid var(--border);
-  background: #fff; color: var(--text);
-  font-size: 16px; width: 200px; text-align: center;
-  outline: none;
+  padding:12px 20px; border-radius:12px; border:2px solid var(--border);
+  background:#fff; color:var(--text); font-size:16px; width:200px; text-align:center; outline:none;
 }
-.lock-screen input:focus { border-color: var(--primary); }
+.lock-screen input:focus { border-color:var(--primary); }
 .lock-screen button {
-  padding: 10px 30px; border-radius: 12px;
-  background: var(--primary); color: #fff;
-  border: none; font-size: 16px; cursor: pointer;
-  transition: background .2s;
+  padding:10px 30px; border-radius:12px; background:var(--primary);
+  color:#fff; border:none; font-size:16px; cursor:pointer;
 }
-.lock-screen button:hover { background: var(--primary-light); }
-.lock-screen .error { color: var(--danger); font-size: 14px; }
-.lock-screen .emoji { font-size: 48px; }
+.lock-screen button:hover { background:var(--primary-light); }
+.lock-screen .error { color:var(--danger); font-size:14px; }
 
-.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.container { max-width:800px; margin:0 auto; padding:20px; }
 .hero {
-  text-align: center; padding: 50px 20px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
-  border-radius: 24px; margin-bottom: 30px;
-  color: #fff; position: relative; overflow: hidden;
+  text-align:center; padding:50px 20px;
+  background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#a78bfa 100%);
+  border-radius:24px; margin-bottom:30px; color:#fff; position:relative; overflow:hidden;
 }
 .hero::after {
-  content: ''; position: absolute; inset:0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  content:''; position:absolute; inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
-.hero h1 { font-size: 2em; position: relative; z-index:1; }
-.hero .sub { color: rgba(255,255,255,.85); margin-top: 10px; position: relative; z-index:1; }
+.hero h1 { font-size:2em; position:relative; z-index:1; }
+.hero .sub { color:rgba(255,255,255,.85); margin-top:10px; position:relative; z-index:1; }
 .hero .countdown {
-  margin-top: 20px; font-size: 1.4em; font-weight: bold;
-  background: rgba(0,0,0,.15); display: inline-block;
-  padding: 8px 24px; border-radius: 12px; position: relative; z-index:1;
+  margin-top:20px; font-size:1.4em; font-weight:bold;
+  background:rgba(0,0,0,.15); display:inline-block;
+  padding:8px 24px; border-radius:12px; position:relative; z-index:1;
 }
 
-.badge {
-  display: inline-block; padding: 4px 12px; border-radius: 20px;
-  font-size: 12px; font-weight: 600;
-}
-.badge-red { background: #fef2f2; color: #dc2626; }
-.badge-yellow { background: #fffbeb; color: #d97706; }
-.badge-green { background: #f0fdf4; color: #16a34a; }
-.badge-blue { background: #eef2ff; color: #4f46e5; }
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+.badge-red { background:#fef2f2; color:#dc2626; }
+.badge-yellow { background:#fffbeb; color:#d97706; }
+.badge-green { background:#f0fdf4; color:#16a34a; }
+.badge-blue { background:#eef2ff; color:#4f46e5; }
 
-.section { margin-bottom: 30px; }
-.section-title {
-  font-size: 1.3em; font-weight: 700;
-  margin-bottom: 16px; display: flex;
-  align-items: center; gap: 8px;
-}
+.section { margin-bottom:30px; }
+.section-title { font-size:1.3em; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
 
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px; padding: 20px;
-  margin-bottom: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
-  transition: transform .2s, box-shadow .2s;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:16px; padding:20px; margin-bottom:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
 }
-.card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
 
-.timeline { position: relative; padding-left: 30px; }
-.timeline::before {
-  content: ''; position: absolute;
-  left: 10px; top: 0; bottom: 0; width: 2px;
-  background: var(--border);
-}
-.timeline .day { position: relative; margin-bottom: 24px; }
-.timeline .day::before {
-  content: ''; position: absolute;
-  left: -25px; top: 6px; width: 12px; height: 12px;
-  border-radius: 50%; background: var(--primary);
-  border: 2px solid var(--bg);
-}
-.timeline .day-label {
-  font-weight: 700; font-size: 1.1em;
-  color: var(--primary); margin-bottom: 8px;
-}
-.timeline .activity {
-  background: var(--card); border-radius: 12px;
-  padding: 14px 18px; margin-bottom: 8px;
-  border-left: 3px solid var(--primary);
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
-}
-.timeline .activity .time {
-  color: var(--accent); font-weight: 600; font-size: 0.9em;
-}
-.timeline .activity .place { font-weight: 600; margin-top: 2px; }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
 .stat-card {
-  background: var(--card); border-radius: 16px;
-  padding: 20px; text-align: center;
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  background:var(--card); border-radius:16px; padding:20px; text-align:center;
+  border:1px solid var(--border);
 }
-.stat-card .value { font-size: 1.6em; font-weight: 700; color: var(--primary); }
-.stat-card .label { color: var(--text-muted); font-size: 0.85em; margin-top: 4px; }
+.stat-card .value { font-size:1.6em; font-weight:700; color:var(--primary); }
+.stat-card .label { color:var(--text-muted); font-size:0.85em; margin-top:4px; }
+
+/* 景点卡片 */
+.spot {
+  background:var(--card); border:1px solid var(--border); border-radius:20px;
+  overflow:hidden; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,.06);
+  transition:transform .2s, box-shadow .2s;
+}
+.spot:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.1); }
+.spot-img {
+  width:100%; height:200px; object-fit:cover; display:block;
+}
+.spot-body { padding:18px 20px; }
+.spot-body .spot-name { font-size:1.15em; font-weight:700; margin-bottom:6px; }
+.spot-body .spot-desc { color:var(--text-muted); font-size:0.9em; line-height:1.5; }
+.spot-body .spot-tags { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; }
+.spot-tag {
+  padding:3px 10px; border-radius:12px; font-size:0.75em; font-weight:500;
+  background:#eef2ff; color:#4f46e5;
+}
+.spot-tip {
+  margin-top:10px; padding:10px 14px; border-radius:10px;
+  background:#f0fdf4; color:#16a34a; font-size:0.85em;
+  border-left:3px solid #22c55e;
+}
+
+/* 时间线 */
+.day-header {
+  font-weight:700; font-size:1.15em; color:var(--primary);
+  margin:24px 0 16px; padding-bottom:8px;
+  border-bottom:2px solid #eef2ff;
+}
+.day-header:first-child { margin-top:0; }
 
 .todo-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px; background: var(--card);
-  border-radius: 12px; margin-bottom: 8px;
-  border: 1px solid var(--border);
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px; background:var(--card); border-radius:12px; margin-bottom:8px;
+  border:1px solid var(--border);
 }
 .todo-item .checkbox {
-  width: 22px; height: 22px; border-radius: 6px;
-  border: 2px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0; transition: all .2s;
+  width:22px; height:22px; border-radius:6px; border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; flex-shrink:0; transition:all .2s;
 }
-.todo-item .checkbox.checked {
-  background: var(--success); border-color: var(--success);
-}
-.todo-item .checkbox.checked::after { content: '✓'; color: #fff; font-size: 14px; }
-.todo-item.done .text { text-decoration: line-through; color: var(--text-muted); }
+.todo-item .checkbox.checked { background:var(--success); border-color:var(--success); }
+.todo-item .checkbox.checked::after { content:'✓'; color:#fff; font-size:14px; }
+.todo-item.done .text { text-decoration:line-through; color:var(--text-muted); }
 
-.budget-row {
-  display: flex; justify-content: space-between;
-  padding: 10px 16px; border-bottom: 1px solid var(--border);
-}
-.budget-row:last-child { border-bottom: none; }
+.budget-row { display:flex; justify-content:space-between; padding:10px 16px; border-bottom:1px solid var(--border); }
+.budget-row:last-child { border-bottom:none; }
 .budget-total {
-  font-weight: 700; color: var(--accent);
-  font-size: 1.1em; padding: 12px 16px;
-  background: #fffbeb; border-radius: 0 0 16px 16px; text-align: right;
+  font-weight:700; color:var(--accent); font-size:1.1em; padding:12px 16px;
+  background:#fffbeb; border-radius:0 0 16px 16px; text-align:right;
 }
 
-.tips {
-  background: #fffbeb; border: 1px solid #fde68a;
-  border-radius: 12px; padding: 16px;
-}
-.tips li { margin-bottom: 6px; color: var(--text-muted); }
-.tips li strong { color: var(--text); }
+.tips { background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:16px; }
+.tips li { margin-bottom:6px; color:var(--text-muted); }
+.tips li strong { color:var(--text); }
 
-footer {
-  text-align: center; padding: 40px 20px;
-  color: var(--text-muted); font-size: 0.85em;
+.food-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+.food-card {
+  background:var(--card); border:1px solid var(--border); border-radius:14px;
+  padding:14px 16px; text-align:center;
 }
+.food-card .food-emoji { font-size:2em; }
+.food-card .food-name { font-weight:600; margin-top:6px; }
+.food-card .food-where { color:var(--text-muted); font-size:0.8em; margin-top:4px; }
 
-@media (max-width: 600px) {
-  .hero h1 { font-size: 1.5em; }
-  .container { padding: 12px; }
-  .grid { grid-template-columns: 1fr 1fr; }
+footer { text-align:center; padding:40px 20px; color:var(--text-muted); font-size:0.85em; }
+
+@media (max-width:600px) {
+  .hero h1 { font-size:1.5em; }
+  .container { padding:12px; }
+  .grid { grid-template-columns:1fr 1fr; }
+  .spot-img { height:160px; }
+  .food-grid { grid-template-columns:1fr 1fr; }
 }
 </style>
 </head>
 <body>
 
 <div class="lock-screen" id="lockScreen">
-  <div class="emoji">🔒</div>
+  <div style="font-size:48px">🔒</div>
   <h2>输入密码查看攻略</h2>
   <input type="password" id="pwdInput" placeholder="密码" onkeydown="if(event.key==='Enter')unlock()">
   <button onclick="unlock()">解锁</button>
@@ -194,31 +171,22 @@ footer {
 
 <div class="container" id="mainContent" style="display:none">
 
+  <!-- Hero -->
   <div class="hero">
     <h1>🐉 端午上海行攻略</h1>
     <div class="sub">2026年6月19日 - 6月21日 · 3天2晚 · 3人同行</div>
     <div class="countdown" id="countdown"></div>
   </div>
 
+  <!-- 统计 -->
   <div class="grid section">
-    <div class="stat-card">
-      <div class="value">3</div>
-      <div class="label">👤 出行人数</div>
-    </div>
-    <div class="stat-card">
-      <div class="value">2晚</div>
-      <div class="label">🏨 住宿</div>
-    </div>
-    <div class="stat-card">
-      <div class="value">深圳✈️上海</div>
-      <div class="label">🛫 路线</div>
-    </div>
-    <div class="stat-card">
-      <div class="value">~¥5,000</div>
-      <div class="label">💰 预估预算</div>
-    </div>
+    <div class="stat-card"><div class="value">3</div><div class="label">👤 出行人数</div></div>
+    <div class="stat-card"><div class="value">2晚</div><div class="label">🏨 住宿</div></div>
+    <div class="stat-card"><div class="value">深圳✈️上海</div><div class="label">🛫 路线</div></div>
+    <div class="stat-card"><div class="value">~¥7,400</div><div class="label">💰 预估预算</div></div>
   </div>
 
+  <!-- 同行人 -->
   <div class="section">
     <div class="section-title">👥 同行人</div>
     <div class="grid">
@@ -240,73 +208,156 @@ footer {
     </div>
   </div>
 
+  <!-- ===== 行程安排 ===== -->
   <div class="section">
     <div class="section-title">🗺️ 行程安排</div>
-    <div class="timeline">
 
-      <div class="day">
-        <div class="day-label">📅 Day 1 · 6月19日 周五 · 去程</div>
-        <div class="activity">
-          <div class="time">上午 · 深圳宝安 → 上海虹桥</div>
-          <div class="place">✈️ 飞机（建议早班 8:00-11:00）</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">飞行约2.5h，提前2h到机场</div>
+    <!-- Day 1 -->
+    <div class="day-header">📅 Day 1 · 6月19日 周五 · 去程</div>
+
+    <div class="spot">
+      <img class="spot-img" src="https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=800&h=400&fit=crop" alt="上海天际线">
+      <div class="spot-body">
+        <div class="spot-name">🏙️ 外滩 · The Bund</div>
+        <div class="spot-desc">上海最经典地标！52栋风格各异的万国建筑群，被誉为"万国建筑博览群"。傍晚时分，华灯初上，对岸陆家嘴天际线尽收眼底，是拍照的最佳时刻。</div>
+        <div class="spot-tags">
+          <span class="spot-tag">📸 拍照圣地</span>
+          <span class="spot-tag">🌅 日落推荐</span>
+          <span class="spot-tag">🆓 免费</span>
         </div>
-        <div class="activity">
-          <div class="time">中午 · 抵达上海</div>
-          <div class="place">🚇 虹桥→酒店，地铁/打车约40min</div>
-        </div>
-        <div class="activity">
-          <div class="time">下午 · 外滩 + 南京路</div>
-          <div class="place">🏙️ 外滩万国建筑群 → 南京路步行街</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">妈妈和巾巾逛街，傍晚看浦江日落</div>
-        </div>
-        <div class="activity">
-          <div class="time">晚上 · 陆家嘴</div>
-          <div class="place">🌃 东方明珠/上海中心观光层 + 晚餐</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">夜景超美，适合拍照</div>
-        </div>
+        <div class="spot-tip">💡 建议 16:00-18:00 到，先逛南京路再看日落夜景。外滩观光隧道可以体验一下，单程 ¥55。</div>
       </div>
+    </div>
 
-      <div class="day">
-        <div class="day-label">📅 Day 2 · 6月20日 周六 · 端午节 🐲</div>
-        <div class="activity">
-          <div class="time">上午 · 豫园 + 城隍庙</div>
-          <div class="place">🏯 豫园 → 城隍庙小吃街</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">端午特别：吃粽子🫡 · 南翔小笼必尝</div>
+    <div class="spot">
+      <img class="spot-img" src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&h=400&fit=crop" alt="东方明珠">
+      <div class="spot-body">
+        <div class="spot-name">🌃 东方明珠 · Oriental Pearl Tower</div>
+        <div class="spot-desc">上海的标志性地标，高468米。观光层可360°俯瞰上海全景，透明玻璃观光走廊刺激又好玩。二球观光层 ¥120/人，三球 ¥180/人。</div>
+        <div class="spot-tags">
+          <span class="spot-tag">🎫 需购票</span>
+          <span class="spot-tag">🌙 夜景绝佳</span>
+          <span class="spot-tag">⏱️ 1.5-2h</span>
         </div>
-        <div class="activity">
-          <div class="time">下午 · 新天地 + 田子坊</div>
-          <div class="place">🎨 文艺范儿打卡 · 石库门建筑群</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">适合拍照休息，咖啡馆多</div>
-        </div>
-        <div class="activity">
-          <div class="time">晚上 · 黄浦江游船</div>
-          <div class="place">🚢 浦江夜游（建议19:30班次）</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">端午夜+外滩灯光秀，性价比超高</div>
-        </div>
+        <div class="spot-tip">💡 也可以选上海中心大厦（632m更高），观光层 ¥180。建议二选一即可，两个都去容易审美疲劳。</div>
       </div>
+    </div>
 
-      <div class="day">
-        <div class="day-label">📅 Day 3 · 6月21日 周日 · 回程</div>
-        <div class="activity">
-          <div class="time">上午 · 武康路 / 安福路</div>
-          <div class="place">☕ 网红路线 City Walk · 武康大楼</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">轻松逛逛，买买伴手礼</div>
+    <!-- Day 2 -->
+    <div class="day-header">📅 Day 2 · 6月20日 周六 · 端午节 🐲</div>
+
+    <div class="spot">
+      <img class="spot-img" src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800&h=400&fit=crop" alt="豫园">
+      <div class="spot-body">
+        <div class="spot-name">🏯 豫园 · Yu Garden</div>
+        <div class="spot-desc">始建于明嘉靖年间的江南古典园林，园内亭台楼阁、假山池塘，精巧雅致。旁边的城隍庙小吃街是上海美食集中地，端午期间有特别活动！</div>
+        <div class="spot-tags">
+          <span class="spot-tag">🎫 ¥40/人</span>
+          <span class="spot-tag">🐉 端午活动</span>
+          <span class="spot-tag">⏱️ 2-3h</span>
         </div>
-        <div class="activity">
-          <div class="time">中午 · 午餐</div>
-          <div class="place">🍜 本帮菜收官（推荐：老正兴/上海老饭店）</div>
-        </div>
-        <div class="activity">
-          <div class="time">下午 · 上海虹桥 → 深圳宝安</div>
-          <div class="place">✈️ 回程（建议14:00-17:00航班）</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">预留足够时间去机场</div>
-        </div>
+        <div class="spot-tip">💡 豫园旁边的南翔馒头店（城隍庙店）是百年老店，蟹粉小笼 ¥58/笼必尝！端午还有包粽子体验活动。</div>
       </div>
+    </div>
 
+    <div class="spot">
+      <img class="spot-img" src="https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?w=800&h=400&fit=crop" alt="新天地">
+      <div class="spot-body">
+        <div class="spot-name">🎨 新天地 · Xintiandi</div>
+        <div class="spot-desc">由石库门建筑改造而成的时尚休闲区，中西合璧。咖啡馆、酒吧、精品店林立，适合午后悠闲漫步。中共一大会址也在旁边，可以顺带参观。</div>
+        <div class="spot-tags">
+          <span class="spot-tag">☕ 咖啡文化</span>
+          <span class="spot-tag">📸 拍照打卡</span>
+          <span class="spot-tag">🆓 免费</span>
+        </div>
+        <div class="spot-tip">💡 从新天地步行 15 分钟可到田子坊，两个景点适合安排在同一个下午。</div>
+      </div>
+    </div>
+
+    <div class="spot">
+      <img class="spot-img" src="https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=800&h=400&fit=crop" alt="田子坊">
+      <div class="spot-body">
+        <div class="spot-name">🎨 田子坊 · Tianzifang</div>
+        <div class="spot-desc">藏在弄堂里的文艺小天地！小巷中满是创意工坊、手工艺品店和特色小店。比新天地更接地气，适合慢慢逛、淘淘有趣的小物件。</div>
+        <div class="spot-tags">
+          <span class="spot-tag">🎁 伴手礼</span>
+          <span class="spot-tag">🎭 文艺范</span>
+          <span class="spot-tag">🆓 免费</span>
+        </div>
+        <div class="spot-tip">💡 巷子里有很多手作饰品和文创小店，适合给巾巾和妈妈挑礼物。</div>
+      </div>
+    </div>
+
+    <div class="spot">
+      <img class="spot-img" src="https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800&h=400&fit=crop" alt="黄浦江">
+      <div class="spot-body">
+        <div class="spot-name">🚢 浦江夜游 · Huangpu River Cruise</div>
+        <div class="spot-desc">乘船夜游黄浦江，两岸灯火璀璨，外滩万国建筑群和陆家嘴摩天大楼交相辉映。航程约 50 分钟，端午夜有灯光秀特别版！</div>
+        <div class="spot-tags">
+          <span class="spot-tag">🎫 ¥120-150/人</span>
+          <span class="spot-tag">🌙 端午灯光秀</span>
+          <span class="spot-tag">⏱️ 50min</span>
+        </div>
+        <div class="spot-tip">💡 建议 19:30 班次，天刚暗灯光全开最美。十六铺码头出发，提前在携程/美团买票便宜些。</div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-header">📅 Day 3 · 6月21日 周日 · 回程</div>
+
+    <div class="spot">
+      <img class="spot-img" src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=800&h=400&fit=crop" alt="武康路">
+      <div class="spot-body">
+        <div class="spot-name">☕ 武康路 · Wukang Road</div>
+        <div class="spot-desc">上海最美的梧桐大道之一！网红武康大楼（诺曼底公寓）是必打卡地标。沿路精品咖啡、面包房、买手店林立，适合最后一天轻松 City Walk。</div>
+        <div class="spot-tags">
+          <span class="spot-tag">📸 网红地标</span>
+          <span class="spot-tag">☕ 咖啡之旅</span>
+          <span class="spot-tag">🆓 免费</span>
+        </div>
+        <div class="spot-tip">💡 武康大楼上午去人少好拍照。附近的% Arabica 咖啡和 Farine 面包都很出名。</div>
+      </div>
     </div>
   </div>
 
+  <!-- 必吃美食 -->
+  <div class="section">
+    <div class="section-title">🍜 必吃美食清单</div>
+    <div class="food-grid">
+      <div class="food-card">
+        <div class="food-emoji">🥟</div>
+        <div class="food-name">南翔小笼包</div>
+        <div class="food-where">城隍庙南翔馒头店</div>
+      </div>
+      <div class="food-card">
+        <div class="food-emoji">🫓</div>
+        <div class="food-name">生煎包</div>
+        <div class="food-where">小杨生煎 / 大壶春</div>
+      </div>
+      <div class="food-card">
+        <div class="food-emoji">🍗</div>
+        <div class="food-name">白斩鸡</div>
+        <div class="food-where">小绍兴 / 振鼎鸡</div>
+      </div>
+      <div class="food-card">
+        <div class="food-emoji">🍝</div>
+        <div class="food-name">葱油拌面</div>
+        <div class="food-where">随处可见的本帮面馆</div>
+      </div>
+      <div class="food-card">
+        <div class="food-emoji">🦀</div>
+        <div class="food-name">蟹粉小笼</div>
+        <div class="food-where">豫园南翔馒头店</div>
+      </div>
+      <div class="food-card">
+        <div class="food-emoji">🍙</div>
+        <div class="food-name">端午粽子</div>
+        <div class="food-where">城隍庙端午特供</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 预算 -->
   <div class="section">
     <div class="section-title">💰 预算估算（3人）</div>
     <div class="card" style="padding:0;overflow:hidden">
@@ -316,10 +367,11 @@ footer {
       <div class="budget-row"><span>🚇 交通（地铁+打车）</span><span>¥200 - 400</span></div>
       <div class="budget-row"><span>🎫 门票（东方明珠/豫园/游船）</span><span>¥500 - 800</span></div>
       <div class="budget-row"><span>🎁 伴手礼 & 杂项</span><span>¥200 - 400</span></div>
-      <div class="budget-total">合计预估：¥4,700 - 7,400</div>
+      <div class="budget-total">合计预估：¥7,910 - 9,410</div>
     </div>
   </div>
 
+  <!-- 待办 -->
   <div class="section">
     <div class="section-title">📋 出行待办</div>
     <div class="todo-item done" id="todo-1">
@@ -349,39 +401,38 @@ footer {
     </div>
     <div class="todo-item" id="todo-6">
       <div class="checkbox" onclick="toggleTodo('todo-6')"></div>
-      <span class="text">📱 下载离线地图 / 查天气预报</span>
+      <span class="text">📱 下载「Metro大都会」App + 查天气预报</span>
       <span class="badge badge-blue">出发前</span>
     </div>
   </div>
 
+  <!-- Tips -->
   <div class="section">
     <div class="section-title">💡 实用 Tips</div>
     <div class="tips">
       <ul>
-        <li><strong>交通：</strong>上海地铁很方便，下载「Metro大都会」App扫码乘车</li>
-        <li><strong>天气：</strong>6月上海梅雨季，记得带伞🌂，气温25-30°C</li>
-        <li><strong>住宿：</strong>建议住人民广场/静安寺附近，交通枢纽方便</li>
-        <li><strong>美食：</strong>必吃清单 — 南翔小笼、生煎包、白斩鸡、葱油拌面</li>
-        <li><strong>端午特色：</strong>城隍庙有端午活动，可以体验包粽子</li>
-        <li><strong>省钱：</strong>飞猪/携程提前订机票酒店，比当天买便宜30%+</li>
+        <li><strong>交通：</strong>上海地铁很方便，下载「Metro大都会」App 扫码乘车，基本覆盖所有景点</li>
+        <li><strong>天气：</strong>6月上海梅雨季 🌂，记得带伞！气温 25-33°C，闷热潮湿，穿透气衣物</li>
+        <li><strong>住宿：</strong>建议住人民广场/静安寺附近，地铁1/2/10号线交汇，去哪都方便</li>
+        <li><strong>门票：</strong>热门景点（东方明珠/豫园）建议在美团/携程提前1-2天买票，现场排队长</li>
+        <li><strong>端午特色：</strong>城隍庙有端午活动，可以体验包粽子 🫡</li>
+        <li><strong>省钱：</strong>飞猪/携程提前订，比当天买便宜 30%+</li>
+        <li><strong>穿鞋：</strong>日均步行 1.5 万步起，穿舒适的运动鞋！</li>
       </ul>
     </div>
   </div>
 
-  <footer>🐉 端午上海行攻略 · 生成于 2026-06-03 · Vincent & 妈妈 & 巾巾</footer>
+  <footer>🐉 端午上海行攻略 · 更新于 2026-06-03 · Vincent & 妈妈 & 巾巾</footer>
 </div>
 
 <script>
 const PWD_HASH = '95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56';
-
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
-
 async function unlock() {
-  const input = document.getElementById('pwdInput').value;
-  const hash = await sha256(input);
+  const hash = await sha256(document.getElementById('pwdInput').value);
   if (hash === PWD_HASH) {
     document.getElementById('lockScreen').classList.add('hidden');
     document.getElementById('mainContent').style.display = 'block';
@@ -392,12 +443,10 @@ async function unlock() {
     document.getElementById('pwdInput').value = '';
   }
 }
-
 if (sessionStorage.getItem('plans_auth') === '1') {
   document.getElementById('lockScreen').classList.add('hidden');
   document.getElementById('mainContent').style.display = 'block';
 }
-
 function startCountdown() {
   const target = new Date('2026-06-19T08:00:00+08:00');
   function update() {
@@ -409,7 +458,6 @@ function startCountdown() {
   update(); setInterval(update, 60000);
 }
 if (document.getElementById('mainContent').style.display !== 'none') startCountdown();
-
 function toggleTodo(id) {
   const el = document.getElementById(id);
   el.querySelector('.checkbox').classList.toggle('checked');
