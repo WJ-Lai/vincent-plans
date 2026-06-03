@@ -9,15 +9,15 @@
 :root {
   --primary: #6366f1;
   --primary-light: #818cf8;
-  --bg: #0f172a;
-  --card: #1e293b;
-  --card-hover: #334155;
-  --text: #f1f5f9;
-  --text-muted: #94a3b8;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --card-hover: #f1f5f9;
+  --text: #1e293b;
+  --text-muted: #64748b;
   --accent: #f59e0b;
   --danger: #ef4444;
   --success: #22c55e;
-  --border: #334155;
+  --border: #e2e8f0;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -36,7 +36,7 @@ body {
 .lock-screen input {
   padding: 12px 20px; border-radius: 12px;
   border: 2px solid var(--border);
-  background: var(--card); color: var(--text);
+  background: #fff; color: var(--text);
   font-size: 16px; width: 200px; text-align: center;
   outline: none;
 }
@@ -53,20 +53,20 @@ body {
 
 .container { max-width: 800px; margin: 0 auto; padding: 20px; }
 .hero {
-  text-align: center; padding: 60px 20px;
+  text-align: center; padding: 50px 20px;
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
   border-radius: 24px; margin-bottom: 30px;
-  position: relative; overflow: hidden;
+  color: #fff; position: relative; overflow: hidden;
 }
 .hero::after {
   content: ''; position: absolute; inset:0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .hero h1 { font-size: 2em; position: relative; z-index:1; }
-.hero .sub { color: rgba(255,255,255,.8); margin-top: 10px; position: relative; z-index:1; }
+.hero .sub { color: rgba(255,255,255,.85); margin-top: 10px; position: relative; z-index:1; }
 .hero .countdown {
-  margin-top: 20px; font-size: 1.5em; font-weight: bold;
-  background: rgba(0,0,0,.2); display: inline-block;
+  margin-top: 20px; font-size: 1.4em; font-weight: bold;
+  background: rgba(0,0,0,.15); display: inline-block;
   padding: 8px 24px; border-radius: 12px; position: relative; z-index:1;
 }
 
@@ -74,10 +74,10 @@ body {
   display: inline-block; padding: 4px 12px; border-radius: 20px;
   font-size: 12px; font-weight: 600;
 }
-.badge-red { background: #ef444420; color: #f87171; }
-.badge-yellow { background: #f59e0b20; color: #fbbf24; }
-.badge-green { background: #22c55e20; color: #4ade80; }
-.badge-blue { background: #6366f120; color: #818cf8; }
+.badge-red { background: #fef2f2; color: #dc2626; }
+.badge-yellow { background: #fffbeb; color: #d97706; }
+.badge-green { background: #f0fdf4; color: #16a34a; }
+.badge-blue { background: #eef2ff; color: #4f46e5; }
 
 .section { margin-bottom: 30px; }
 .section-title {
@@ -91,9 +91,10 @@ body {
   border: 1px solid var(--border);
   border-radius: 16px; padding: 20px;
   margin-bottom: 12px;
-  transition: transform .2s, background .2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  transition: transform .2s, box-shadow .2s;
 }
-.card:hover { transform: translateY(-2px); background: var(--card-hover); }
+.card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
 
 .timeline { position: relative; padding-left: 30px; }
 .timeline::before {
@@ -101,9 +102,7 @@ body {
   left: 10px; top: 0; bottom: 0; width: 2px;
   background: var(--border);
 }
-.timeline .day {
-  position: relative; margin-bottom: 24px;
-}
+.timeline .day { position: relative; margin-bottom: 24px; }
 .timeline .day::before {
   content: ''; position: absolute;
   left: -25px; top: 6px; width: 12px; height: 12px;
@@ -112,28 +111,27 @@ body {
 }
 .timeline .day-label {
   font-weight: 700; font-size: 1.1em;
-  color: var(--primary-light); margin-bottom: 8px;
+  color: var(--primary); margin-bottom: 8px;
 }
 .timeline .activity {
   background: var(--card); border-radius: 12px;
   padding: 14px 18px; margin-bottom: 8px;
   border-left: 3px solid var(--primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }
 .timeline .activity .time {
-  color: var(--accent); font-weight: 600;
-  font-size: 0.9em;
+  color: var(--accent); font-weight: 600; font-size: 0.9em;
 }
-.timeline .activity .place {
-  font-weight: 600; margin-top: 2px;
-}
+.timeline .activity .place { font-weight: 600; margin-top: 2px; }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
 .stat-card {
   background: var(--card); border-radius: 16px;
   padding: 20px; text-align: center;
   border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }
-.stat-card .value { font-size: 1.8em; font-weight: 700; }
+.stat-card .value { font-size: 1.6em; font-weight: 700; color: var(--primary); }
 .stat-card .label { color: var(--text-muted); font-size: 0.85em; margin-top: 4px; }
 
 .todo-item {
@@ -146,8 +144,7 @@ body {
   width: 22px; height: 22px; border-radius: 6px;
   border: 2px solid var(--border);
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0;
-  transition: all .2s;
+  cursor: pointer; flex-shrink: 0; transition: all .2s;
 }
 .todo-item .checkbox.checked {
   background: var(--success); border-color: var(--success);
@@ -163,12 +160,11 @@ body {
 .budget-total {
   font-weight: 700; color: var(--accent);
   font-size: 1.1em; padding: 12px 16px;
-  background: var(--card); border-radius: 0 0 16px 16px;
-  text-align: right;
+  background: #fffbeb; border-radius: 0 0 16px 16px; text-align: right;
 }
 
 .tips {
-  background: #f59e0b10; border: 1px solid #f59e0b30;
+  background: #fffbeb; border: 1px solid #fde68a;
   border-radius: 12px; padding: 16px;
 }
 .tips li { margin-bottom: 6px; color: var(--text-muted); }
@@ -188,7 +184,6 @@ footer {
 </head>
 <body>
 
-<!-- 密码锁 -->
 <div class="lock-screen" id="lockScreen">
   <div class="emoji">🔒</div>
   <h2>输入密码查看攻略</h2>
@@ -199,14 +194,12 @@ footer {
 
 <div class="container" id="mainContent" style="display:none">
 
-  <!-- Hero -->
   <div class="hero">
     <h1>🐉 端午上海行攻略</h1>
     <div class="sub">2026年6月19日 - 6月21日 · 3天2晚 · 3人同行</div>
     <div class="countdown" id="countdown"></div>
   </div>
 
-  <!-- 概览 -->
   <div class="grid section">
     <div class="stat-card">
       <div class="value">3</div>
@@ -221,12 +214,11 @@ footer {
       <div class="label">🛫 路线</div>
     </div>
     <div class="stat-card">
-      <div class="value" id="budgetTotal">~¥5,000</div>
+      <div class="value">~¥5,000</div>
       <div class="label">💰 预估预算</div>
     </div>
   </div>
 
-  <!-- 同行人 -->
   <div class="section">
     <div class="section-title">👥 同行人</div>
     <div class="grid">
@@ -248,17 +240,15 @@ footer {
     </div>
   </div>
 
-  <!-- 行程 -->
   <div class="section">
     <div class="section-title">🗺️ 行程安排</div>
     <div class="timeline">
 
-      <!-- Day 1 -->
       <div class="day">
         <div class="day-label">📅 Day 1 · 6月19日 周五 · 去程</div>
         <div class="activity">
           <div class="time">上午 · 深圳宝安 → 上海虹桥</div>
-          <div class="place">✈️ 飞机（建议早班，8:00-11:00）</div>
+          <div class="place">✈️ 飞机（建议早班 8:00-11:00）</div>
           <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">飞行约2.5h，提前2h到机场</div>
         </div>
         <div class="activity">
@@ -277,13 +267,12 @@ footer {
         </div>
       </div>
 
-      <!-- Day 2 -->
       <div class="day">
         <div class="day-label">📅 Day 2 · 6月20日 周六 · 端午节 🐲</div>
         <div class="activity">
           <div class="time">上午 · 豫园 + 城隍庙</div>
           <div class="place">🏯 豫园 → 城隍庙小吃街</div>
-          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">端午特别：可以吃粽子🫡 · 南翔小笼必尝</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">端午特别：吃粽子🫡 · 南翔小笼必尝</div>
         </div>
         <div class="activity">
           <div class="time">下午 · 新天地 + 田子坊</div>
@@ -297,12 +286,11 @@ footer {
         </div>
       </div>
 
-      <!-- Day 3 -->
       <div class="day">
         <div class="day-label">📅 Day 3 · 6月21日 周日 · 回程</div>
         <div class="activity">
           <div class="time">上午 · 武康路 / 安福路</div>
-          <div class="place">☕ 网红路线City Walk · 武康大楼</div>
+          <div class="place">☕ 网红路线 City Walk · 武康大楼</div>
           <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">轻松逛逛，买买伴手礼</div>
         </div>
         <div class="activity">
@@ -319,41 +307,19 @@ footer {
     </div>
   </div>
 
-  <!-- 预算 -->
   <div class="section">
     <div class="section-title">💰 预算估算（3人）</div>
     <div class="card" style="padding:0;overflow:hidden">
-      <div class="budget-row">
-        <span>✈️ 机票（深圳↔上海 × 3人）</span>
-        <span>¥2,400 - 3,600</span>
-      </div>
-      <div class="budget-row">
-        <span>🏨 酒店（2晚 × 市区中档）</span>
-        <span>¥800 - 1,200</span>
-      </div>
-      <div class="budget-row">
-        <span>🍽️ 餐饮（3天 × 3人）</span>
-        <span>¥600 - 1,000</span>
-      </div>
-      <div class="budget-row">
-        <span>🚇 交通（地铁+打车）</span>
-        <span>¥200 - 400</span>
-      </div>
-      <div class="budget-row">
-        <span>🎫 门票（东方明珠/豫园/游船）</span>
-        <span>¥500 - 800</span>
-      </div>
-      <div class="budget-row">
-        <span>🎁 伴手礼 & 杂项</span>
-        <span>¥200 - 400</span>
-      </div>
-      <div class="budget-total">
-        合计预估：¥4,700 - 7,400
-      </div>
+      <div class="budget-row"><span>✈️ 机票（深圳↔上海 × 3人）</span><span>¥2,400 - 3,600</span></div>
+      <div class="budget-row"><span>🏨 酒店（2晚 × 市区中档）</span><span>¥800 - 1,200</span></div>
+      <div class="budget-row"><span>🍽️ 餐饮（3天 × 3人）</span><span>¥600 - 1,000</span></div>
+      <div class="budget-row"><span>🚇 交通（地铁+打车）</span><span>¥200 - 400</span></div>
+      <div class="budget-row"><span>🎫 门票（东方明珠/豫园/游船）</span><span>¥500 - 800</span></div>
+      <div class="budget-row"><span>🎁 伴手礼 & 杂项</span><span>¥200 - 400</span></div>
+      <div class="budget-total">合计预估：¥4,700 - 7,400</div>
     </div>
   </div>
 
-  <!-- 待办 -->
   <div class="section">
     <div class="section-title">📋 出行待办</div>
     <div class="todo-item" id="todo-1">
@@ -388,7 +354,6 @@ footer {
     </div>
   </div>
 
-  <!-- Tips -->
   <div class="section">
     <div class="section-title">💡 实用 Tips</div>
     <div class="tips">
@@ -403,21 +368,24 @@ footer {
     </div>
   </div>
 
-  <footer>
-    🐉 端午上海行攻略 · 生成于 2026-06-03 · Vincent & 妈妈 & 巾巾
-  </footer>
-
+  <footer>🐉 端午上海行攻略 · 生成于 2026-06-03 · Vincent & 妈妈 & 巾巾</footer>
 </div>
 
 <script>
-const PWD = 'jinjin0829';
+const PWD_HASH = '95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56';
 
-function unlock() {
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function unlock() {
   const input = document.getElementById('pwdInput').value;
-  if (input === PWD) {
+  const hash = await sha256(input);
+  if (hash === PWD_HASH) {
     document.getElementById('lockScreen').classList.add('hidden');
     document.getElementById('mainContent').style.display = 'block';
-    localStorage.setItem('plans_auth', PWD);
+    sessionStorage.setItem('plans_auth', '1');
     startCountdown();
   } else {
     document.getElementById('lockError').textContent = '密码不对哦~';
@@ -425,8 +393,7 @@ function unlock() {
   }
 }
 
-// 自动解锁
-if (localStorage.getItem('plans_auth') === PWD) {
+if (sessionStorage.getItem('plans_auth') === '1') {
   document.getElementById('lockScreen').classList.add('hidden');
   document.getElementById('mainContent').style.display = 'block';
 }
@@ -434,25 +401,18 @@ if (localStorage.getItem('plans_auth') === PWD) {
 function startCountdown() {
   const target = new Date('2026-06-19T08:00:00+08:00');
   function update() {
-    const now = new Date();
-    const diff = target - now;
-    if (diff <= 0) {
-      document.getElementById('countdown').textContent = '🎉 出发啦！';
-      return;
-    }
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    document.getElementById('countdown').textContent = `⏰ 距出发还有 ${days}天${hours}小时`;
+    const diff = target - new Date();
+    if (diff <= 0) { document.getElementById('countdown').textContent = '🎉 出发啦！'; return; }
+    const d = Math.floor(diff / 86400000), h = Math.floor((diff % 86400000) / 3600000);
+    document.getElementById('countdown').textContent = `⏰ 距出发还有 ${d}天${h}小时`;
   }
-  update();
-  setInterval(update, 60000);
+  update(); setInterval(update, 60000);
 }
 if (document.getElementById('mainContent').style.display !== 'none') startCountdown();
 
 function toggleTodo(id) {
   const el = document.getElementById(id);
-  const cb = el.querySelector('.checkbox');
-  cb.classList.toggle('checked');
+  el.querySelector('.checkbox').classList.toggle('checked');
   el.classList.toggle('done');
 }
 </script>
