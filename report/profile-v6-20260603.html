@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vincent 用户画像报告 V6</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+.pw-gate { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa); padding: 20px; }
+.pw-gate h1 { color: #fff; font-size: 1.8rem; margin-bottom: 24px; text-align: center; }
+.pw-box { background: #fff; border-radius: 12px; padding: 32px; max-width: 380px; width: 100%; box-shadow: 0 4px 24px rgba(0,0,0,0.15); }
+.pw-box input { width: 100%; padding: 12px 16px; font-size: 1rem; border: 2px solid #e2e8f0; border-radius: 8px; outline: none; transition: border-color 0.2s; }
+.pw-box input:focus { border-color: #6366f1; }
+.pw-box .err { color: #ef4444; font-size: 0.85rem; margin-top: 8px; display: none; }
+.content { display: none; }
+.hero { background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa); color: #fff; padding: 48px 24px 40px; text-align: center; }
+.hero h1 { font-size: 2rem; margin-bottom: 8px; }
+.hero .meta { opacity: 0.85; font-size: 0.95rem; }
+.container { max-width: 860px; margin: 0 auto; padding: 24px 20px 60px; }
+.card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 28px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.card h2 { font-size: 1.35rem; color: #4f46e5; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e0e7ff; }
+.card h3 { font-size: 1.1rem; color: #6366f1; margin: 20px 0 10px; }
+.card h4 { font-size: 1rem; color: #475569; margin: 16px 0 8px; }
+.card p { margin-bottom: 12px; font-size: 0.95rem; }
+.card ul, .card ol { padding-left: 24px; margin-bottom: 12px; }
+.card li { margin-bottom: 6px; font-size: 0.95rem; }
+.card strong { color: #4338ca; }
+.card em { color: #6b7280; }
+.card blockquote { border-left: 3px solid #a5b4fc; padding: 8px 16px; margin: 16px 0; background: #f5f3ff; border-radius: 0 8px 8px 0; color: #4b5563; }
+.card blockquote p { margin: 0; }
+.card code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.88rem; color: #6366f1; }
+.card hr { border: none; border-top: 1px solid #e2e8f0; margin: 24px 0; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+table th { background: #f1f5f9; padding: 10px 12px; text-align: left; font-weight: 600; color: #475569; border-bottom: 2px solid #e2e8f0; }
+table td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; }
+table tr:hover { background: #f8fafc; }
+.chapter-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.chapter-toc a { background: #eef2ff; color: #4f46e5; padding: 6px 14px; border-radius: 20px; font-size: 0.88rem; text-decoration: none; transition: background 0.2s; }
+.chapter-toc a:hover { background: #e0e7ff; }
+.source-tag { display: inline-block; background: #f0fdf4; color: #166534; font-size: 0.78rem; padding: 2px 8px; border-radius: 10px; margin-left: 6px; }
+footer { text-align: center; padding: 24px; color: #94a3b8; font-size: 0.85rem; }
+@media (max-width: 600px) {
+  .hero { padding: 32px 16px 28px; }
+  .hero h1 { font-size: 1.5rem; }
+  .container { padding: 16px 12px 40px; }
+  .card { padding: 20px 14px; }
+  table { font-size: 0.8rem; }
+  table th, table td { padding: 8px 6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 密码门 -->
+<div class="pw-gate" id="pwGate">
+  <h1>🔐 Vincent 用户画像报告</h1>
+  <div class="pw-box">
+    <input type="password" id="pwdInput" placeholder="请输入密码查看" autofocus>
+    <div class="err" id="pwErr">❌ 密码错误，请重试</div>
+  </div>
+</div>
+
+<!-- 内容区 -->
+<div class="content" id="content">
+<div class="hero">
+    <h1>Vincent 用户画像报告 V6</h1>
+    <div class="meta">📅 2026-05-21 · 📊 为知笔记V5 (2203篇) + 知乎 (25条) + 小红书 (17条) + 微信读书 (5条)</div>
+  </div>
+<div class="container">
+<div class="chapter-toc"><a href="#ch1">第一章 · 数据概览</a><a href="#ch2">第二章 · 情绪图谱</a><a href="#ch3">第三章 · 人格特质</a><a href="#ch4">第四章 · 核心价值观</a><a href="#ch5">第五章 · 思维模式</a><a href="#ch6">第六章 · 深层关切</a><a href="#ch7">第七章 · 社交与关系</a><a href="#ch8">第八章 · 兴趣与消费（多源视角）</a><a href="#ch9">第九章 · 成长轨迹</a><a href="#ch10">第十章 · 关键故事</a><a href="#ch11">第十一章 · 自我对话</a><a href="#ch12">第十二章 · 给你的建议</a><a href="#ch13">附录：数据说明</a></div>
+<div class="card"><h2 id="ch1">第一章 · 数据概览</h2>
+<p>本报告基于 2250 条多源数据生成，覆盖时间跨度从 1984 年至 2026 年，核心数据来自 Vincent 在为知笔记中积累的 2203 篇日记（占比 97.9%），辅以知乎（25 条，1.1%）、小红书（17 条，0.8%）和微信读书（5 条，0.2%）的消费数据。</p>
+<p>日记密度在 2019-2023 年间最为集中：2022 年达到峰值 398 篇，2021 年 391 篇，2020 年 375 篇，2023 年 342 篇，2019 年 182 篇。2024 年后日记数量骤降至个位数（2024 年 2 篇，2025 年 5 篇，2026 年 10 篇），分析深度也随之下降。</p>
+<p>多源补充提供了日记之外的行为线索：知乎关注哲学、政治经济学和编程方法；小红书集中在做饭和桌游；微信读书涉及自我提升和财务自由主题。</p></div>
+<div class="card"><h2 id="ch2">第二章 · 情绪图谱</h2>
+<h3>整体情绪分布</h3>
+<p>在全体 2250 条数据中，情绪分布为：中性 980 条（43.6%）、正面 769 条（34.2%）、负面 470 条（20.9%）。日记分析以深度为主（deep 1219 条，54.2%），浅层记录占 1003 条（44.6%），中等深度仅 14 条（0.6%），说明 Vincent 在大多数日记中都进行了相当深度的自我剖析。</p>
+<h3>逐年情绪趋势</h3>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>日记数</th>
+<th>正面</th>
+<th>中性</th>
+<th>负面</th>
+<th>特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2019</td>
+<td>182</td>
+<td>42</td>
+<td>79</td>
+<td>61</td>
+<td>负面偏高，初入职场不适</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>375</td>
+<td>89</td>
+<td>133</td>
+<td>153</td>
+<td>情绪谷底，负面占比最高（40.8%）</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>391</td>
+<td>176</td>
+<td>146</td>
+<td>68</td>
+<td>大幅回升，正面占比达 45.0%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>398</td>
+<td>196</td>
+<td>143</td>
+<td>58</td>
+<td>情绪峰值，正面最多（49.2%）</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>342</td>
+<td>140</td>
+<td>137</td>
+<td>65</td>
+<td>正面回落但仍占优</td>
+</tr>
+</tbody>
+</table>
+<p>2020 年是情绪最低点——疫情居家、论文压力、秋招焦虑叠加，负面情绪达到 153 条，几乎是 2022 年的 2.6 倍。2021 年后情绪明显改善，正面情绪稳定占比超过 40%。</p></div>
+<div class="card"><h2 id="ch3">第三章 · 人格特质</h2>
+<h3>核心特质</h3>
+<p><strong>结构化工程师思维。</strong> Vincent 习惯将复杂问题拆解为清晰的步骤和矩阵。他用"5 步流程"设计报表，用"重要/紧急"矩阵管理任务，用"树形结构"分析问题。(source_file: synthesis_100.json)</p>
+<p><strong>将挫折转化为行动指令。</strong> 他拥有将任何负面经历强制转化为"下次 action"的结构化复盘能力。被安规同事当众吼叫后当晚即开始研究转岗；合作拖稿后提炼出 owner 意识、换位思考等可执行原则。(source_file: synthesis_1400.json, synthesis_800.json)</p>
+<p><strong>反内疚心理护盾。</strong> 他的核心自我修复机制是反复用一句话切断自责到放弃的链条："不要因内疚而自暴自弃，享受专注的过程"。这句话在日记中反复出现，是他对抗完美主义引发拖延与自我厌恶的核心武器。(source_file: synthesis_1000.json)</p>
+<p><strong>逻辑洁癖。</strong> 极度厌恶影视作品中的叙事逻辑不自洽和刻意煽情，这种标准同样应用于工作和人际关系。批评《烈日灼心》强行煽情、《智齿》逻辑不通，要求所有事物"内部逻辑自洽"。(source_file: synthesis_1000.json)</p>
+<p><strong>家庭锚点。</strong> 母亲和家庭是他最重要的情感安全基地。在情绪低落或工作暴击时，带夜宵回家看到妈妈开心是他最有效的自我疗愈方式。(source_file: synthesis_1100.json)</p>
+<h3>趋势变化</h3>
+<p>从追求"完美执行自律计划"转向更务实的"断掉后能接上、不自暴自弃"。对自律的理解从机械行为控制转向过程专注。(source_file: synthesis_300.json, synthesis_1600.json)</p></div>
+<div class="card"><h2 id="ch4">第四章 · 核心价值观</h2>
+<h3>稳定内核</h3>
+<p><strong>"有意义地活着"是贯穿始终的追求。</strong> 从毕业前认同萨特"人通过选择成为英雄"，到工作后追问人生意义——被《统计的乐趣》中南丁格尔用数据救人的事迹震撼，确立"研究必须真正有意义，而非仅为发论文"的信条。(source_file: synthesis_1000.json, synthesis_200.json)</p>
+<p><strong>个人目标高于公司忠诚。</strong> 他将公司定义为"公共汽车"——在华为的笔记中明确表达了从集体归属感到个人主义工具理性的位移，将个人目标置于组织忠诚之上。(source_file: synthesis_1400.json)</p>
+<p><strong>过程大于完美。</strong> 从恐惧打破自律到接纳"专注本身就是快乐"，这是价值观从结果导向到过程导向的重要转变。(source_file: synthesis_1280.json)</p>
+<h3>审美标准</h3>
+<p>极度看重逻辑自洽和情感真实，反感刻意煽情和牺牲角色合理性。欣赏黑色幽默、双雄智斗结构，被《指环王》的希望、《觉醒年代》的热血、《至暗时刻》的勇气深度击中。(source_file: synthesis_1076.json, synthesis_1860.json)</p>
+<h3>消费与物质</h3>
+<p>从囤积转向极简，除夕整理成为物质减法与关系减法的触发点。对消费的态度从"多"到"精"。(source_file: synthesis_1400.json)</p></div>
+<div class="card"><h2 id="ch5">第五章 · 思维模式</h2>
+<p>Vincent 的思维是典型的"感性触发 → 理性拆解 → 输出原则"三阶段模式。</p>
+<p><strong>结构化分析。</strong> 面对问题他习惯先建立框架：用矩阵分类、用公式量化、用流程标准化。学习时倾向先抓核心框架再填充细节，对信息源矛盾之处非常警觉。(source_file: synthesis_100.json)</p>
+<p><strong>元认知监控。</strong> 他拥有强烈的"将自身作为研究对象"的习惯。大部分行动都会被复盘、拆解、总结成下一步行动原则。拖延被他归因为"心理负担而非任务难度"，他用"书不会跑"让自己放松。(source_file: synthesis_1076.json, synthesis_800.json)</p>
+<p><strong>批判性解构。</strong> 能迅速看透课程运营套路、工作流程漏洞和影视叙事缺陷。不满足于表面答案，追问"为什么会这样"和"下次如何做对"。(source_file: synthesis_1100.json)</p>
+<p><strong>隐喻思维。</strong> 善于从电影中提取人生隐喻——从《让子弹飞》看权力循环、从《饥饿站台》看阶级悲哀、从《指环王》烽火看希望传递。这种将具体刺激升华为抽象规律的习惯，让他的认知在不断编织意义之网。(source_file: synthesis_1000.json, synthesis_1280.json)</p></div>
+<div class="card"><h2 id="ch6">第六章 · 深层关切</h2>
+<h3>核心焦虑</h3>
+<p><strong>害怕"陷入平庸循环"与"失去自我掌控"。</strong> 他恐惧的不是一次低效，而是低效引发内疚、内疚导致自弃的连锁滑坡。(source_file: synthesis_1800.json)</p>
+<p><strong>被没有意义的忙碌耗尽。</strong> 尽管掌握了越来越多职场方法论，他依然在质问"忙碌是否等于成长"，担心沦为只有执行没有思想的螺丝钉。(source_file: synthesis_1100.json)</p>
+<p><strong>职业路径的不确定性。</strong> 急欲摆脱华为消耗性工作，但跳槽方向尚未明朗。技能学习（Python、统计、系统动力学）更像积累通用货币而非锁定具体岗位。(source_file: synthesis_200.json)</p>
+<h3>深层渴望</h3>
+<p><strong>找到值得投入的事业。</strong> 从统计学的震撼（"研究须有意义"）到对华为的愤怒，深层需求是让工作与价值观对齐。(source_file: synthesis_1000.json)</p>
+<p><strong>拥有掌控感的、开心有趣的生活。</strong> 他渴望一种既能保持高水准输出、又能对自己充满善意的"可持续自律"模式。(source_file: synthesis_1300.json)</p>
+<p><strong>创造属于自己的作品。</strong> 桌游设计、写作、技术作品——通过创作留下印记，对抗"被遗忘=真正死亡"的恐惧。(source_file: synthesis_2000.json)</p></div>
+<div class="card"><h2 id="ch7">第七章 · 社交与关系</h2>
+<h3>家庭</h3>
+<p>母亲是他最稳定和重要的情感支持。与母亲的关系日常而亲密——一起吃夜宵、逛商场、分享公司礼盒。妹妹和巴哥也在情感核心圈。(source_file: synthesis_1800.json)</p>
+<h3>伴侣</h3>
+<p>Vincent 有女友叫巾巾（陈巾）。在日记中，与巾巾的通话是重要的情绪缓冲带；伴侣关系是他快速从工作烦躁和情绪低谷中恢复的关键支持。(source_file: synthesis_400.json, synthesis_1700.json)</p>
+<h3>友谊与社交</h3>
+<p>桌游是他最重要的社交载体，周末常有固定玩伴。他对社交的态度经历了从"被动等待"到"主动规划每晚留出时间聊天"的转变。2022 年 4 月曾寻找"深圳长大老家广东的小姐姐"，感到"好难遇到"。(source_file: 2022年08月总结.md.json, 2022年04月总结.md.json, 2021年9月总结.md.json)</p>
+<h3>职场关系</h3>
+<p>经历了从寻求认可到工具理性的转变。面对权威（面试官、安规同事）有焦虑，但学会了将人际冲突转化为沟通流程优化。强调主动告知风险与进展，建立透明、可控的协作形象。(source_file: 2022H1述职.md.json)</p></div>
+<div class="card"><h2 id="ch8">第八章 · 兴趣与消费（多源视角）</h2>
+<h3>知乎（25 条）</h3>
+<p>关注哲学（存在主义 4 次）、政治经济学（辩证法唯物论 3 次、毛泽东 3 次）、编程（Python 装饰器 2 次）和影评。兴趣关键词：萨特、自由选择、JOJO、Dota、TI9、南京博物院。呈现出"技术理性+人文深度"的双层兴趣结构。</p>
+<h3>小红书（17 条）</h3>
+<p>做饭是绝对主题（13 条，76.5%），涵盖肥牛饭、健身餐、一锅焖、快手菜等。关键词集中在"自制"、"懒人"、"失败"、"营养"——体现一个追求便捷、健康、敢于试错的厨房实践者。另有 2 条桌游相关内容。</p>
+<h3>微信读书（5 条）</h3>
+<p>阅读方向集中在自我提升：《学会提问（原书第12版）》、《财务自由之路Ⅰ》。关键词包括"碎片化学习"、"自我提升"、"117 本书"——说明他已有相当的阅读积累。</p>
+<h3>电影（日记核心兴趣）</h3>
+<p>电影是 Vincent 最重要的精神资源。他大量观影并撰写评论，关键词"影评"出现 34 次。偏好逻辑自洽、不刻意煽情的作品，被《指环王》、《觉醒年代》、《至暗时刻》、《本杰明·巴顿奇事》等深度击中。对好电影的标准：角色智商在线、剧情逻辑自洽、情感真实不造作。</p></div>
+<div class="card"><h2 id="ch9">第九章 · 成长轨迹</h2>
+<h3>2019 — 初入职场</h3>
+<p>从学生到华为工程师的转变期。大量学习算法、数据结构、数据分析，建立晨间日记习惯。情绪以中性为主，开始发展结构化复盘能力。</p>
+<h3>2020 — 至暗时刻</h3>
+<p>疫情居家、论文压力、秋招焦虑三重叠加。负面情绪达到峰值（153 条），但也是自我觉察最密集的时期。在崩溃边缘建立自救系统——晨间日记、四行日记、灵魂拷问。最终拿到腾讯 offer，确立"不因内疚自暴自弃"的核心信念。</p>
+<h3>2021-2022 — 稳定成长期</h3>
+<p>情绪明显回升，正面占比超过 45%。在职场上从执行者向 owner 转变，建立"把公司当工具"的心理切割。家庭旅游、桌游社交成为重要能量来源。</p>
+<h3>2023 — 觉醒与突围</h3>
+<p>持续在华为的消耗感中寻求出路。通过转岗面试、技能升级、极简主义反思重新定义自己与工作的关系。</p>
+<h3>2024-2026 — 沉默期</h3>
+<p>日记数量骤降，分析深度减弱。但多源数据（知乎、小红书、微信读书）补充了部分行为线索——阅读、做饭、碎片化学习仍在继续。</p></div>
+<div class="card"><h2 id="ch10">第十章 · 关键故事</h2>
+<h3>故事一：被当众训斥后的尊严反击</h3>
+<p>被安规同事当众吼叫后感到丢脸且愤怒，当晚即开始研究转岗。将屈辱转化为行动力——这是尊严驱动改变的关键事件。(source_file: synthesis_1400.json)</p>
+<h3>故事二：南丁格尔的精神感召</h3>
+<p>被《统计的乐趣》中南丁格尔用数据救人的事迹深深震撼，确立"研究必须真正有意义，而非仅为发论文"的信条。这个信念持续影响他的职业选择。(source_file: synthesis_200.json)</p>
+<h3>故事三：秋招地狱中的自救</h3>
+<p>2020 年 8-9 月密集经历秋招笔试面试，因一道题卡壳而自我定义为失败者，但总结出"解决问题才能消除压力"的行动信条。拔智齿引发的疼痛严重拖垮精神状态，让他反复确认健康是一切的基础。(source_file: synthesis_700.json)</p>
+<h3>故事四：合作拖稿的结构化复盘</h3>
+<p>对合作拖稿事件进行完整复盘，提炼出 owner 意识、换位思考、面对权威敢于暴露新人身份等可执行原则——将个人失误转化为团队协作方法论。(source_file: synthesis_800.json)</p>
+<h3>故事五：除夕整理的减法哲学</h3>
+<p>除夕整理成为物质与关系的双重清理——从囤积转向极简，从模糊人情转向清晰边界。(source_file: synthesis_1400.json)</p></div>
+<div class="card"><h2 id="ch11">第十一章 · 自我对话</h2>
+<p>以下是从日记采样中提取的 Vincent 给自己最频繁的建议和提醒：</p>
+<p><strong>"最可怕的不是打破自律，而是因内疚自暴自弃。"</strong> — 这是他重复最多的一句话，几乎成为他的信仰箴言。它连接着他的完美主义倾向和自我保护本能。(source_file: synthesis_100.json 等多处)</p>
+<p><strong>"享受专注的过程。"</strong> — 从对结果的执念中松绑，把注意力转向当下的行动体验。这是他对抗焦虑最核心的策略。(source_file: synthesis_900.json)</p>
+<p><strong>"事情一次做对，亲眼确认物料，不依赖他人。"</strong> — 源于工作中因他人拖延和沟通不清导致返工的教训，是对自己依赖被动等待行为模式的纠正。(source_file: synthesis_1400.json)</p>
+<p><strong>"不要憋大招。"</strong> — 意识到自己容易陷入完美主义式等待，反复提醒直接开始、在过程中迭代。(source_file: synthesis_2000.json)</p>
+<p><strong>"身体健康，认真努力。"</strong> — 这句话来自电影台词，成为他对理想自我的朴素定义。在自律焦虑和完美主义的洪流中，这句话是锚。(source_file: synthesis_500.json)</p>
+<p><strong>"做人最重要：真实、勇敢、善良。"</strong> — 这三组词在日记中反复出现，构成了他的品格底色。他对虚伪和做作的厌恶，本质上是这三种品质的反面。(source_file: synthesis_1280.json)</p>
+<p><strong>"个人目标高于公司忠诚，公司是公共汽车。"</strong> — 对组织关系的清醒认知，从依赖外部认可转向维护内在尊严和自身成长。(source_file: synthesis_200.json)</p></div>
+<div class="card"><h2 id="ch12">第十二章 · 给你的建议</h2>
+<blockquote>
+<p>基于上述画像，以下是给 Vincent 的个性化建议：</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>接纳"沉默期"不必是退步。</strong> 2024-2026 年日记骤减不一定是失控，可能是生活在用另一种方式运转。不必用它来攻击自己"又懈怠了"——关注这几年你实际完成了什么，而非没记录什么。</p>
+</li>
+<li>
+<p><strong>你的核心修复回路已经建成，相信它。</strong> "不因内疚自暴自弃"这句话你说了上百遍，已经刻进了骨子里。现在可以少花精力在防止崩塌上，多花在主动创造上——你已经有这个能力了。</p>
+</li>
+<li>
+<p><strong>把"憋大招"的冲动导向最小可执行作品。</strong> 你设计了那么多桌游创意，收藏了那么多资料——选一个最小的，这周就做出一个可玩版本。你的快乐开关不在"完美"，在"完成"。</p>
+</li>
+<li>
+<p><strong>巾巾和妈妈是你最重要的锚，别让工作吞掉和她们的时间。</strong> 你已经在日记里反复确认了她们的价值。现在需要的是把这份确认翻译成更有意识的日常行动。</p>
+</li>
+<li>
+<p><strong>你的思维是你最大的武器，但偶尔也要关掉它。</strong> 你对一切都进行"拆解-分析-提炼原则"的操作，这让你快速成长，但也消耗了大量心理能量。学着享受一些不需要被"总结出什么"的体验——比如纯粹地看一部电影，不写影评。</p>
+</li>
+<li>
+<p><strong>身体是硬件，不是软肋。</strong> 右腿紧绷、左手不适、失眠——这些反复出现的身体信号不是自律的敌人，是值得被倾听的警报。把照顾身体纳入核心自律框架，而不是把它当作"占用正事时间"的负担。</p>
+</li>
+<li>
+<p><strong>你已经走过了最难的阶段。</strong> 2020 年 153 条负面日记、秋招地狱、论文崩溃——你都走过来了。现在的你比那时候有更多资源、更清醒的认知和更强的自我修复能力。是时候从"生存模式"切换到"建造模式"了。</p>
+</li>
+</ol></div>
+<div class="card"><h2 id="ch13">附录：数据说明</h2>
+<ul>
+<li><strong>数据来源</strong>：为知笔记 V5 分析结果（2203 篇）、知乎同步数据（25 条）、小红书 MCP 同步数据（17 条）、微信读书同步数据（5 条）</li>
+<li><strong>聚合脚本</strong>：/tmp/generate_profile_v6.py</li>
+<li><strong>聚合输出</strong>：/tmp/profile_aggregate_v6.json (159.2 KB)</li>
+<li><strong>采样池</strong>：各维度 30 条，共 7 个维度（personality/values/thinking_patterns/deep_concerns/advice/social/stories）</li>
+<li><strong>日期标注</strong>：采样池条目标注了 source_file，日期信息需进一步从原始 JSON 中提取</li>
+<li><strong>缺失维度</strong>：豆瓣分析完成度约 85%，微信读书分析尚未深入，此二源数据贡献有限</li>
+</ul></div>
+<div class="card"><p><em>本报告由 deepseek-v4-pro 基于聚合统计数据生成，所有引用来自采样池，数字来自统计摘要。</em></p></div>
+</div>
+  <footer>
+    <p>本报告由 Hermes Agent 自动生成 · AI 辅助分析 · 仅供参考</p>
+    <p>Generated on 2026-06-03 23:54</p>
+  </footer>
+</div>
+
+<script>
+const PWD_HASH = '95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56';
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+async function unlock() {
+  const input = document.getElementById('pwdInput');
+  const hash = await sha256(input.value);
+  const err = document.getElementById('pwErr');
+  if (hash === PWD_HASH) {
+    document.getElementById('pwGate').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    sessionStorage.setItem('profile_auth', '1');
+  } else {
+    err.style.display = 'block';
+    input.value = '';
+    input.focus();
+  }
+}
+window.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('profile_auth') === '1') {
+    document.getElementById('pwGate').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  }
+  document.getElementById('pwdInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') unlock();
+  });
+});
+</script>
+</body>
+</html>
