@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗓️ 端午上海行攻略</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card-hover: #334155;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --accent: #f59e0b;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --border: #334155;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.lock-screen {
+  position: fixed; inset:0; z-index:9999;
+  background: var(--bg);
+  display: flex; align-items:center; justify-content:center;
+  flex-direction: column; gap: 20px;
+}
+.lock-screen.hidden { display: none; }
+.lock-screen input {
+  padding: 12px 20px; border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--card); color: var(--text);
+  font-size: 16px; width: 200px; text-align: center;
+  outline: none;
+}
+.lock-screen input:focus { border-color: var(--primary); }
+.lock-screen button {
+  padding: 10px 30px; border-radius: 12px;
+  background: var(--primary); color: #fff;
+  border: none; font-size: 16px; cursor: pointer;
+  transition: background .2s;
+}
+.lock-screen button:hover { background: var(--primary-light); }
+.lock-screen .error { color: var(--danger); font-size: 14px; }
+.lock-screen .emoji { font-size: 48px; }
+
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.hero {
+  text-align: center; padding: 60px 20px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+  border-radius: 24px; margin-bottom: 30px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; inset:0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero h1 { font-size: 2em; position: relative; z-index:1; }
+.hero .sub { color: rgba(255,255,255,.8); margin-top: 10px; position: relative; z-index:1; }
+.hero .countdown {
+  margin-top: 20px; font-size: 1.5em; font-weight: bold;
+  background: rgba(0,0,0,.2); display: inline-block;
+  padding: 8px 24px; border-radius: 12px; position: relative; z-index:1;
+}
+
+.badge {
+  display: inline-block; padding: 4px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 600;
+}
+.badge-red { background: #ef444420; color: #f87171; }
+.badge-yellow { background: #f59e0b20; color: #fbbf24; }
+.badge-green { background: #22c55e20; color: #4ade80; }
+.badge-blue { background: #6366f120; color: #818cf8; }
+
+.section { margin-bottom: 30px; }
+.section-title {
+  font-size: 1.3em; font-weight: 700;
+  margin-bottom: 16px; display: flex;
+  align-items: center; gap: 8px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px;
+  margin-bottom: 12px;
+  transition: transform .2s, background .2s;
+}
+.card:hover { transform: translateY(-2px); background: var(--card-hover); }
+
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before {
+  content: ''; position: absolute;
+  left: 10px; top: 0; bottom: 0; width: 2px;
+  background: var(--border);
+}
+.timeline .day {
+  position: relative; margin-bottom: 24px;
+}
+.timeline .day::before {
+  content: ''; position: absolute;
+  left: -25px; top: 6px; width: 12px; height: 12px;
+  border-radius: 50%; background: var(--primary);
+  border: 2px solid var(--bg);
+}
+.timeline .day-label {
+  font-weight: 700; font-size: 1.1em;
+  color: var(--primary-light); margin-bottom: 8px;
+}
+.timeline .activity {
+  background: var(--card); border-radius: 12px;
+  padding: 14px 18px; margin-bottom: 8px;
+  border-left: 3px solid var(--primary);
+}
+.timeline .activity .time {
+  color: var(--accent); font-weight: 600;
+  font-size: 0.9em;
+}
+.timeline .activity .place {
+  font-weight: 600; margin-top: 2px;
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat-card {
+  background: var(--card); border-radius: 16px;
+  padding: 20px; text-align: center;
+  border: 1px solid var(--border);
+}
+.stat-card .value { font-size: 1.8em; font-weight: 700; }
+.stat-card .label { color: var(--text-muted); font-size: 0.85em; margin-top: 4px; }
+
+.todo-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; background: var(--card);
+  border-radius: 12px; margin-bottom: 8px;
+  border: 1px solid var(--border);
+}
+.todo-item .checkbox {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+  transition: all .2s;
+}
+.todo-item .checkbox.checked {
+  background: var(--success); border-color: var(--success);
+}
+.todo-item .checkbox.checked::after { content: '✓'; color: #fff; font-size: 14px; }
+.todo-item.done .text { text-decoration: line-through; color: var(--text-muted); }
+
+.budget-row {
+  display: flex; justify-content: space-between;
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+}
+.budget-row:last-child { border-bottom: none; }
+.budget-total {
+  font-weight: 700; color: var(--accent);
+  font-size: 1.1em; padding: 12px 16px;
+  background: var(--card); border-radius: 0 0 16px 16px;
+  text-align: right;
+}
+
+.tips {
+  background: #f59e0b10; border: 1px solid #f59e0b30;
+  border-radius: 12px; padding: 16px;
+}
+.tips li { margin-bottom: 6px; color: var(--text-muted); }
+.tips li strong { color: var(--text); }
+
+footer {
+  text-align: center; padding: 40px 20px;
+  color: var(--text-muted); font-size: 0.85em;
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.5em; }
+  .container { padding: 12px; }
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- 密码锁 -->
+<div class="lock-screen" id="lockScreen">
+  <div class="emoji">🔒</div>
+  <h2>输入密码查看攻略</h2>
+  <input type="password" id="pwdInput" placeholder="密码" onkeydown="if(event.key==='Enter')unlock()">
+  <button onclick="unlock()">解锁</button>
+  <div class="error" id="lockError"></div>
+</div>
+
+<div class="container" id="mainContent" style="display:none">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>🐉 端午上海行攻略</h1>
+    <div class="sub">2026年6月19日 - 6月21日 · 3天2晚 · 3人同行</div>
+    <div class="countdown" id="countdown"></div>
+  </div>
+
+  <!-- 概览 -->
+  <div class="grid section">
+    <div class="stat-card">
+      <div class="value">3</div>
+      <div class="label">👤 出行人数</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">2晚</div>
+      <div class="label">🏨 住宿</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">深圳✈️上海</div>
+      <div class="label">🛫 路线</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" id="budgetTotal">~¥5,000</div>
+      <div class="label">💰 预估预算</div>
+    </div>
+  </div>
+
+  <!-- 同行人 -->
+  <div class="section">
+    <div class="section-title">👥 同行人</div>
+    <div class="grid">
+      <div class="card" style="text-align:center">
+        <div style="font-size:2em">🧑</div>
+        <div style="font-weight:600;margin-top:8px">Vincent</div>
+        <div style="color:var(--text-muted);font-size:0.85em">策划担当</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:2em">👩</div>
+        <div style="font-weight:600;margin-top:8px">妈妈</div>
+        <div style="color:var(--text-muted);font-size:0.85em">后勤保障</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:2em">👧</div>
+        <div style="font-weight:600;margin-top:8px">巾巾</div>
+        <div style="color:var(--text-muted);font-size:0.85em">快乐源泉</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 行程 -->
+  <div class="section">
+    <div class="section-title">🗺️ 行程安排</div>
+    <div class="timeline">
+
+      <!-- Day 1 -->
+      <div class="day">
+        <div class="day-label">📅 Day 1 · 6月19日 周五 · 去程</div>
+        <div class="activity">
+          <div class="time">上午 · 深圳宝安 → 上海虹桥</div>
+          <div class="place">✈️ 飞机（建议早班，8:00-11:00）</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">飞行约2.5h，提前2h到机场</div>
+        </div>
+        <div class="activity">
+          <div class="time">中午 · 抵达上海</div>
+          <div class="place">🚇 虹桥→酒店，地铁/打车约40min</div>
+        </div>
+        <div class="activity">
+          <div class="time">下午 · 外滩 + 南京路</div>
+          <div class="place">🏙️ 外滩万国建筑群 → 南京路步行街</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">妈妈和巾巾逛街，傍晚看浦江日落</div>
+        </div>
+        <div class="activity">
+          <div class="time">晚上 · 陆家嘴</div>
+          <div class="place">🌃 东方明珠/上海中心观光层 + 晚餐</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">夜景超美，适合拍照</div>
+        </div>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="day">
+        <div class="day-label">📅 Day 2 · 6月20日 周六 · 端午节 🐲</div>
+        <div class="activity">
+          <div class="time">上午 · 豫园 + 城隍庙</div>
+          <div class="place">🏯 豫园 → 城隍庙小吃街</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">端午特别：可以吃粽子🫡 · 南翔小笼必尝</div>
+        </div>
+        <div class="activity">
+          <div class="time">下午 · 新天地 + 田子坊</div>
+          <div class="place">🎨 文艺范儿打卡 · 石库门建筑群</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">适合拍照休息，咖啡馆多</div>
+        </div>
+        <div class="activity">
+          <div class="time">晚上 · 黄浦江游船</div>
+          <div class="place">🚢 浦江夜游（建议19:30班次）</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">端午夜+外滩灯光秀，性价比超高</div>
+        </div>
+      </div>
+
+      <!-- Day 3 -->
+      <div class="day">
+        <div class="day-label">📅 Day 3 · 6月21日 周日 · 回程</div>
+        <div class="activity">
+          <div class="time">上午 · 武康路 / 安福路</div>
+          <div class="place">☕ 网红路线City Walk · 武康大楼</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">轻松逛逛，买买伴手礼</div>
+        </div>
+        <div class="activity">
+          <div class="time">中午 · 午餐</div>
+          <div class="place">🍜 本帮菜收官（推荐：老正兴/上海老饭店）</div>
+        </div>
+        <div class="activity">
+          <div class="time">下午 · 上海虹桥 → 深圳宝安</div>
+          <div class="place">✈️ 回程（建议14:00-17:00航班）</div>
+          <div style="color:var(--text-muted);font-size:0.9em;margin-top:4px">预留足够时间去机场</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 预算 -->
+  <div class="section">
+    <div class="section-title">💰 预算估算（3人）</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="budget-row">
+        <span>✈️ 机票（深圳↔上海 × 3人）</span>
+        <span>¥2,400 - 3,600</span>
+      </div>
+      <div class="budget-row">
+        <span>🏨 酒店（2晚 × 市区中档）</span>
+        <span>¥800 - 1,200</span>
+      </div>
+      <div class="budget-row">
+        <span>🍽️ 餐饮（3天 × 3人）</span>
+        <span>¥600 - 1,000</span>
+      </div>
+      <div class="budget-row">
+        <span>🚇 交通（地铁+打车）</span>
+        <span>¥200 - 400</span>
+      </div>
+      <div class="budget-row">
+        <span>🎫 门票（东方明珠/豫园/游船）</span>
+        <span>¥500 - 800</span>
+      </div>
+      <div class="budget-row">
+        <span>🎁 伴手礼 & 杂项</span>
+        <span>¥200 - 400</span>
+      </div>
+      <div class="budget-total">
+        合计预估：¥4,700 - 7,400
+      </div>
+    </div>
+  </div>
+
+  <!-- 待办 -->
+  <div class="section">
+    <div class="section-title">📋 出行待办</div>
+    <div class="todo-item" id="todo-1">
+      <div class="checkbox" onclick="toggleTodo('todo-1')"></div>
+      <span class="text">✈️ 订机票：深圳→上海 6/19去 + 6/21回（3人）</span>
+      <span class="badge badge-red">紧急</span>
+    </div>
+    <div class="todo-item" id="todo-2">
+      <div class="checkbox" onclick="toggleTodo('todo-2')"></div>
+      <span class="text">🏨 订酒店：上海市区2晚（靠近地铁口）</span>
+      <span class="badge badge-red">紧急</span>
+    </div>
+    <div class="todo-item" id="todo-3">
+      <div class="checkbox" onclick="toggleTodo('todo-3')"></div>
+      <span class="text">🎫 提前预约：东方明珠/上海中心观光票</span>
+      <span class="badge badge-yellow">建议提前</span>
+    </div>
+    <div class="todo-item" id="todo-4">
+      <div class="checkbox" onclick="toggleTodo('todo-4')"></div>
+      <span class="text">🚢 预约浦江夜游船票</span>
+      <span class="badge badge-yellow">建议提前</span>
+    </div>
+    <div class="todo-item" id="todo-5">
+      <div class="checkbox" onclick="toggleTodo('todo-5')"></div>
+      <span class="text">🧳 收拾行李（身份证！充电宝！防晒！）</span>
+      <span class="badge badge-blue">出发前</span>
+    </div>
+    <div class="todo-item" id="todo-6">
+      <div class="checkbox" onclick="toggleTodo('todo-6')"></div>
+      <span class="text">📱 下载离线地图 / 查天气预报</span>
+      <span class="badge badge-blue">出发前</span>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div class="section">
+    <div class="section-title">💡 实用 Tips</div>
+    <div class="tips">
+      <ul>
+        <li><strong>交通：</strong>上海地铁很方便，下载「Metro大都会」App扫码乘车</li>
+        <li><strong>天气：</strong>6月上海梅雨季，记得带伞🌂，气温25-30°C</li>
+        <li><strong>住宿：</strong>建议住人民广场/静安寺附近，交通枢纽方便</li>
+        <li><strong>美食：</strong>必吃清单 — 南翔小笼、生煎包、白斩鸡、葱油拌面</li>
+        <li><strong>端午特色：</strong>城隍庙有端午活动，可以体验包粽子</li>
+        <li><strong>省钱：</strong>飞猪/携程提前订机票酒店，比当天买便宜30%+</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    🐉 端午上海行攻略 · 生成于 2026-06-03 · Vincent & 妈妈 & 巾巾
+  </footer>
+
+</div>
+
+<script>
+const PWD = 'jinjin0829';
+
+function unlock() {
+  const input = document.getElementById('pwdInput').value;
+  if (input === PWD) {
+    document.getElementById('lockScreen').classList.add('hidden');
+    document.getElementById('mainContent').style.display = 'block';
+    localStorage.setItem('plans_auth', PWD);
+    startCountdown();
+  } else {
+    document.getElementById('lockError').textContent = '密码不对哦~';
+    document.getElementById('pwdInput').value = '';
+  }
+}
+
+// 自动解锁
+if (localStorage.getItem('plans_auth') === PWD) {
+  document.getElementById('lockScreen').classList.add('hidden');
+  document.getElementById('mainContent').style.display = 'block';
+}
+
+function startCountdown() {
+  const target = new Date('2026-06-19T08:00:00+08:00');
+  function update() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').textContent = '🎉 出发啦！';
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    document.getElementById('countdown').textContent = `⏰ 距出发还有 ${days}天${hours}小时`;
+  }
+  update();
+  setInterval(update, 60000);
+}
+if (document.getElementById('mainContent').style.display !== 'none') startCountdown();
+
+function toggleTodo(id) {
+  const el = document.getElementById(id);
+  const cb = el.querySelector('.checkbox');
+  cb.classList.toggle('checked');
+  el.classList.toggle('done');
+}
+</script>
+</body>
+</html>
