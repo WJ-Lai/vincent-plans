@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026年5月 · 生活月报</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f1f5f9; color: #1e293b; line-height: 1.6; }
+.hero { background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa); color: white; padding: 48px 24px 40px; text-align: center; }
+.hero h1 { font-size: 2em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { font-size: 1.1em; opacity: 0.9; }
+.hero .date-range { font-size: 0.9em; opacity: 0.75; margin-top: 6px; }
+.container { max-width: 840px; margin: 0 auto; padding: 20px 16px 60px; }
+.card { background: #fff; border-radius: 16px; padding: 28px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+.card-title { font-size: 1.2em; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.card-title .icon { font-size: 1.3em; }
+.section-tag { display: inline-block; background: #f1f5f9; color: #64748b; font-size: 0.75em; padding: 2px 10px; border-radius: 99px; margin-left: 8px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.stat-box { background: #f8fafc; border-radius: 12px; padding: 16px; text-align: center; border: 1px solid #e2e8f0; }
+.stat-box .num { font-size: 1.8em; font-weight: 700; color: #6366f1; }
+.stat-box .num.green { color: #10b981; }
+.stat-box .num.orange { color: #f59e0b; }
+.stat-box .num.red { color: #ef4444; }
+.stat-box .label { font-size: 0.82em; color: #64748b; margin-top: 4px; }
+.bar-chart { margin: 12px 0; }
+.bar-row { display: flex; align-items: center; margin-bottom: 8px; }
+.bar-label { width: 100px; font-size: 0.85em; color: #475569; text-align: right; padding-right: 10px; flex-shrink: 0; }
+.bar-track { flex: 1; background: #f1f5f9; border-radius: 6px; height: 24px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 8px; font-size: 0.75em; color: white; font-weight: 600; min-width: 30px; transition: width 0.6s ease; }
+.bar-fill.purple { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.bar-fill.green { background: linear-gradient(90deg, #10b981, #34d399); }
+.bar-fill.orange { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.bar-fill.red { background: linear-gradient(90deg, #ef4444, #f87171); }
+.bar-fill.blue { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: #e2e8f0; }
+.timeline-item { position: relative; margin-bottom: 14px; }
+.timeline-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #8b5cf6; border: 2px solid white; }
+.timeline-item.good::before { background: #10b981; }
+.timeline-item.warn::before { background: #f59e0b; }
+.timeline-item.bad::before { background: #ef4444; }
+.timeline-date { font-size: 0.8em; color: #94a3b8; }
+.timeline-text { font-size: 0.92em; }
+.tag { display: inline-block; font-size: 0.75em; padding: 2px 8px; border-radius: 99px; margin: 2px; }
+.tag-green { background: #dcfce7; color: #166534; }
+.tag-red { background: #fee2e2; color: #991b1b; }
+.tag-blue { background: #dbeafe; color: #1e40af; }
+.tag-orange { background: #fef3c7; color: #92400e; }
+.tag-purple { background: #ede9fe; color: #5b21b6; }
+.insight-box { background: linear-gradient(135deg, #f0fdf4, #ecfdf5); border-left: 4px solid #10b981; border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 12px 0; }
+.insight-box.warn { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left-color: #f59e0b; }
+.insight-box.danger { background: linear-gradient(135deg, #fef2f2, #fee2e2); border-left-color: #ef4444; }
+.insight-title { font-weight: 700; font-size: 0.95em; margin-bottom: 6px; }
+.insight-text { font-size: 0.88em; color: #475569; }
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+th { background: #f8fafc; text-align: left; padding: 10px 12px; border-bottom: 2px solid #e2e8f0; font-weight: 600; color: #475569; }
+td { padding: 8px 12px; border-bottom: 1px solid #f1f5f9; }
+tr:hover td { background: #f8fafc; }
+.progress-ring { display: inline-flex; align-items: center; gap: 8px; }
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin: 12px 0; }
+.week-cell { aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75em; font-weight: 500; }
+.week-cell.has-data { background: #dcfce7; color: #166534; }
+.week-cell.no-data { background: #f1f5f9; color: #94a3b8; }
+.week-cell.header { background: none; color: #64748b; font-weight: 700; font-size: 0.7em; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.5em; }
+  .hero { padding: 32px 16px 28px; }
+  .card { padding: 20px 16px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .bar-label { width: 70px; font-size: 0.78em; }
+  .two-col { grid-template-columns: 1fr; }
+}
+.footer { text-align: center; padding: 24px; color: #94a3b8; font-size: 0.8em; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>📊 2026年5月 · 生活月报</h1>
+  <div class="subtitle">Vincent 的全方位生活数据复盘</div>
+  <div class="date-range">2026.05.01 — 2026.05.31</div>
+</div>
+
+<div class="container">
+
+<!-- ========== 总览 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">🎯</span> 月度总览 <span class="section-tag">关键指标</span></div>
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num orange">¥15,238</div><div class="label">总支出</div></div>
+    <div class="stat-box"><div class="num">1,668</div><div class="label">日均热量 kcal</div></div>
+    <div class="stat-box"><div class="num green">5</div><div class="label">运动次数</div></div>
+    <div class="stat-box"><div class="num orange">5.7h</div><div class="label">平均睡眠</div></div>
+    <div class="stat-box"><div class="num">22h46m</div><div class="label">阅读时长</div></div>
+    <div class="stat-box"><div class="num green">1</div><div class="label">冥想次数</div></div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-title">🌟 本月最大成就</div>
+    <div class="insight-text">饮食记录从5/16启动，第三周达成<strong>全勤7天</strong>记录！蛋白质首次达标（81.6g/天），蔬菜从零到天天达标。求婚戒指提前购入，省¥1,000。</div>
+  </div>
+  <div class="insight-box warn">
+    <div class="insight-title">⚠️ 本月最大挑战</div>
+    <div class="insight-text">睡眠严重不足（均5.7h，目标7.5h），前15天零记录（饮食/运动/习惯）。求婚城市迟迟未定，M1/M2里程碑已过期。</div>
+  </div>
+</div>
+
+<!-- ========== 财务 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">💰</span> 财务概况 <span class="section-tag">49笔记录</span></div>
+  
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num red">¥15,238</div><div class="label">总支出</div></div>
+    <div class="stat-box"><div class="num orange">¥9,738</div><div class="label">日常支出(不含戒指)</div></div>
+    <div class="stat-box"><div class="num">¥649</div><div class="label">日均(不含戒指)</div></div>
+    <div class="stat-box"><div class="num">15天</div><div class="label">记录天数</div></div>
+  </div>
+
+  <div style="font-weight:600; margin-bottom:10px; font-size:0.95em;">支出构成 TOP 8</div>
+  <div class="bar-chart">
+    <div class="bar-row"><div class="bar-label">💍 求婚戒指</div><div class="bar-track"><div class="bar-fill purple" style="width:90%">¥5,500</div></div></div>
+    <div class="bar-row"><div class="bar-label">👩 妈妈转账</div><div class="bar-track"><div class="bar-fill purple" style="width:74%">¥4,520</div></div></div>
+    <div class="bar-row"><div class="bar-label">🏠 房租水电</div><div class="bar-track"><div class="bar-fill blue" style="width:38%">¥2,339</div></div></div>
+    <div class="bar-row"><div class="bar-label">🍽️ 餐饮合计</div><div class="bar-track"><div class="bar-fill green" style="width:12%">¥735</div></div></div>
+    <div class="bar-row"><div class="bar-label">💕 社交人情</div><div class="bar-track"><div class="bar-fill green" style="width:16%">¥1,160</div></div></div>
+    <div class="bar-row"><div class="bar-label">🚗 交通</div><div class="bar-track"><div class="bar-fill orange" style="width:5%">¥303</div></div></div>
+    <div class="bar-row"><div class="bar-label">🤖 AI工具</div><div class="bar-track"><div class="bar-fill orange" style="width:5%">¥410</div></div></div>
+    <div class="bar-row"><div class="bar-label">📺 订阅服务</div><div class="bar-track"><div class="bar-fill blue" style="width:2%">¥108</div></div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="insight-box">
+      <div class="insight-title">✅ 省钱亮点</div>
+      <div class="insight-text">戒指 ¥5,500（预算¥6,500，省¥1,000）<br>早餐均价 ¥4.5（极省）<br>午餐均价 ¥19.5（食堂为主）</div>
+    </div>
+    <div class="insight-box warn">
+      <div class="insight-title">⚠️ 注意项</div>
+      <div class="insight-text">晚餐均价 ¥123.5（外出聚餐拉高）<br>DeepSeek充值4笔共¥310<br>订阅月付¥108（可审视）</div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px; font-size:0.9em; color:#475569;">
+    <strong>资金来源分布：</strong>
+    <span class="tag tag-blue">固定支出 ¥7,339</span>
+    <span class="tag tag-purple">存款 ¥5,500</span>
+    <span class="tag tag-green">生活费 ¥1,919</span>
+    <span class="tag tag-orange">小金库 ¥392</span>
+    <span class="tag tag-red">520预算 ¥568</span>
+  </div>
+</div>
+
+<!-- ========== 饮食 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">🍽️</span> 饮食追踪 <span class="section-tag">14天记录</span></div>
+  
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num">14/31</div><div class="label">记录天数</div></div>
+    <div class="stat-box"><div class="num">1,668</div><div class="label">日均热量 kcal</div></div>
+    <div class="stat-box"><div class="num orange">75g</div><div class="label">日均蛋白质</div></div>
+    <div class="stat-box"><div class="num orange">2.8/5</div><div class="label">综合评分</div></div>
+  </div>
+
+  <div style="font-weight:600; margin-bottom:10px; font-size:0.95em;">📈 三周进步趋势</div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>周次</th><th>日期</th><th>记录天数</th><th>日均热量</th><th>评分</th><th>蔬菜达标</th></tr>
+    <tr><td>W20</td><td>05/11-17</td><td>2/7</td><td>~2,050 kcal</td><td>2.8</td><td>0天</td></tr>
+    <tr><td>W21</td><td>05/18-24</td><td>5/7</td><td>~1,780 kcal</td><td>2.6</td><td>0天</td></tr>
+    <tr style="background:#f0fdf4"><td><strong>W22</strong></td><td>05/25-31</td><td><strong>7/7 ✅</strong></td><td><strong>~1,479 kcal</strong></td><td><strong>3.0</strong></td><td><strong>7天 ✅</strong></td></tr>
+  </table>
+  </div>
+
+  <div style="font-weight:600; margin:16px 0 10px; font-size:0.95em;">📅 饮食记录热力图（下半月）</div>
+  <div class="week-grid">
+    <div class="week-cell header">一</div><div class="week-cell header">二</div><div class="week-cell header">三</div><div class="week-cell header">四</div><div class="week-cell header">五</div><div class="week-cell header">六</div><div class="week-cell header">日</div>
+    <!-- W20: 5/11-17 (Sun-Sat, but let's do Mon-Sun starting from 5/12) -->
+    <div class="week-cell no-data">12</div><div class="week-cell no-data">13</div><div class="week-cell no-data">14</div><div class="week-cell no-data">15</div><div class="week-cell no-data">16</div><div class="week-cell no-data">17</div><div class="week-cell no-data">18</div>
+    <!-- W21: 5/19-25 -->
+    <div class="week-cell has-data">19</div><div class="week-cell has-data">20</div><div class="week-cell has-data">21</div><div class="week-cell has-data">22</div><div class="week-cell has-data">23</div><div class="week-cell no-data">24</div><div class="week-cell has-data">25</div>
+    <!-- W22: 5/26-31 -->
+    <div class="week-cell has-data">26</div><div class="week-cell has-data">27</div><div class="week-cell has-data">28</div><div class="week-cell has-data">29</div><div class="week-cell has-data">30</div><div class="week-cell has-data">31</div><div class="week-cell no-data" style="opacity:0.3">1</div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-title">🏆 本月之星：5/27（周三）</div>
+    <div class="insight-text">1,785 kcal | 103.5g 蛋白质 | 蔬菜丰富（麦菜+菜花+苦瓜）— 蛋白质巅峰日</div>
+  </div>
+  <div class="insight-box danger">
+    <div class="insight-title">🔴 需关注</div>
+    <div class="insight-text">热量两极分化：5/20 爆表 2,440kcal vs 5/23 仅 815kcal（低于基础代谢有掉肌肉风险）。泡面3次，5/19夜宵620kcal为本月最差一餐。</div>
+  </div>
+</div>
+
+<!-- ========== 运动 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">🏋️</span> 运动健身 <span class="section-tag">5次训练</span></div>
+  
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num green">5</div><div class="label">运动次数</div></div>
+    <div class="stat-box"><div class="num">~745</div><div class="label">总消耗 kcal</div></div>
+    <div class="stat-box"><div class="num green">2</div><div class="label">游泳次数</div></div>
+    <div class="stat-box"><div class="num orange">1/3</div><div class="label">力量训练完成率</div></div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item warn"><div class="timeline-date">5/19 周一</div><div class="timeline-text">Day A 上肢+核心 — <span class="tag tag-orange">未完成</span></div></div>
+    <div class="timeline-item warn"><div class="timeline-date">5/21 周三</div><div class="timeline-text">Day B 下肢+核心精简版（睡眠不足5.8h）— <span class="tag tag-orange">未完成</span></div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/22 周四</div><div class="timeline-text">游泳（蛙泳）60min · ~325kcal · 和巾巾一起 <span class="tag tag-green">腰突友好</span></div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/23 周五</div><div class="timeline-text">Day C 全身轻度+拉伸（腰突康复简化版）~10min · <span class="tag tag-green">已完成 ✅</span></div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/24 周六</div><div class="timeline-text">游泳（蛙泳）60min · ~420kcal · <span class="tag tag-green">腰突友好</span></div></div>
+  </div>
+
+  <div class="insight-box warn">
+    <div class="insight-title">⚠️ 运动分析</div>
+    <div class="insight-text">力量训练仅完成1/3（Day C简化版），Day A和Day B均未完成。但额外增加了2次游泳（腰突友好的有氧），总运动量尚可。建议6月提高力量训练执行力，游泳继续保持。</div>
+  </div>
+</div>
+
+<!-- ========== 睡眠 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">😴</span> 睡眠状况 <span class="section-tag">3天记录</span></div>
+  
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num red">5.7h</div><div class="label">平均睡眠</div></div>
+    <div class="stat-box"><div class="num red">02:08</div><div class="label">平均入睡时间</div></div>
+    <div class="stat-box"><div class="num">3天</div><div class="label">记录天数</div></div>
+    <div class="stat-box"><div class="num red">0/3</div><div class="label">达标天数(≥7h)</div></div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>日期</th><th>入睡</th><th>起床</th><th>时长</th><th>备注</th></tr>
+    <tr><td>5/19</td><td>02:25</td><td>07:50</td><td>5.4h</td><td>V5脚本修复到凌晨</td></tr>
+    <tr><td>5/21</td><td>03:00</td><td>08:50</td><td>5.8h</td><td>Hermes记忆系统突破太兴奋</td></tr>
+    <tr><td>5/23</td><td>02:00</td><td>08:00</td><td>6.0h</td><td>测试验证</td></tr>
+  </table>
+  </div>
+
+  <div class="insight-box danger">
+    <div class="insight-title">🔴 睡眠严重不足</div>
+    <div class="insight-text">3天均未达7h基准线，平均入睡时间凌晨2点+。主要诱因：技术突破兴奋导致的失眠（2/3天与Hermes项目相关）。6月必须建立「23:30放下手机」的硬性规则。</div>
+  </div>
+</div>
+
+<!-- ========== 阅读 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">📚</span> 阅读学习 <span class="section-tag">34天阅读</span></div>
+  
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num">22h46m</div><div class="label">累计阅读时长</div></div>
+    <div class="stat-box"><div class="num">3本</div><div class="label">在读</div></div>
+    <div class="stat-box"><div class="num orange">0本</div><div class="label">已完成</div></div>
+    <div class="stat-box"><div class="num">34本</div><div class="label">年度目标</div></div>
+  </div>
+
+  <div style="font-weight:600; margin-bottom:10px; font-size:0.95em;">📖 当前在读</div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>书名</th><th>分类</th><th>开始日期</th><th>已读时长</th><th>状态</th></tr>
+    <tr><td>资治通鉴</td><td>历史/政治</td><td>4/28</td><td>7h 51m</td><td><span class="tag tag-blue">长期任务</span></td></tr>
+    <tr><td>学会提问</td><td>思维/认知</td><td>5/6</td><td>6h 20m</td><td><span class="tag tag-orange">进行中</span></td></tr>
+    <tr><td>坚毅 Grit</td><td>思维/认知</td><td>5/23</td><td>3h 30m</td><td><span class="tag tag-green">收获良多</span></td></tr>
+  </table>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-title">📈 阅读节奏</div>
+    <div class="insight-text">日均阅读约40分钟（22h46m / 34天），距离年度目标34本差距较大（完成率0%）。5/24单日阅读3小时（坚毅Grit）为峰值。5月阅读以思维认知类为主，与当前职业转型思考方向一致。</div>
+  </div>
+</div>
+
+<!-- ========== 冥想 & 心理 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">🧠</span> 冥想 & 心理 <span class="section-tag">起步阶段</span></div>
+  
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num">1次</div><div class="label">冥想记录</div></div>
+    <div class="stat-box"><div class="num green">20min</div><div class="label">冥想时长</div></div>
+    <div class="stat-box"><div class="num">2天</div><div class="label">心理日志</div></div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item good"><div class="timeline-date">5/23</div><div class="timeline-text">冥想20分钟（原计划10分钟，超额完成）</div></div>
+    <div class="timeline-item"><div class="timeline-date">5/23-24</div><div class="timeline-text">心理日志记录启动</div></div>
+  </div>
+
+  <div class="insight-box warn">
+    <div class="insight-title">⚠️ 刚起步</div>
+    <div class="insight-text">冥想和心理日志都是5月底才启动，记录太少无法做趋势分析。6月需要培养持续性，建议每日冥想≥10分钟作为基础习惯。</div>
+  </div>
+</div>
+
+<!-- ========== 医疗健康 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">🏥</span> 医疗健康 <span class="section-tag">日常管理</span></div>
+
+  <div class="two-col">
+    <div>
+      <div style="font-weight:600; margin-bottom:8px; font-size:0.95em;">💊 用药管理</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-text">脱发：米诺地尔+非那雄胺+微针（3周一次）</div></div>
+        <div class="timeline-item"><div class="timeline-text">哮喘：信必可160 bid（早晚各1吸）</div></div>
+        <div class="timeline-item"><div class="timeline-text">腰突L4/5 + L5/S1：康复训练中</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:600; margin-bottom:8px; font-size:0.95em;">📋 5月医疗事件</div>
+      <div class="timeline">
+        <div class="timeline-item good"><div class="timeline-date">5/17</div><div class="timeline-text">哮喘随访</div></div>
+        <div class="timeline-item"><div class="timeline-date">5/17</div><div class="timeline-text">蔓迪（米诺地尔）购药 ¥110.98</div></div>
+        <div class="timeline-item warn"><div class="timeline-date">持续</div><div class="timeline-text">用药打卡记录不完整</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px; font-size:0.9em; color:#475569;">
+    <strong>健康目标：</strong>
+    <span class="tag tag-purple">167cm/70kg</span>
+    <span class="tag tag-green">目标60kg</span>
+    <span class="tag tag-blue">腹肌+人旗</span>
+    <span class="tag tag-orange">腰突康复</span>
+    <span class="tag tag-red">哮喘控制</span>
+  </div>
+</div>
+
+<!-- ========== 求婚计划 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">💍</span> 求婚计划 <span class="section-tag">进度 35%</span></div>
+  
+  <div class="stats-grid">
+    <div class="stat-box"><div class="num green">¥5,500</div><div class="label">戒指已购(省¥1k)</div></div>
+    <div class="stat-box"><div class="num red">85天</div><div class="label">距8/29求婚</div></div>
+    <div class="stat-box"><div class="num orange">35%</div><div class="label">总体进度</div></div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>里程碑</th><th>截止</th><th>状态</th></tr>
+    <tr style="background:#fef2f2"><td>M1 筹备启动</td><td>5月中</td><td><span class="tag tag-red">🔴 过期15天</span></td></tr>
+    <tr style="background:#fef2f2"><td>M2 地点+交通</td><td>5/24</td><td><span class="tag tag-red">🔴 过期11天！城市未定</span></td></tr>
+    <tr style="background:#f0fdf4"><td>M3 戒指采购</td><td>6月底</td><td><span class="tag tag-green">✅ 5/28完成 ¥5,500</span></td></tr>
+    <tr><td>M4 设备准备</td><td>6月底</td><td><span class="tag tag-orange">🟡 Action6已购，支架待购</span></td></tr>
+    <tr><td>M5-M7</td><td>7-8月</td><td><span class="tag" style="background:#f1f5f9;color:#64748b">⬜ 未开始</span></td></tr>
+  </table>
+  </div>
+
+  <div class="insight-box danger">
+    <div class="insight-title">🔴 紧急：M1/M2已过期</div>
+    <div class="insight-text">求婚城市（大理/阳朔/三亚/阿那亚/丽江五选一）至今未定，影响后续所有环节。戒指虽已提前购入，但城市不定→交通/住宿/踩点全卡住。建议<strong>6月第一周必须确定城市</strong>。</div>
+  </div>
+</div>
+
+<!-- ========== 生活事件 ========== -->
+<div class="card">
+  <div class="card-title"><span class="icon">🌸</span> 5月生活事件 <span class="section-tag">重要时刻</span></div>
+  
+  <div class="timeline">
+    <div class="timeline-item good"><div class="timeline-date">5/16</div><div class="timeline-text">🎉 Hermes健康管理系统正式启动，饮食/运动/财务追踪全面上线</div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/18</div><div class="timeline-text">💐 520鲜花送给巾巾 ¥48</div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/20</div><div class="timeline-text">🧧 520红包 ¥520 + 食堂午餐水煮肉片</div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/22</div><div class="timeline-text">🎵 购入洞箫 ¥258（和巾巾合奏计划）+ 笛子 ¥158（六一礼物送巾巾）</div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/22</div><div class="timeline-text">🏊 和巾巾一起游泳60min，健康约会新方式</div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/23</div><div class="timeline-text">📚 开始阅读《坚毅 Grit》，收获良多</div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/27</div><div class="timeline-text">🍎 去巾巾家买水果 ¥435.71</div></div>
+    <div class="timeline-item good"><div class="timeline-date">5/28</div><div class="timeline-text">💍 <strong>求婚戒指下单 ¥5,500！</strong>原预算¥6,500，省¥1,000</div></div>
+    <div class="timeline-item"><div class="timeline-date">5/29</div><div class="timeline-text">🏠 缴纳房租水电 ¥2,338.50</div></div>
+    <div class="timeline-item warn"><div class="timeline-date">5/24</div><div class="timeline-text">⚠️ 睡前吃了薯片（习惯偏离记录）</div></div>
+  </div>
+</div>
+
+<!-- ========== 6月展望 ========== -->
+<div class="card" style="border: 2px solid #8b5cf6;">
+  <div class="card-title"><span class="icon">🚀</span> 6月行动计划 <span class="section-tag">基于5月数据</span></div>
+  
+  <div style="font-weight:600; margin-bottom:10px; font-size:0.95em;">🔴 紧急（本周必须启动）</div>
+  <div style="font-size:0.9em; color:#475569; margin-bottom:14px; padding-left:12px;">
+    1. <strong>确定求婚城市</strong>（大理/阳朔/三亚/阿那亚/丽江五选一）→ 定交通+住宿<br>
+    2. <strong>购买摄像支架</strong>（Action6已到手，缺支架）
+  </div>
+
+  <div style="font-weight:600; margin-bottom:10px; font-size:0.95em;">🟡 重要（6月持续推进）</div>
+  <div style="font-size:0.9em; color:#475569; margin-bottom:14px; padding-left:12px;">
+    3. <strong>睡眠纪律</strong>：23:30放下手机，目标均睡≥7h（5月仅5.7h）<br>
+    4. <strong>力量训练</strong>：完成率从1/3提升到≥2/3，Day A/B不能再跳过<br>
+    5. <strong>饮食前15天</strong>：绝不能再出现零记录，从6/1开始全勤<br>
+    6. <strong>冥想习惯</strong>：每日≥10分钟，培养持续性
+  </div>
+
+  <div style="font-weight:600; margin-bottom:10px; font-size:0.95em;">🟢 保持</div>
+  <div style="font-size:0.9em; color:#475569; padding-left:12px;">
+    7. <strong>游泳</strong>：每周1-2次腰突友好有氧<br>
+    8. <strong>阅读节奏</strong>：日均40分钟保持，加速完成《学会提问》<br>
+    9. <strong>财务记录</strong>：全月记录不断档<br>
+    10. <strong>求婚进度</strong>：M5方案设计（求婚词+花+蛋糕）
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  📊 数据来源：~/loci/health/ 各模块原始记录 | 生成时间：2026-06-05<br>
+  饮食14天 · 财务49笔 · 运动5次 · 睡眠3天 · 阅读22h46m · 冥想1次
+</div>
+
+</body>
+</html>
