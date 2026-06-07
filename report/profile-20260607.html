@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vincent·深度人格体检报告</title>
 <style>
+  /* Lock screen */
+  #lockScreen {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: #fafaf8; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 16px;
+  }
+  #lockScreen h2 { font-size: 20px; color: #2d2d2d; font-weight: 600; }
+  #lockScreen input {
+    padding: 10px 16px; border: 1px solid #e8e5e0; border-radius: 8px;
+    font-size: 15px; width: 220px; text-align: center;
+    outline: none;
+  }
+  #lockScreen input:focus { border-color: #6b8ab5; }
+  #lockScreen button {
+    padding: 8px 24px; background: #6b8ab5; color: white;
+    border: none; border-radius: 8px; font-size: 14px; cursor: pointer;
+  }
+  #lockScreen button:hover { background: #5a7da8; }
+  #lockMsg { color: #c0392b; font-size: 13px; min-height: 18px; }
+  #realContent { display: none; }
   :root {
 --bg: #fafaf8;
 --card-bg: #ffffff;
@@ -206,6 +227,13 @@ h2 { font-size: 19px; }
 </style>
 </head>
 <body>
+<div id="lockScreen">
+  <h2>🔒 请输入密码查看报告</h2>
+  <input type="password" id="pwdInput" placeholder="密码" autofocus>
+  <button onclick="unlock()">解锁</button>
+  <div id="lockMsg"></div>
+</div>
+<div id="realContent">
 <div class="container">
   <div class="report-header">
     <div class="badge">用户画像</div>
@@ -658,5 +686,37 @@ h2 { font-size: 19px; }
     历史版本保留于 ~/loci/me/
   </div>
 </div>
+</div>
+
+<script>
+const PWD_HASH = '95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56';
+function sha256(str) {
+  const buf = crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return buf.then(b => Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join(''));
+}
+function unlock() {
+  const input = document.getElementById('pwdInput').value;
+  sha256(input).then(hash => {
+    if (hash === PWD_HASH) {
+      sessionStorage.setItem('auth', '1');
+      document.getElementById('lockScreen').style.display = 'none';
+      document.getElementById('realContent').style.display = 'block';
+    } else {
+      document.getElementById('lockMsg').textContent = '密码错误，请重试';
+      document.getElementById('pwdInput').value = '';
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem('auth') === '1') {
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('realContent').style.display = 'block';
+  }
+  document.getElementById('pwdInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') unlock();
+  });
+});
+</script>
+
 </body>
 </html>
