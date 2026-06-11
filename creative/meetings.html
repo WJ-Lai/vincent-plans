@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开不完的会 — 脱口秀演讲稿</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f8fafc; color: #1e293b; font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif; line-height: 1.8; }
+
+  /* Lock Screen */
+  #lockScreen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+  }
+  .lock-box {
+    background: #fff; border-radius: 20px; padding: 48px 40px; text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15); max-width: 400px; width: 90%;
+  }
+  .lock-box h2 { font-size: 1.5rem; margin-bottom: 8px; color: #1e293b; }
+  .lock-box p { font-size: 0.9rem; color: #64748b; margin-bottom: 24px; }
+  .lock-box input {
+    width: 100%; padding: 14px 18px; border: 2px solid #e2e8f0; border-radius: 12px;
+    font-size: 1rem; outline: none; transition: border-color 0.2s;
+  }
+  .lock-box input:focus { border-color: #8b5cf6; }
+  .lock-box button {
+    margin-top: 16px; width: 100%; padding: 14px; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff; border: none; border-radius: 12px; font-size: 1rem; cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+  }
+  .lock-box button:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(99,102,241,0.4); }
+  .lock-error { color: #ef4444; font-size: 0.85rem; margin-top: 12px; display: none; }
+
+  /* Main Content */
+  #mainContent { display: none; }
+  .hero {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+    color: #fff; padding: 80px 24px 60px; text-align: center;
+  }
+  .hero h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 12px; letter-spacing: 2px; }
+  .hero .subtitle { font-size: 1.1rem; opacity: 0.85; margin-bottom: 24px; }
+  .hero .meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .hero .meta span {
+    background: rgba(255,255,255,0.2); padding: 6px 16px; border-radius: 20px;
+    font-size: 0.85rem; backdrop-filter: blur(4px);
+  }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 40px 24px; }
+
+  .section-label {
+    display: inline-block; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff; padding: 4px 14px; border-radius: 6px; font-size: 0.8rem;
+    font-weight: 600; margin-bottom: 20px; letter-spacing: 1px;
+  }
+
+  .script-block {
+    background: #fff; border-radius: 16px; padding: 36px 32px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+    margin-bottom: 32px; border: 1px solid #e2e8f0;
+  }
+
+  .script-block p { margin-bottom: 16px; font-size: 1.05rem; color: #334155; }
+  .script-block p:last-child { margin-bottom: 0; }
+
+  .stage-dir {
+    background: #f1f5f9; color: #64748b; padding: 8px 14px; border-radius: 8px;
+    font-size: 0.9rem; font-style: italic; display: inline-block; margin: 8px 0 12px;
+    border-left: 3px solid #8b5cf6;
+  }
+
+  .punchline {
+    font-weight: 600; color: #6366f1; font-size: 1.1rem;
+  }
+
+  .callback-section {
+    background: linear-gradient(135deg, #faf5ff, #ede9fe);
+    border-radius: 16px; padding: 28px 28px; margin-top: 32px;
+    border: 1px solid #ddd6fe;
+  }
+  .callback-section h3 { color: #7c3aed; margin-bottom: 16px; font-size: 1.1rem; }
+  .callback-item {
+    display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px;
+    font-size: 0.95rem; color: #4c1d95;
+  }
+  .callback-item .emoji { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+
+  .techniques-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px; margin-top: 16px;
+  }
+  .tech-card {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 14px 16px; font-size: 0.9rem;
+  }
+  .tech-card .tech-name { font-weight: 600; color: #6366f1; margin-bottom: 4px; }
+  .tech-card .tech-desc { color: #64748b; font-size: 0.85rem; }
+
+  footer {
+    text-align: center; padding: 32px 24px; color: #94a3b8; font-size: 0.85rem;
+    border-top: 1px solid #e2e8f0; margin-top: 40px;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.8rem; }
+    .hero .meta { gap: 8px; }
+    .script-block { padding: 24px 18px; }
+    .container { padding: 24px 16px; }
+    .techniques-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Lock Screen -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <h2>🎤 开不完的会</h2>
+    <p>请输入密码查看内容</p>
+    <input type="password" id="pwdInput" placeholder="输入密码" onkeydown="if(event.key==='Enter')unlock()">
+    <button onclick="unlock()">解锁查看</button>
+    <div class="lock-error" id="lockError">密码错误，请重试</div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent">
+  <div class="hero">
+    <h1>开不完的会</h1>
+    <div class="subtitle">一个打工人的黑色幽默</div>
+    <div class="meta">
+      <span>⏱️ 约6分钟</span>
+      <span>🎭 观察型 + 自嘲吐槽</span>
+      <span>🎤 脱口秀演讲稿</span>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- 人设 -->
+    <div class="section-label">人设定位</div>
+    <div class="script-block">
+      <p>一个月薪两万但靠两千块活着的底层打工人，白天开会被偷走时间，晚上加班赎回时间。</p>
+    </div>
+
+    <!-- 正文 -->
+    <div class="section-label">演讲稿正文</div>
+
+    <div class="script-block">
+      <p>大家好啊，我叫Vincent。我是一个互联网打工人，就是那种白天开会、晚上干活的标准社畜。</p>
+
+      <div class="stage-dir">[停]</div>
+
+      <p>很多人问我，打工人最痛苦的是什么？加班？甲方半夜改需求？都不是。是——<span class="punchline">会——开——</span>（一字一顿）。</p>
+
+      <p>不是那种真的有用的会。是你开完之后发现人生被偷走了一个小时，而且你完全不知道为什么的一个小时。</p>
+
+      <div class="stage-dir">[无奈脸]</div>
+
+      <p>我跟你们说，我现在每天早上打开日历的心情，就像开盲盒。你不知道今天会弹出几个会议邀请。有时候一天六个会——上午三个，下午三个，中间还要穿插一个"午餐对齐会"。</p>
+
+      <div class="stage-dir">[停]</div>
+
+      <p class="punchline">午餐对齐。我跟我的饭盒对齐，行不行？</p>
+
+      <p>我就在想一个问题，我今天到底什么时候工作呢？答案你们都知道：<span class="punchline">晚上九点以后</span>。</p>
+
+      <div class="stage-dir">[苦笑]</div>
+
+      <p>最怕的是那种会议标题——"关于XXX项目全局同步拉通对齐闭环会"。</p>
+
+      <div class="stage-dir">[模仿领导语气]</div>
+
+      <p>"Vincent，这个会跟你的业务多少有点关联，你来听听就行。"</p>
+
+      <p>听听就行。我一听，听了<span class="punchline">两个小时</span>。这两个小时里我全程只说了一句话：「我没有其他问题了。」</p>
+
+      <div class="stage-dir">[停，看观众]</div>
+
+      <p>这句话翻译过来就是：这屋里讨论的所有事情跟我的工作毫无关系，但我这两个小时已经回不来了。</p>
+
+      <p>你以为开会最花时间的是开会吗？天真。<span class="punchline">最花时间的是准备材料。</span></p>
+
+      <div class="stage-dir">[模仿领导语气]</div>
+
+      <p>"Vincent，明天的会你准备一下，大概十页PPT就行。把咱们上个季度的核心数据、竞品调研、优化方案、风险评估，还有后续的迭代规划，都梳理一下。"</p>
+
+      <div class="stage-dir">[停]</div>
+
+      <p>我一个基层员工哪来的核心数据？我的核心数据就是——<span class="punchline">这个季度我加了三十七天班</span>。你让我在PPT上写：「竞品分析：竞品下班了，我还没下。」</p>
+
+      <p>然后你花了三个小时做这十页PPT。第二天会上，领导翻了三秒钟。</p>
+
+      <div class="stage-dir">[模仿快速翻页动作]</div>
+
+      <p>「嗯，这部分先过。」</p>
+
+      <div class="stage-dir">[面无表情]</div>
+
+      <p><span class="punchline">过了。三个小时换三秒钟。</span>朋友们，这个投入产出比，比我在A股里还惨。我在股市亏钱起码还能学到教训，这个会开完我啥也没学到。</p>
+
+      <p>然后进入讨论环节。</p>
+
+      <p>一个真正意义上「精彩」的会议，讨论一定会跑偏。我给你们演一下标准剧本。</p>
+
+      <div class="stage-dir">[清嗓子，站直]</div>
+
+      <p>A同事：「我觉得这个方案的核心问题在于用户触达的颗粒度还不够精细。」</p>
+
+      <p>B同事：「对，我同意。而且不仅是触达，我觉得我们的整体用户画像都有点模糊。说到画像啊，我最近在关注年轻人的消费习惯，现在的00后都不刷短视频了你们知道吗，他们在玩一个叫——」</p>
+
+      <p>C同事：「哎对对对，我侄子就是00后，他们那一代人的思维方式跟我们完全不一样，你知道吗他要报志愿的时候——」</p>
+
+      <div class="stage-dir">[停，缓缓转向观众]</div>
+
+      <p class="punchline">四十五分钟之后，我们在讨论C同事侄子的高考志愿到底报计算机还是临床医学。</p>
+
+      <p>而那个「用户触达颗粒度不够精细」的问题，变成了会议纪要里的一行字：——</p>
+
+      <p class="punchline">「待进一步对齐。」</p>
+
+      <p>所有会议的结局都是一样的。真的，你可以拿这个去检验任何一个会。</p>
+
+      <div class="stage-dir">[停，端正站姿，模仿领导总结语气]</div>
+
+      <p>「好，今天非常有收获，大家碰撞出了很多火花。我简单总结三点：第一，方向是对的，继续推进；第二，相关方要进一步拉通，形成合力；第三，有些细节我们今天时间不够了，下次再深入。」</p>
+
+      <div class="stage-dir">[停，回到正常语气]</div>
+
+      <p>我帮你们翻译一下领导的话。第一条：什么都没定。第二条：锅已经分好了，每人一顶。<span class="punchline">第三条：这个会下次还要再开一次，朋友们。</span></p>
+
+      <div class="stage-dir">[咬牙切齿地笑]</div>
+
+      <p>你仔细观察一下，领导的一天跟员工的一天是完全不一样的。</p>
+
+      <p>领导：上午九点开会，十点开会，十一点开会，午饭跟别的领导开会，下午一点继续开会，五点半——<span class="punchline">准时下班</span>。</p>
+
+      <div class="stage-dir">[停]</div>
+
+      <p>准时下班哦。领导的KPI就是开会，他今天的任务圆满完成了。</p>
+
+      <p>我的一天：九点到十点开会，十点到十一点开会，十一点到十二点开会。下午两点接着开。终于到了六点，没有会了。可以开始工作了。</p>
+
+      <p class="punchline">开始——工作——了。</p>
+
+      <div class="stage-dir">[停顿，环视观众]</div>
+
+      <p>我算过一笔账。我一个月到手两万二，房贷五千，房租三千，给妈妈五千，还剩<span class="punchline">两千块生活费</span>。两千块，在这个城市活一个月，你算算一天能花多少。</p>
+
+      <p>但我有没有算过，我每个月在无意义的会议上浪费了多少个小时？</p>
+
+      <div class="stage-dir">[停]</div>
+
+      <p>没有。从来没有算过。因为这太可怕了。你会算你今天中午吃那顿饭花了十八块贵不贵，但你不会去算这场四个小时的会偷走了你人生的多少分之一。因为你已经——</p>
+
+      <div class="stage-dir">[停顿]</div>
+
+      <p class="punchline">习惯了。</p>
+
+      <div class="stage-dir">[轻声]</div>
+
+      <p>这大概就是打工人的黑色幽默：你心疼那两千块生活费，穿坏一双鞋都不舍得买新的。但你对被会议偷走的几百个小时毫不在意。因为你知道，在意也没用。</p>
+
+      <p>下次如果有人在面试的时候问我，你对这份工作有多投入？我会说——</p>
+
+      <div class="stage-dir">[站直，真诚]</div>
+
+      <p class="punchline">我都愿意用我的命来陪你们开会了。你说呢？</p>
+
+      <div class="stage-dir">[微笑，鞠躬]</div>
+    </div>
+
+    <!-- 使用的技巧 -->
+    <div class="section-label">🎭 使用的喜剧技巧</div>
+    <div class="script-block">
+      <div class="techniques-grid">
+        <div class="tech-card">
+          <div class="tech-name">🔄 反转/误导</div>
+          <div class="tech-desc">"听听就行" → 听了两小时</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">😂 自嘲</div>
+          <div class="tech-desc">社畜身份 + 财务压力 + 37天加班</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">3️⃣ 三段式</div>
+          <div class="tech-desc">领导总结三点：没定/分锅/再开一次</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">📈 夸张</div>
+          <div class="tech-desc">三小时PPT → 三秒钟翻过</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">⚖️ 对比</div>
+          <div class="tech-desc">领导准时下班 vs 员工六点开始工作</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">🔁 重复递进</div>
+          <div class="tech-desc">一天六个会，层层叠加时间表</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">🎬 模仿表演</div>
+          <div class="tech-desc">领导语气 / 同事发言跑偏</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">🔗 Call-back</div>
+          <div class="tech-desc">"两千块""加班"首尾呼应</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call-back 清单 -->
+    <div class="section-label">📌 Call-back 清单</div>
+    <div class="callback-section">
+      <h3>可在其他段子中呼应的梗</h3>
+      <div class="callback-item">
+        <span class="emoji">🔁</span>
+        <span><strong>「晚上九点以后」</strong>→ 开篇埋（没时间工作），结尾呼应（六点开始工作），面试call-back</span>
+      </div>
+      <div class="callback-item">
+        <span class="emoji">🔁</span>
+        <span><strong>「两千块生活费」</strong>→ 中段埋（财务压力），后段call-back（对比时间浪费）</span>
+      </div>
+      <div class="callback-item">
+        <span class="emoji">🔁</span>
+        <span><strong>「三十七天班」</strong>→ 中段自嘲埋，可与「两千块」形成数字联动</span>
+      </div>
+      <div class="callback-item">
+        <span class="emoji">🔁</span>
+        <span><strong>「饭盒对齐」</strong>→ 午餐会梗，后续可单独展开饮食吐槽段子</span>
+      </div>
+      <div class="callback-item">
+        <span class="emoji">🔁</span>
+        <span><strong>「待进一步对齐」</strong>→ 万能callback梗，任何会议段子都能用</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    🎤 演讲与脱口秀 · Vincent · 2026
+  </footer>
+</div>
+
+<script>
+const PWD_HASH = '95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function unlock() {
+  const hash = await sha256(document.getElementById('pwdInput').value);
+  if (hash === PWD_HASH) {
+    sessionStorage.setItem('auth', '1');
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  } else {
+    const err = document.getElementById('lockError');
+    err.style.display = 'block';
+    setTimeout(() => err.style.display = 'none', 2000);
+  }
+}
+
+// Auto-unlock if already authenticated
+if (sessionStorage.getItem('auth') === '1') {
+  document.getElementById('lockScreen').style.display = 'none';
+  document.getElementById('mainContent').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
