@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💍 求婚地点调研</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,sans-serif; background:#1a1a2e; color:#fff; display:flex;
+       justify-content:center; align-items:center; min-height:100vh; }
+#lock { text-align:center; }
+#lock h2 { font-size:20px; margin-bottom:20px; color:#a78bfa; }
+#pwdInput { padding:12px 20px; font-size:16px; border:2px solid #a78bfa; border-radius:8px;
+             background:#1a1a2e; color:#fff; width:200px; text-align:center; }
+#pwdInput:focus { outline:none; border-color:#7c3aed; }
+#unlockBtn { padding:12px 24px; font-size:16px; background:#7c3aed; color:#fff; border:none;
+              border-radius:8px; cursor:pointer; margin-top:12px; }
+#unlockBtn:hover { background:#6d28d9; }
+#error { color:#ef4444; font-size:14px; margin-top:12px; display:none; }
+.hint { color:#6b7280; font-size:13px; margin-top:16px; }
+</style>
+</head>
+<body>
+<div id="lock">
+<h2>🔒 请输入密码</h2>
+<input type="password" id="pwdInput" placeholder="密码" onkeypress="if(event.key==='Enter')unlock()">
+<br>
+<button id="unlockBtn" onclick="unlock()">进入</button>
+<div id="error">密码错误，请重试</div>
+<div class="hint">💡 提示：她的生日</div>
+</div>
+<div id="content" style="display:none"></div>
+<script>
+const PWD_HASH='95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56';
+async function sha256(s){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+async function unlock(){
+  const v=document.getElementById('pwdInput').value;
+  const h=await sha256(v);
+  if(h===PWD_HASH){
+    sessionStorage.setItem('unlocked','1');
+    document.getElementById('lock').style.display='none';
+    document.getElementById('content').style.display='block';
+    document.getElementById('content').innerHTML=DECODED;
+  }else{
+    document.getElementById('error').style.display='block';
+  }
+}
+if(sessionStorage.getItem('unlocked')==='1'){
+  document.getElementById('lock').style.display='none';
+  document.getElementById('content').style.display='block';
+  document.getElementById('content').innerHTML=DECODED;
+}
+const DECODED=`<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💍 高山草甸求婚地点调研报告 · 2026</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       background:#faf6f1; color:#1a1a1a; line-height:1.6; padding:20px; max-width:1200px; margin:0 auto; }
+h1 { font-size:28px; text-align:center; padding:30px 0 8px; color:#7c3aed; }
+.subtitle { text-align:center; color:#6b7280; font-size:14px; margin-bottom:30px; }
+h2 { font-size:22px; margin:30px 0 15px; color:#7c3aed; border-left:4px solid #7c3aed; padding-left:12px; }
+h3 { font-size:18px; margin:25px 0 12px; }
+.card { background:#fff; border-radius:12px; padding:20px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+.card-title { font-size:15px; font-weight:700; color:#7c3aed; margin-bottom:10px; }
+.info { background:#ede9fe; border-radius:8px; padding:12px 16px; margin:10px 0; font-size:14px; }
+.warn { background:#fef3c7; border-radius:8px; padding:12px 16px; margin:10px 0; font-size:14px; }
+.danger { background:#fee2e2; border-radius:8px; padding:12px 16px; margin:10px 0; font-size:14px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th { background:#f3f4f6; padding:8px 10px; text-align:left; font-weight:600; border-bottom:2px solid #e5e7eb; }
+td { padding:8px 10px; border-bottom:1px solid #f3f4f6; }
+.badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:12px; font-weight:600; }
+.bg { background:#dcfce7; color:#166534; }
+.by { background:#fef9c3; color:#854d0e; }
+.br { background:#fee2e2; color:#991b1b; }
+.num { display:inline-block; width:28px; height:28px; line-height:28px; text-align:center; border-radius:50%; font-size:14px; margin-right:4px; }
+.n1 { background:#fbbf24; color:#fff; } .n2 { background:#d1d5db; color:#fff; } .n3 { background:#fb923c; color:#fff; }
+.n4,.n5,.n6,.n7,.n8 { background:#a78bfa; color:#fff; }
+.star { color:#f59e0b; letter-spacing:-1px; }
+.img-grid { display:grid; gap:8px; margin:12px 0; }
+.img-grid img { width:100%; height:180px; object-fit:cover; border-radius:8px; display:block; }
+.link { color:#7c3aed; text-decoration:none; font-size:13px; word-break:break-all; }
+.link:hover { text-decoration:underline; }
+.score-row { display:flex; align-items:center; gap:8px; margin:6px 0; }
+.score-label { width:90px; font-size:13px; text-align:right; color:#4b5563; }
+.score-bar { flex:1; height:8px; background:#f3f4f6; border-radius:4px; overflow:hidden; }
+.score-fill { height:100%; background:linear-gradient(90deg,#a78bfa,#7c3aed); border-radius:4px; }
+.score-num { width:35px; font-size:13px; font-weight:600; color:#7c3aed; }
+.funnel-step { display:inline-block; background:#ede9fe; color:#7c3aed; padding:6px 14px; border-radius:20px; margin:4px; font-size:13px; }
+.funnel-arrow { display:inline-block; color:#a78bfa; font-size:18px; margin:0 4px; }
+.tag { display:inline-block; background:#7c3aed; color:#fff; padding:2px 10px; border-radius:12px; font-size:12px; margin-left:8px; }
+@media(max-width:768px) {
+  .img-grid { grid-template-columns:repeat(2,1fr) !important; }
+  .img-grid img { height:140px; }
+  body { padding:12px; }
+  h1 { font-size:22px; }
+}
+</style>
+</head>
+<body>
+<h1>💍 高山草甸求婚地点调研报告</h1>
+<div class="subtitle">距8/29求婚日还有 <b style="color:#7c3aed">77天</b> · 深圳出发 · 3天2晚 · 高山草甸 · i人友好<br>
+📕 小红书调研：23轮搜索 · 1,070条笔记 · 212张实景图片 · 32个地点筛选 → Top 8</div>
+
+<h2>一、你的核心需求</h2>
+<div class="card"><table>
+<tr><th>维度</th><th>要求</th></tr>
+<tr><td>🎯 场景</td><td><b>高山草甸</b>，地势略高，远景好看，画面只有两人</td></tr>
+<tr><td>🔒 隐私</td><td>画面无他人，i人友好</td></tr>
+<tr><td>📸 拍摄</td><td>相机后方全景拍摄（非自拍）</td></tr>
+<tr><td>📅 时间</td><td>8/29周六（巾巾生日），周五出发周日回</td></tr>
+<tr><td>💰 预算</td><td>¥8,000纯旅行（不含戒指）</td></tr>
+<tr><td>📍 范围</td><td>全国不限</td></tr>
+</table></div>
+
+<h2>二、筛选漏斗 — 从32到8</h2>
+<div class="card" style="text-align:center;padding:24px">
+<div class="funnel-step">🔍 全国32个高山草甸候选</div>
+<div class="funnel-arrow">→</div>
+<div class="funnel-step">✈️ 交通≤8h → 22个</div>
+<div class="funnel-arrow">→</div>
+<div class="funnel-step">🌿 确为草甸 → 18个</div>
+<div class="funnel-arrow">→</div>
+<div class="funnel-step">🌡️ 8月天气适宜 → 16个</div>
+<div class="funnel-arrow">→</div>
+<div class="funnel-step" style="background:#7c3aed;color:#fff">🏆 Top 8 深度分析</div>
+</div>
+<div class="card"><div class="card-title">❌ 被排除的地点（24个）</div><table><tr><th>地点</th><th>区域</th><th>排除原因</th><th>分类</th></tr><tr><td>赛里木湖/那拉提/夏塔</td><td>新疆</td><td>单程10-12h</td><td><span class="badge br">通超时</span></td></tr><tr><td>呼伦贝尔/锡林郭勒</td><td>内蒙古</td><td>单程>12h + 8月草黄</td><td><span class="badge br">通+季节</span></td></tr><tr><td>祁连山·卓尔山</td><td>青海/甘肃</td><td>单程10h</td><td><span class="badge br">通超时</span></td></tr><tr><td>神农架</td><td>湖北</td><td>森林为主非草甸</td><td><span class="badge br">景不符</span></td></tr><tr><td>九寨沟</td><td>四川</td><td>湖泊为主非草甸</td><td><span class="badge br">景不符</span></td></tr><tr><td>白马尖/马鬃岭</td><td>安徽</td><td>森林为主非草甸</td><td><span class="badge br">景不符</span></td></tr><tr><td>武功山</td><td>江西</td><td>草甸顶级但8月35°C+炎热</td><td><span class="badge br">气不适合</span></td></tr><tr><td>鸡笼顶</td><td>广东</td><td>8月35°C炎热 + 无雪山远景</td><td><span class="badge br">气+远景</span></td></tr><tr><td>猫儿山/圣堂山</td><td>广西</td><td>小众但8月雨季+交通不便</td><td><span class="badge br">气+交通</span></td></tr><tr><td>九顶山</td><td>四川</td><td>单程8h + 雨季 + 高反</td><td><span class="badge br">合不足</span></td></tr></table></div>
+<h2>三、Top 8 候选总览</h2>
+<div class="card"><table style="font-size:12px">
+<tr><th>#</th><th>目的地</th><th>特色</th><th>草甸</th><th>远景</th><th>交通</th><th>预算</th><th>天气</th><th>高反</th><th>隐私</th><th>总分</th></tr>
+<tr>
+    <td><span class="num n1">🥇</span></td>
+    <td><b>大理·洱海</b></td>
+    <td><span class="tag">综合最优</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td style="font-size:11px">¥5,300-8,300</td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td style="font-size:11px">⚠️</td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td><b style="color:#7c3aed">32/35</b></td>
+    </tr><tr>
+    <td><span class="num n2">🥈</span></td>
+    <td><b>丽江·玉龙雪山</b></td>
+    <td><span class="tag">雪山草甸</span></td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td style="font-size:11px">¥4,800-7,300</td>
+    <td><span class="star">⭐⭐⭐</span></td>
+    <td style="font-size:11px">⚠️</td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td><b style="color:#7c3aed">30/35</b></td>
+    </tr><tr>
+    <td><span class="num n3">🥉</span></td>
+    <td><b>贵州·乌蒙大草原</b></td>
+    <td><span class="tag">性价比王</span></td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐</span></td>
+    <td style="font-size:11px">¥3,000-4,100 🏆最低</td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td style="font-size:11px">⚠️</td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><b style="color:#7c3aed">28/35</b></td>
+    </tr><tr>
+    <td><span class="num n4">4️⃣</span></td>
+    <td><b>香格里拉·纳帕海</b></td>
+    <td><span class="tag">极致远景</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td style="font-size:11px">¥5,000-7,500</td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td style="font-size:11px">⚠️</td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><b style="color:#7c3aed">27/35</b></td>
+    </tr><tr>
+    <td><span class="num n5">5️⃣</span></td>
+    <td><b>关山草原</b></td>
+    <td><span class="tag">陕西秘境</span></td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐</span></td>
+    <td style="font-size:11px">¥4,000-6,000</td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td style="font-size:11px">⚠️</td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><b style="color:#7c3aed">26/35</b></td>
+    </tr><tr>
+    <td><span class="num n6">6️⃣</span></td>
+    <td><b>湘西·八面山</b></td>
+    <td><span class="tag">湖南小瑞士</span></td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐</span></td>
+    <td style="font-size:11px">¥2,500-4,500</td>
+    <td><span class="star">⭐⭐⭐</span></td>
+    <td style="font-size:11px">⚠️</td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><b style="color:#7c3aed">25/35</b></td>
+    </tr><tr>
+    <td><span class="num n7">7️⃣</span></td>
+    <td><b>四姑娘山</b></td>
+    <td><span class="tag">画面震撼</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐</span></td>
+    <td style="font-size:11px">¥4,750-6,900</td>
+    <td><span class="star">⭐⭐</span></td>
+    <td style="font-size:11px">⚠️</td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><b style="color:#7c3aed">24/35</b></td>
+    </tr><tr>
+    <td><span class="num n8">8️⃣</span></td>
+    <td><b>乌兰布统·坝上草原</b></td>
+    <td><span class="tag">北方草原</span></td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td><span class="star">⭐⭐</span></td>
+    <td style="font-size:11px">¥5,000-8,000</td>
+    <td><span class="star">⭐⭐⭐⭐</span></td>
+    <td style="font-size:11px">⚠️</td>
+    <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+    <td><b style="color:#7c3aed">24/35</b></td>
+    </tr></table></div><h2>四、逐地点深度分析</h2>
+<h3><span class="num n1">🥇</span> 大理·洱海 <span class="tag">综合最优</span></h3><div class="card"><div class="card-title">🌿 推荐草甸位置</div><p style="margin:6px 0">📍 <b>洱海公园大草坪</b></p><p style="margin:6px 0">📍 <b>才村码头湿地草坪</b></p><p style="margin:6px 0">📍 <b>云想山(海拔2100m)</b></p><p style="margin:6px 0">📍 <b>海舌公园</b></p><p style="color:#64748b;font-size:13px;margin-top:8px">面朝洱海背靠苍山，草坪开阔，日落金色光线绝美。生态廊道精华段游客少，走远可独享画面。</p></div><div class="card"><div class="card-title">📸 小红书实景照片</div><div class="img-grid" style="grid-template-columns:repeat(4,1fr)"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/298f12922593ca461b82c0940f990583/notes_pre_post/1040g3k03214aappd7o005pbdo0ofellpl3modqg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142208/4b19cbce99527fcc094dcb33a4851a46/spectrum/1040g34o320gll6h6mo805oh44jr41bk8s0hok5o!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142208/f31c79146d1657897cd39371cd1b2774/notes_pre_post/1040g3k831vk23isb2s705pm0o5dne6ufg7if6m8!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142208/62ab6149e54f54b3f1b7231be5639870/spectrum/1040g0k0321a55sshn0105pjekguhomgo3enputg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/c2bdc89a11cf6823dc63fbd368a8144d/notes_pre_post/1040g3k831lejodlqkq0047s6n41gglqne716l08!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/e24fed7975a6c4269e264d8c8e35888f/spectrum/1040g34o320sb14vnms105oh44jr41bk8fp0hi7g!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142208/663d1e37d36a35bfeb7b1801708f81ac/notes_pre_post/1040g3k031olvj6id6g0g4a5egum24cbjc5qojuo!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g34o317gtlfr10q0g5nebpkd089e66gpppo0?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=b71050ffab03287483713b64941b39cf&t=6a2eb5f4&origin=0" loading="lazy" onerror="this.style.display='none'"><div style="font-size:12px;color:#9ca3af;grid-column:1/-1;margin-top:4px">📷 共39张可选 · 来源：小红书搜索</div></div></div><div class="card"><div class="card-title">✈️ 交通 & 💰 预算</div><p style="font-size:13px;margin-bottom:8px">✈️ 深圳直飞大理2.5h，周五晚可达。往返¥3,000-4,000/2人</p><table><tr><th>项目</th><th>费用</th></tr><tr><td>✈️ 往返机票(2人)</td><td>¥3,000-4,000</td></tr><tr><td>🏨 住宿2晚</td><td>¥800-1,600</td></tr><tr><td>🌸 花束+布置</td><td>¥800-1,500</td></tr><tr><td>🍽️ 餐饮+交通</td><td>¥700-1,200</td></tr><tr style="font-weight:bold;color:#7c3aed"><td>📊 合计</td><td>¥5,300-8,300</td></tr></table></div><div class="card"><div class="card-title">🌤️ 天气 & 🏔️ 海拔</div><p style="font-size:13px;margin-bottom:8px">8月底18-25°C，雨季尾声(阵雨约30%)。早晚凉爽宜人。</p><div class="warn">海拔：2,000m 无高反</div></div><div class="card"><div class="card-title">🔒 隐私 / i人友好度</div><p style="font-size:13px">才村码头人流<主景区。云想山非主流。8月底暑假尾声游客锐减。</p><p style="margin-top:8px">评分：<span class="star">⭐⭐⭐⭐</span></p></div><div class="card"><div class="card-title">🔗 小红书原文</div><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/68c972dd000000000e00e3be">💍｜ 𝑰 𝒔𝒂𝒊𝒅 𝒚𝒆𝒔 在大理</a> ❤️58</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a1d4fd00000000038020fce">感谢信任🙏🏻我们只做大理本地求婚策划</a> ❤️5</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/69c0b99c000000002301db94">在大理拍了上百对求婚了</a> ❤️9</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a0746110000000010001c00">为了海利娅女神来一趟大理</a> ❤️177</p></div><div class="card"><div class="card-title">📊 多维评分</div><div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div style="text-align:right;color:#7c3aed;font-weight:bold;margin-top:8px">总分：32/35</div></div><div class="info" style="margin-bottom:20px">✅ 雨天B方案：古城/喜洲古镇/海景民宿室内</div>
+<h3><span class="num n2">🥈</span> 丽江·玉龙雪山 <span class="tag">雪山草甸</span></h3><div class="card"><div class="card-title">🌿 推荐草甸位置</div><p style="margin:6px 0">📍 <b>甘海子草甸</b></p><p style="margin:6px 0">📍 <b>蓝月谷湖畔草坪</b></p><p style="margin:6px 0">📍 <b>云杉坪高山草甸</b></p><p style="color:#64748b;font-size:13px;margin-top:8px">雪山脚草甸，极致震撼。蓝月谷湖水碧蓝+草甸+雪山三重背景，日落金山绝美。</p></div><div class="card"><div class="card-title">📸 小红书实景照片</div><div class="img-grid" style="grid-template-columns:repeat(4,1fr)"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/019686528e99e95af623e4bdaa3891ad/notes_pre_post/1040g3k031pkjtaej4s3g5n7hrcuk9ipc7jqce7o!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/68a7fd7ffdedd4920d9b126129068a4f/notes_pre_post/1040g3k03202h1p4q2g005pijf3cgueqcjfl6jn0!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/84fa9b2314aae9884368534e6fd49e9b/notes_pre_post/1040g3k831qeguiuc7ga05n9k9mk5ls4mqbut338!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/3891625321d7f431c3f6baa901c64be3/notes_pre_post/1040g3k831i4n7oac7akg5p5k0fa2k5f9mam18mg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/6d1217f355b052d02f33fdb19fe9461f/notes_pre_post/1040g3k031p82d5to2s0049vmn60u5bk53bdp4ko!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/bc5869f7692589b0fe1153a627f3d0a2/notes_pre_post/1040g3k831h5864q4jch0496ri7sl2rjqs64ms98!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/0589c92912cf87aa9ffd410a61719ab5/notes_pre_post/1040g3k031ilp4ehf144g4bq9k17evb7bq49sfm8!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/65bfdbf72273a40156b5527e87dc4f27/notes_pre_post/1040g3k031upl2ara3q1049v65fef7rj7hm74kkg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><div style="font-size:12px;color:#9ca3af;grid-column:1/-1;margin-top:4px">📷 共12张可选 · 来源：小红书搜索</div></div></div><div class="card"><div class="card-title">✈️ 交通 & 💰 预算</div><p style="font-size:13px;margin-bottom:8px">✈️ 深圳直飞丽江2.5h，机场到古城30min。往返¥3,000-4,000/2人</p><table><tr><th>项目</th><th>费用</th></tr><tr><td>✈️ 往返机票(2人)</td><td>¥3,000-4,000</td></tr><tr><td>🏨 住宿2晚</td><td>¥500-1,000</td></tr><tr><td>🌸 布置</td><td>¥800-1,500</td></tr><tr><td>🎫 门票+交通</td><td>¥500-800</td></tr><tr style="font-weight:bold;color:#7c3aed"><td>📊 合计</td><td>¥4,800-7,300</td></tr></table></div><div class="card"><div class="card-title">🌤️ 天气 & 🏔️ 海拔</div><p style="font-size:13px;margin-bottom:8px">8月底12-22°C，凉爽宜人。雨季偶有阵雨(约40%)。</p><div class="warn">海拔：2,400m 轻微高反风险</div></div><div class="card"><div class="card-title">🔒 隐私 / i人友好度</div><p style="font-size:13px">甘海子非主流路线人少。蓝月谷清晨游客少。</p><p style="margin-top:8px">评分：<span class="star">⭐⭐⭐⭐</span></p></div><div class="card"><div class="card-title">🔗 小红书原文</div><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/693b76cf000000001e0054ad">丽江婚纱照贵与便宜的区别：什么破照片敢2W？</a> ❤️272</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/690883960000000003023d36">再看一遍还是很幸福的丽江vlog🏔️Day2</a> ❤️139</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a2e8b76000000001700a4f2">丽江目的地婚礼</a> ❤️3</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/693a5f0e000000001e013e11">这就是丽江旅拍现状，没做好准备的别来！</a> ❤️8</p></div><div class="card"><div class="card-title">📊 多维评分</div><div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div style="text-align:right;color:#7c3aed;font-weight:bold;margin-top:8px">总分：30/35</div></div><div class="info" style="margin-bottom:20px">✅ 雨天B方案：古城/千古情演出/民宿</div>
+<h3><span class="num n3">🥉</span> 贵州·乌蒙大草原 <span class="tag">性价比王</span></h3><div class="card"><div class="card-title">🌿 推荐草甸位置</div><p style="margin:6px 0">📍 <b>百草坪(2800m)</b></p><p style="margin:6px 0">📍 <b>长海子高山湖</b></p><p style="margin:6px 0">📍 <b>观佛台日出云海</b></p><p style="margin:6px 0">📍 <b>故渊坪</b></p><p style="color:#64748b;font-size:13px;margin-top:8px">贵州最高草原，10万亩高山草甸，8月野花盛开。远景乌蒙山脉连绵，高山湖泊倒影。</p></div><div class="card"><div class="card-title">📸 小红书实景照片</div><div class="img-grid" style="grid-template-columns:repeat(4,1fr)"><div style="font-size:12px;color:#9ca3af;grid-column:1/-1;margin-top:4px">📷 共0张可选 · 来源：小红书搜索</div></div></div><div class="card"><div class="card-title">✈️ 交通 & 💰 预算</div><p style="font-size:13px;margin-bottom:8px">🚄 深圳北→贵阳北高铁4h ¥400/人 → 租车3h。单程约7h，3天可行</p><table><tr><th>项目</th><th>费用</th></tr><tr><td>🚄 往返高铁(2人)</td><td>¥1,600-1,800</td></tr><tr><td>🚗 租车2天</td><td>¥400-600</td></tr><tr><td>🏨 住宿2晚</td><td>¥400-700</td></tr><tr><td>🌸 布置</td><td>¥600-1,000</td></tr><tr style="font-weight:bold;color:#7c3aed"><td>📊 合计</td><td>¥3,000-4,100 🏆最低</td></tr></table></div><div class="card"><div class="card-title">🌤️ 天气 & 🏔️ 海拔</div><p style="font-size:13px;margin-bottom:8px">8月底15-25°C，凉爽。贵州比川西稳定，降雨约25%。</p><div class="warn">海拔：2,800m 轻微高反(多数人无感)</div></div><div class="card"><div class="card-title">🔒 隐私 / i人友好度</div><p style="font-size:13px">开发度低，非网红。百草坪巨大，走远完全没人。私密性满分。</p><p style="margin-top:8px">评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div><div class="card"><div class="card-title">🔗 小红书原文</div><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/696f8a130000000022020412">贵州冷门秘境🫀龙里大地之心</a> ❤️1326</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/66780d96000000001c0275b1">贵州旅游｜龙里油画大草原攻略</a> ❤️90</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/689dfa2e000000001c037982">贵州乌蒙🌿朋友圈问疯了，都以为我在新疆</a> ❤️17</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/667f8eba000000001d017620">小众景点-贵州毕节·阿西里西大草原</a> ❤️1126</p></div><div class="card"><div class="card-title">📊 多维评分</div><div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div style="text-align:right;color:#7c3aed;font-weight:bold;margin-top:8px">总分：28/35</div></div><div class="warn" style="margin-bottom:20px">⚠️ 雨天B方案有限：帐篷室内/盘州城区</div>
+<h3><span class="num n4">4️⃣</span> 香格里拉·纳帕海 <span class="tag">极致远景</span></h3><div class="card"><div class="card-title">🌿 推荐草甸位置</div><p style="margin:6px 0">📍 <b>纳帕海环湖草甸(3300m)</b></p><p style="margin:6px 0">📍 <b>石卡雪山蓝月山谷</b></p><p style="margin:6px 0">📍 <b>依拉草原</b></p><p style="color:#64748b;font-size:13px;margin-top:8px">纳帕海是季节性高山湖泊+草甸，8月水草丰美。远景石卡雪山+梅里雪山方向。</p></div><div class="card"><div class="card-title">📸 小红书实景照片</div><div class="img-grid" style="grid-template-columns:repeat(4,1fr)"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/2d921a24a85a4624d581888eebdc4d80/notes_pre_post/1040g3k8321ct03b07k705qefhf5skre6gegr570!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/e24fed7975a6c4269e264d8c8e35888f/spectrum/1040g34o320sb14vnms105oh44jr41bk8fp0hi7g!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/5062de4f0180b436c2bebbae38563856/notes_pre_post/1040g3k831tb6nf1cla905ohgl21k1bn8331t9j8!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/298f12922593ca461b82c0940f990583/notes_pre_post/1040g3k03214aappd7o005pbdo0ofellpl3modqg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/7993d605c73f43c76297bf909e8a7762/notes_pre_post/1040g3k031u1ss6206u004a5d9lqg24euln8imk0!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/3ecf1621c27478790ba5ab6a4451b66b/notes_pre_post/1040g3k831mgd96calia05ndgaevg83mbu9b4dd8!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/7f30c73eff52c1d4539668cdcc4730e1/notes_pre_post/1040g3k031u533vha2u1048nd25g14nuj686doco!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/a5faabd53a4bffa9907bd0562b4d67d8/notes_pre_post/1040g3k831f4a75n0mi9g5oth5hn9tdbudeogpjo!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><div style="font-size:12px;color:#9ca3af;grid-column:1/-1;margin-top:4px">📷 共15张可选 · 来源：小红书搜索</div></div></div><div class="card"><div class="card-title">✈️ 交通 & 💰 预算</div><p style="font-size:13px;margin-bottom:8px">✈️ 深圳直飞迪庆(香格里拉)3h。或丽江转大巴2h。往返¥3,500-5,000/2人</p><table><tr><th>项目</th><th>费用</th></tr><tr><td>✈️ 往返机票(2人)</td><td>¥3,500-5,000</td></tr><tr><td>🏨 住宿2晚</td><td>¥600-1,000</td></tr><tr><td>🌸 布置</td><td>¥800-1,500</td></tr><tr><td>🍽️ 餐饮+交通</td><td>¥600-1,000</td></tr><tr style="font-weight:bold;color:#7c3aed"><td>📊 合计</td><td>¥5,000-7,500</td></tr></table></div><div class="card"><div class="card-title">🌤️ 天气 & 🏔️ 海拔</div><p style="font-size:13px;margin-bottom:8px">8月底10-20°C，凉爽。雨季尾声，阵雨约30%。</p><div class="warn">海拔：3,300m 高反风险⚠️</div></div><div class="card"><div class="card-title">🔒 隐私 / i人友好度</div><p style="font-size:13px">纳帕海环湖路很多入口，非主景区段无人。</p><p style="margin-top:8px">评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div><div class="card"><div class="card-title">🔗 小红书原文</div><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a169be600000000370347e9">这里不是瑞士，是香格里拉的老药山！！！</a> ❤️449</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a2df66e00000000160279ec">香格里拉老药山雨季必看防蚂蝗&雨衣攻略✨</a> ❤️4</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a225c090000000007029f4c">香格里拉| 老药山徒步</a> ❤️23</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a2b6e13000000001702ad4e">51桂林至云南（昆明➕大理➕丽江➕香格</a> ❤️2</p></div><div class="card"><div class="card-title">📊 多维评分</div><div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div style="text-align:right;color:#7c3aed;font-weight:bold;margin-top:8px">总分：27/35</div></div><div class="info" style="margin-bottom:20px">✅ 雨天B方案：古城/松赞林寺/室内</div>
+<h3><span class="num n5">5️⃣</span> 关山草原 <span class="tag">陕西秘境</span></h3><div class="card"><div class="card-title">🌿 推荐草甸位置</div><p style="margin:6px 0">📍 <b>关山牧场核心区(2000m)</b></p><p style="margin:6px 0">📍 <b>秋菊草甸</b></p><p style="margin:6px 0">📍 <b>神龙峡谷</b></p><p style="color:#64748b;font-size:13px;margin-top:8px">陕西唯一高山草原，4月-10月绿草期。欧式田园风光，牛羊散布，小溪穿过。</p></div><div class="card"><div class="card-title">📸 小红书实景照片</div><div class="img-grid" style="grid-template-columns:repeat(4,1fr)"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/65df198fe7fb0d8b00ada6e0a8667890/notes_pre_post/1040g3k031olvj6id6g0g4a5egum24cbjc5qojuo!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g0k031fq9qkghnk005o68besg9acvnjjebb0?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=6aed8c7326c5b4b3bb78d4d3659a6ba8&t=6a2eb939&origin=0" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/98ce5454517c0023e6d11a8e3d3f1429/notes_pre_post/1040g3k0321c385vqne0g5od83ee40vc83ooctuo!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g0k031m5tdlehku005o68besg9acvgbkvt1g?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=0c2ea9c82d637da9a4e9e3a81ca73880&t=6a2eb93e&origin=0" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/e184ddc3436e262f6f0c5d091c25137b/notes_pre_post/1040g3k831kur7hn5j4704bb8jg4u8o47es95ag0!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/243709de83d8ad15e816cbdc6b6ec331/spectrum/1040g34o31d2q667v0e805pmt95i7cctmk3j49f0!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/206cbc8e36d8a918a017e7387ce093bd/notes_pre_post/1040g3k031kr4rc6uiu00499u8ll9bc8kcon0n6g!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/2cd005d2ce213aad541a8c8553f213d8/notes_pre_post/1040g3k8321b9s6g2no705pq1bmn7dlqvinaajc0!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><div style="font-size:12px;color:#9ca3af;grid-column:1/-1;margin-top:4px">📷 共18张可选 · 来源：小红书搜索</div></div></div><div class="card"><div class="card-title">✈️ 交通 & 💰 预算</div><p style="font-size:13px;margin-bottom:8px">✈️ 深圳飞西安2.5h → 自驾3h。单程约6-7h，3天可行</p><table><tr><th>项目</th><th>费用</th></tr><tr><td>✈️ 往返机票(2人)</td><td>¥2,400-3,000</td></tr><tr><td>🚗 租车2天</td><td>¥600-800</td></tr><tr><td>🏨 住宿2晚</td><td>¥600-1,000</td></tr><tr><td>🌸 布置+门票</td><td>¥600-1,200</td></tr><tr style="font-weight:bold;color:#7c3aed"><td>📊 合计</td><td>¥4,000-6,000</td></tr></table></div><div class="card"><div class="card-title">🌤️ 天气 & 🏔️ 海拔</div><p style="font-size:13px;margin-bottom:8px">8月底15-25°C，凉爽宜人。关山多雨雾(约35%)，但雨后云海绝美。</p><div class="warn">海拔：2,000m 无高反</div></div><div class="card"><div class="card-title">🔒 隐私 / i人友好度</div><p style="font-size:13px">景区面积大，非主流旅游地。核心区外围可独享。</p><p style="margin-top:8px">评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div><div class="card"><div class="card-title">🔗 小红书原文</div><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/68ad8148000000001b036d34">live）暴雨🌦后的关山草原美到封神！！！！！</a> ❤️302</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/66ed23e9000000001e01830d">假借拍婚纱照名义外出旅行——宝鸡关山草原</a> ❤️9</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a1b7345000000003502dd87">2026年5月30日陕西宝鸡陇关山草原实况</a> ❤️213</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6896b35400000000220211b6">别再被骗了🆘关山牧场真实体验大揭秘 ‼️</a> ❤️158</p></div><div class="card"><div class="card-title">📊 多维评分</div><div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div style="text-align:right;color:#7c3aed;font-weight:bold;margin-top:8px">总分：26/35</div></div><div class="warn" style="margin-bottom:20px">⚠️ 雨天B方案有限：县城/室内</div>
+<h3><span class="num n6">6️⃣</span> 湘西·八面山 <span class="tag">湖南小瑞士</span></h3><div class="card"><div class="card-title">🌿 推荐草甸位置</div><p style="margin:6px 0">📍 <b>八面山山顶草甸(1340m)</b></p><p style="margin:6px 0">📍 <b>空中草原</b></p><p style="margin:6px 0">📍 <b>日出观景台</b></p><p style="color:#64748b;font-size:13px;margin-top:8px">山顶平台草甸，被誉为'南方空中草原'。《海蒂和爷爷》同款山坡。日出云海绝佳。</p></div><div class="card"><div class="card-title">📸 小红书实景照片</div><div class="img-grid" style="grid-template-columns:repeat(4,1fr)"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/9f1db273839f1a87e8b8a02efaccde50/notes_pre_post/1040g3k831ho2vehd3sd05of4r03k1boiokucgig!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/678cb5834b4bc0ed2df76c00888c0887/spectrum/1040g34o316n9ip02jk0g4013a41g1vktbdbrcfg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-na-i11.xhscdn.com/notes_pre_post/1040g3k031ja4okh22o505osj1f1picg0q69dh0o?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=97736c31e34f39aeea17d3b7ff4f6b7f&t=6a2eb908&origin=0" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g34o316n9ip02jk0g4013a41g1vktbdbrcfg?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=87573a8cca8186af076c1ae3c0629621&t=6a2eb90e&origin=0" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/1dcbbc75fafba1d190eb02abc16b709c/notes_pre_post/1040g3k031vlkru7sia005odqv63oc6eopm6d898!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/612c7d27035fee706b2aa4f0d3832fe6/spectrum/1040g34o320pfdf7tlce05o7ri75g84pult3tg3o!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/566015b0e67acd2f4e23f1561fd3979b/notes_pre_post/1040g3k831fic429d0c505o59sv20br1sjm412vg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g0k031c1bk8f60e3g5nrrsvhgbpv7il4vgp8?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=c5ee40181f6443fa924e03281d975ea0&t=6a2eb90e&origin=0" loading="lazy" onerror="this.style.display='none'"><div style="font-size:12px;color:#9ca3af;grid-column:1/-1;margin-top:4px">📷 共33张可选 · 来源：小红书搜索</div></div></div><div class="card"><div class="card-title">✈️ 交通 & 💰 预算</div><p style="font-size:13px;margin-bottom:8px">✈️ 深圳飞张家界2h → 自驾2h到龙山。或高铁到怀化转车。单程约6-7h</p><table><tr><th>项目</th><th>费用</th></tr><tr><td>✈️/🚄 往返(2人)</td><td>¥2,000-3,000</td></tr><tr><td>🚗 租车/包车</td><td>¥400-600</td></tr><tr><td>🏨 住宿2晚</td><td>¥400-800</td></tr><tr><td>🌸 布置</td><td>¥500-1,000</td></tr><tr style="font-weight:bold;color:#7c3aed"><td>📊 合计</td><td>¥2,500-4,500</td></tr></table></div><div class="card"><div class="card-title">🌤️ 天气 & 🏔️ 海拔</div><p style="font-size:13px;margin-bottom:8px">8月底20-28°C，山区凉爽。湖南8月仍有高温，山顶比山下低5°C。</p><div class="warn">海拔：1,340m 无高反</div></div><div class="card"><div class="card-title">🔒 隐私 / i人友好度</div><p style="font-size:13px">开发度极低，游客稀少。山顶草甸广阔，开车直达。</p><p style="margin-top:8px">评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div><div class="card"><div class="card-title">🔗 小红书原文</div><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/66c1848e000000001e01eac0">湘西阿勒泰！八面山</a> ❤️41</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/66aa2ef30000000027010022">🍃北京出发：绝美小众避暑胜地-湘西八面山</a> ❤️40</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/69e70a9f0000000023021ad9">免费！湘西八面山｜南方人必去的空中草原✨</a> ❤️5</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a1a68dc0000000007028a3d">湘西八面山，云端草原，日出云海，自驾登顶</a> ❤️6</p></div><div class="card"><div class="card-title">📊 多维评分</div><div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div style="text-align:right;color:#7c3aed;font-weight:bold;margin-top:8px">总分：25/35</div></div><div class="warn" style="margin-bottom:20px">⚠️ 雨天B方案有限：县城/帐篷室内</div>
+<h3><span class="num n7">7️⃣</span> 四姑娘山 <span class="tag">画面震撼</span></h3><div class="card"><div class="card-title">🌿 推荐草甸位置</div><p style="margin:6px 0">📍 <b>双桥沟·人参果坪(3500m)</b></p><p style="margin:6px 0">📍 <b>长坪沟·枯树滩</b></p><p style="margin:6px 0">📍 <b>猫鼻梁观景台</b></p><p style="color:#64748b;font-size:13px;margin-top:8px">幺妹峰背景大草甸，8月野花盛开。主峰正对面草地+雪山+溪流同框。画面最震撼。</p></div><div class="card"><div class="card-title">📸 小红书实景照片</div><div class="img-grid" style="grid-template-columns:repeat(4,1fr)"><img src="https://sns-na-i11.xhscdn.com/notes_pre_post/1040g3k831idsip4inm705q0a5p2m4mdmphe9lb0?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=83ac2478a1c188cab520c2a032fad8c2&t=6a2eb617&origin=0" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/7b937c199dd95115fb5e5e5b19a39e5a/spectrum/1040g34o31sjhh4n35c405n9dk0ok6ct5941515g!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/1d7aa3141eb91c347513ed4f9b410aff/notes_pre_post/1040g3k0320bimt1368005o4s4ld0bqlhtavh3tg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/46dc2221062ace699ac4bf0f9c108c4e/notes_pre_post/1040g3k831kij8qdmj6705n9sqmo4mog33e06h18!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/989b9de657d1ae2e63ba329ab7173b41/notes_pre_post/1040g3k031o266f714u6g4a40k2g938pkt71icno!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/b124a4f1d8dc7409161cb850ba247c6b/notes_pre_post/1040g3k031nhkbje25i5g48fa6qr7h39e189t7so!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/52446c3a8a76bb5f392cc67406a81a7f/notes_pre_post/1040g3k831qpujv8u74e05o2ohel0927uuv82k7g!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/727d4358ebc6c2874dfc56a0bfad84c9/notes_pre_post/1040g3k031ma082r4lm104a7m7naq0q4seu156f0!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><div style="font-size:12px;color:#9ca3af;grid-column:1/-1;margin-top:4px">📷 共20张可选 · 来源：小红书搜索</div></div></div><div class="card"><div class="card-title">✈️ 交通 & 💰 预算</div><p style="font-size:13px;margin-bottom:8px">✈️ 深圳飞成都2.5h → 自驾4h。单程7h+，周五晚需住成都。实际游玩仅1.5天</p><table><tr><th>项目</th><th>费用</th></tr><tr><td>✈️ 往返机票(2人)</td><td>¥2,400-3,000</td></tr><tr><td>🚗 租车2天</td><td>¥600-800</td></tr><tr><td>🏨 住宿3晚</td><td>¥650-1,200</td></tr><tr><td>🌸 布置+门票</td><td>¥1,100-1,900</td></tr><tr style="font-weight:bold;color:#7c3aed"><td>📊 合计</td><td>¥4,750-6,900</td></tr></table></div><div class="card"><div class="card-title">🌤️ 天气 & 🏔️ 海拔</div><p style="font-size:13px;margin-bottom:8px">8月底10-22°C，川西雨季(降雨50%+)！温差大。海拔3000m+高反。</p><div class="danger">海拔：3,500m 高反风险高⚠️</div></div><div class="card"><div class="card-title">🔒 隐私 / i人友好度</div><p style="font-size:13px">双桥沟站点分散。长坪沟需徒步游客少。私密性优秀。</p><p style="margin-top:8px">评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div><div class="card"><div class="card-title">🔗 小红书原文</div><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/665ea1a80000000006005898">暂停上学🎒｜在四姑娘山被求个婚</a> ❤️149</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/66b30f9700000000050380f2">在四姑娘山下 草甸之上💍</a> ❤️7</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/671e342e000000001b01090c">在四姑娘山我被求婚啦</a> ❤️14</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/684be29100000000120022c7">是我喜欢的雪山求婚❤️四姑娘山⛰️</a> ❤️71</p></div><div class="card"><div class="card-title">📊 多维评分</div><div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:40%"></div></div><span class="score-num">2/5</span></div><div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:40%"></div></div><span class="score-num">2/5</span></div><div style="text-align:right;color:#7c3aed;font-weight:bold;margin-top:8px">总分：24/35</div></div><div class="danger" style="margin-bottom:20px">❌ 雨天几乎无B方案</div>
+<h3><span class="num n8">8️⃣</span> 乌兰布统·坝上草原 <span class="tag">北方草原</span></h3><div class="card"><div class="card-title">🌿 推荐草甸位置</div><p style="margin:6px 0">📍 <b>乌兰布统草原核心区</b></p><p style="margin:6px 0">📍 <b>将军泡子</b></p><p style="margin:6px 0">📍 <b>公主湖草甸</b></p><p style="color:#64748b;font-size:13px;margin-top:8px">欧式草原风光，8月底开始进入金秋。丘陵起伏+白桦林+湖泊。宫崎骏天空既视感。</p></div><div class="card"><div class="card-title">📸 小红书实景照片</div><div class="img-grid" style="grid-template-columns:repeat(4,1fr)"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/f1006c9164e0bf13495765d696cf512a/notes_pre_post/1040g3k831justfdtiad04a5fjl6qqnsd7hatotg!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g0k031foqe856gc005pj8ug20ubuts29h0pg?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=52de0baba9f7161617a34bcbb4de4e46&t=6a2eb926&origin=0" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/7d880eb1c52fbb34496150a5ee8c9a30/notes_pre_post/1040g3k0321bnvoncn24g5qg4ltr0g600purve68!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g34o31k416dsc36805olpimi6o690pjar9k8?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=d7577a5fc9b6b3bb609aa6a9f08e74c3&t=6a2eb926&origin=0" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/a2404c66e6c36f0d2d5bbb83eb249b18/notes_pre_post/1040g3k831iv16p8b1ieg49nr73r0gdlt1n117p0!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/a3a1cafcbf57096931516a81fae5a1da/spectrum/1040g34o31jqt9ujmig305nvcf05gbv21a442odo!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/70ea28e97b2c428efab3e8aea0639a55/notes_pre_post/1040g3k0320tc7hbe7k0g5q48h6ea6gkm50c0qe8!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/def2063b534b5900763d0035372ecd07/notes_pre_post/1040g3k831iiuefdrg8s05p5bieck81f6g2jacho!nc_n_webp_mw_1" loading="lazy" onerror="this.style.display='none'"><div style="font-size:12px;color:#9ca3af;grid-column:1/-1;margin-top:4px">📷 共30张可选 · 来源：小红书搜索</div></div></div><div class="card"><div class="card-title">✈️ 交通 & 💰 预算</div><p style="font-size:13px;margin-bottom:8px">✈️ 深圳飞北京3.5h → 自驾4h。单程8h，3天勉强可行</p><table><tr><th>项目</th><th>费用</th></tr><tr><td>✈️ 往返机票(2人)</td><td>¥3,200-4,000</td></tr><tr><td>🚗 租车2天</td><td>¥600-800</td></tr><tr><td>🏨 住宿2晚</td><td>¥600-1,200</td></tr><tr><td>🌸 布置</td><td>¥800-1,500</td></tr><tr><td>🎫 门票</td><td>¥200-400</td></tr><tr style="font-weight:bold;color:#7c3aed"><td>📊 合计</td><td>¥5,000-8,000</td></tr></table></div><div class="card"><div class="card-title">🌤️ 天气 & 🏔️ 海拔</div><p style="font-size:13px;margin-bottom:8px">8月底15-25°C，凉爽。8月下旬草原开始转金色，9月最美。降雨低。</p><div class="warn">海拔：1,500m 无高反</div></div><div class="card"><div class="card-title">🔒 隐私 / i人友好度</div><p style="font-size:13px">草原面积巨大，非主景区段完全无人。日出时分最佳。</p><p style="margin-top:8px">评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div><div class="card"><div class="card-title">🔗 小红书原文</div><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6830028e0000000022026012">在乌兰察布 我看到了宫崎骏的天空</a> ❤️913</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/68844dfe0000000017037f27">北京出发｜乌兰布统塞罕坝周末两日游攻略</a> ❤️406</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/667541e3000000001f006f9f">乌兰布统 新疆平替～北京出发周末游</a> ❤️2264</p><p style="font-size:13px;margin:4px 0">📕 <a class="link" href="https://www.xiaohongshu.com/explore/6a28a47800000000220141e1">乌兰布统夯</a> ❤️11</p></div><div class="card"><div class="card-title">📊 多维评分</div><div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div><div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:40%"></div></div><span class="score-num">2/5</span></div><div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div><div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div><div style="text-align:right;color:#7c3aed;font-weight:bold;margin-top:8px">总分：24/35</div></div><div class="info" style="margin-bottom:20px">✅ 雨天B方案：室内/古北水镇</div>
+<h2>五、多维度对比矩阵</h2>
+<div class="card"><table style="font-size:11px">
+<tr><th>维度</th><th>大理</th><th>丽江</th><th>乌蒙</th><th>香格</th><th>关山</th><th>八面山</th><th>四姑娘</th><th>乌兰布统</th></tr>
+<tr><td>🌿 草甸</td><td>⭐5</td><td>⭐4</td><td>⭐4</td><td>⭐5</td><td>⭐4</td><td>⭐4</td><td>⭐5</td><td>⭐4</td></tr>
+<tr><td>🏔️ 远景</td><td>⭐5</td><td>⭐5</td><td>⭐3</td><td>⭐5</td><td>⭐3</td><td>⭐3</td><td>⭐5</td><td>⭐4</td></tr>
+<tr><td>🔒 隐私</td><td>⭐4</td><td>⭐4</td><td>⭐5</td><td>⭐5</td><td>⭐5</td><td>⭐5</td><td>⭐5</td><td>⭐5</td></tr>
+<tr><td>✈️ 交通</td><td>⭐5</td><td>⭐5</td><td>⭐3</td><td>⭐4</td><td>⭐3</td><td>⭐3</td><td>⭐2</td><td>⭐2</td></tr>
+<tr><td>💰 预算</td><td>5-8k</td><td>5-7k</td><td><b>3-4k🏆</b></td><td>5-8k</td><td>4-6k</td><td><b>3-5k</b></td><td>5-7k</td><td>5-8k</td></tr>
+<tr><td>🌡️ 天气</td><td>⭐4</td><td>⭐3</td><td><b>⭐5🏆</b></td><td>⭐4</td><td>⭐4</td><td>⭐3</td><td>⭐2</td><td>⭐4</td></tr>
+<tr><td>🏔️ 高反</td><td>✅无</td><td>轻微</td><td>轻微</td><td><b>⚠️高</b></td><td>✅无</td><td>✅无</td><td><b>⚠️高</b></td><td>✅无</td></tr>
+<tr><td>🌧️ 雨天B案</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td></tr>
+</table></div>
+
+<h2>六、决策建议</h2>
+<div class="card" style="border-left:4px solid #7c3aed">
+<p style="font-size:15px;font-weight:700;color:#7c3aed;margin-bottom:12px">🏆 三种策略推荐：</p>
+<table><tr><th>策略</th><th>推荐</th><th>理由</th><th>预算</th></tr>
+<tr><td><span class="badge bg">🥇最均衡</span></td><td><b>大理·洱海</b></td><td>直飞2.5h，苍山洱海+草坪，天气稳定不赌高反，雨天有B方案</td><td>¥5.3-8.3k</td></tr>
+<tr><td><span class="badge by">💰最性价比</span></td><td><b>乌蒙大草原</b></td><td>预算最低¥3-4k，私密满分，天气最稳定。远景是山脉非雪山</td><td>¥3.0-4.1k</td></tr>
+<tr><td><span class="badge by">🏔️最震撼</span></td><td><b>香格里拉·纳帕海</b></td><td>梅里雪山+纳帕海草甸，画面顶级。海拔3300m高反需注意</td><td>¥5.0-7.5k</td></tr>
+<tr><td><span class="badge bg">🤫最小众</span></td><td><b>八面山/关山草原</b></td><td>开发度极低，游客稀少，开车直达山顶。预算友好</td><td>¥2.5-6k</td></tr>
+</table>
+</div>
+
+<div class="info" style="margin-top:16px">
+<b>📌 关键策略提醒：</b><br>
+1. 等巾巾7月定了旅游目的地后排除该地，再从Top 8中锁定<br>
+2. 7/15前订机票/住宿（8月底暑假尾声仍有涨价风险）<br>
+3. 如选高海拔（香格/四姑娘），提前一周吃红景天<br>
+4. 求婚黄金时段：日落前1h（约17:00-18:00），光线最美
+</div>
+
+<div style="text-align:center;margin:30px 0;padding:20px;background:#ede9fe;border-radius:12px">
+<p style="font-size:13px;color:#6b7280">
+📕 数据来源：小红书搜索（23轮关键词，1,070条笔记，212张实景图片）<br>
+📅 调研日期：2026-06-14 · 距求婚日77天<br>
+⚠️ 预算为估算，实际以预订时为准 · 信息标注来源<br>
+📷 图片来源：小红书笔记实拍截图，版权归原作者所有
+</p>
+</div>
+</body></html>`;
+</script>
+</body>
+</html>
