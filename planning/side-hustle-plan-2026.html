@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💼 Vincent 副业增收计划 2026</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --radius: 16px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* === Password Lock === */
+#lockScreen {
+  position: fixed; inset: 0; z-index: 999;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+  display: flex; align-items: center; justify-content: center;
+}
+.lock-box {
+  background: rgba(255,255,255,0.95);
+  border-radius: 24px; padding: 40px 36px; text-align: center;
+  max-width: 360px; width: 90%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.lock-box h2 { font-size: 1.3rem; margin-bottom: 8px; }
+.lock-box p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px; }
+.lock-input {
+  width: 100%; padding: 12px 16px; border: 2px solid var(--border);
+  border-radius: 12px; font-size: 1rem; text-align: center; outline: none;
+  transition: border 0.2s;
+}
+.lock-input:focus { border-color: var(--primary); }
+.lock-btn {
+  width: 100%; margin-top: 14px; padding: 12px;
+  background: var(--primary); color: #fff; border: none;
+  border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer;
+  transition: background 0.2s;
+}
+.lock-btn:hover { background: #5558e0; }
+.lock-error { color: var(--red); font-size: 0.85rem; margin-top: 10px; display: none; }
+
+/* === Content === */
+.content { display: none; max-width: 800px; margin: 0 auto; padding: 24px 20px 60px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+  border-radius: var(--radius); padding: 48px 32px; text-align: center;
+  color: #fff; margin-bottom: 28px;
+}
+.hero h1 { font-size: 1.8rem; margin-bottom: 12px; }
+.hero p { font-size: 0.95rem; opacity: 0.9; max-width: 500px; margin: 0 auto; }
+.hero .tags { margin-top: 16px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.hero-tag {
+  background: rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px;
+  font-size: 0.8rem; backdrop-filter: blur(4px);
+}
+
+/* Section */
+.section { margin-bottom: 32px; }
+.section-title {
+  font-size: 1.3rem; font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Moat Card */
+.moat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 24px; margin-bottom: 16px;
+  position: relative; overflow: hidden;
+}
+.moat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+.moat-card h3 { font-size: 1.05rem; margin-bottom: 10px; }
+.moat-formula {
+  background: #f1f5f9; border-radius: 12px; padding: 16px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem;
+  color: var(--primary); margin: 12px 0; line-height: 1.9;
+}
+
+/* Skill Matrix */
+.skill-table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: #f1f5f9; font-weight: 600; white-space: nowrap; }
+td { color: var(--text); }
+tr:hover td { background: #f8fafc; }
+
+/* Path Cards */
+.path-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; margin-bottom: 16px;
+  transition: box-shadow 0.2s;
+}
+.path-card:hover { box-shadow: 0 4px 20px rgba(99,102,241,0.1); }
+.path-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+}
+.path-rank {
+  font-size: 1.5rem; width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.rank-gold { background: #fef3c7; }
+.rank-silver { background: #f1f5f9; }
+.rank-bronze { background: #fed7aa; }
+.rank-normal { background: #e0e7ff; }
+.path-title { font-size: 1.1rem; font-weight: 700; flex: 1; }
+.path-badge {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 600;
+}
+.badge-hot { background: #fee2e2; color: #dc2626; }
+.badge-blue { background: #dbeafe; color: #2563eb; }
+.badge-green { background: #d1fae5; color: #059669; }
+.badge-purple { background: #ede9fe; color: #7c3aed; }
+
+.path-income {
+  display: flex; gap: 16px; flex-wrap: wrap; margin: 12px 0;
+  padding: 12px 16px; background: #f8fafc; border-radius: 12px;
+}
+.income-item { flex: 1; min-width: 120px; }
+.income-item .label { font-size: 0.75rem; color: var(--text-light); }
+.income-item .value { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+.income-item .value.green { color: var(--green); }
+
+.path-detail { font-size: 0.9rem; color: var(--text); }
+.path-detail p { margin-bottom: 8px; }
+.path-detail strong { color: var(--text); }
+.path-detail .label-inline { font-weight: 600; color: var(--primary); }
+
+/* Strategy Flow */
+.strategy-flow {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; margin-bottom: 16px;
+}
+.flow-item {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.flow-item:last-child { border-bottom: none; }
+.flow-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  margin-top: 8px;
+}
+.dot-main { background: var(--primary); }
+.dot-fast { background: var(--green); }
+.dot-long { background: var(--amber); }
+.dot-strategic { background: #7c3aed; }
+.flow-content .flow-label { font-weight: 600; }
+.flow-content .flow-desc { font-size: 0.85rem; color: var(--text-light); }
+
+/* Timeline */
+.timeline {
+  position: relative; padding-left: 24px;
+}
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-item::before {
+  content: ''; position: absolute; left: -20px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--primary); border: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.tl-time { font-size: 0.8rem; color: var(--primary); font-weight: 600; }
+.tl-title { font-weight: 600; margin: 4px 0; }
+.tl-desc { font-size: 0.85rem; color: var(--text-light); }
+
+/* Action Cards */
+.action-card {
+  background: var(--card); border-left: 4px solid var(--primary);
+  border-radius: 0 12px 12px 0; padding: 16px 20px; margin-bottom: 12px;
+}
+.action-card h4 { font-size: 0.95rem; margin-bottom: 6px; }
+.action-card .time { font-size: 0.75rem; color: var(--text-light); }
+.action-card p { font-size: 0.85rem; }
+
+/* Company Path */
+.company-roadmap {
+  background: linear-gradient(135deg, #f8fafc, #eef2ff);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px 24px; margin-bottom: 16px;
+}
+.roadmap-step {
+  padding: 16px 0; border-bottom: 1px dashed var(--border);
+}
+.roadmap-step:last-child { border-bottom: none; }
+.roadmap-phase {
+  display: inline-block; padding: 2px 10px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 600; margin-bottom: 6px;
+}
+
+/* Risks */
+.risk-grid { display: grid; gap: 10px; }
+.risk-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.risk-icon { font-size: 1.2rem; flex-shrink: 0; }
+.risk-text { flex: 1; font-size: 0.85rem; }
+.risk-text strong { display: block; margin-bottom: 2px; }
+
+/* Platform Grid */
+.platform-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px; margin-top: 12px;
+}
+.platform-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 14px; text-align: center;
+}
+.platform-card .name { font-weight: 600; font-size: 0.9rem; }
+.platform-card .desc { font-size: 0.75rem; color: var(--text-light); margin-top: 4px; }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 32px 0; font-size: 0.8rem; color: var(--text-light);
+}
+
+/* Comparison Table */
+.compare-table th { background: var(--primary); color: #fff; }
+.compare-table td:first-child { font-weight: 600; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero { padding: 32px 20px; }
+  .hero h1 { font-size: 1.4rem; }
+  .content { padding: 16px 12px 40px; }
+  .path-income { flex-direction: column; gap: 8px; }
+  .platform-grid { grid-template-columns: 1fr 1fr; }
+  table { font-size: 0.78rem; }
+  th, td { padding: 8px 6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Password Lock -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <h2>💼 副业计划</h2>
+    <p>输入密码查看</p>
+    <input type="password" class="lock-input" id="pwdInput" placeholder="密码" onkeypress="if(event.key==='Enter')unlock()">
+    <button class="lock-btn" onclick="unlock()">解锁</button>
+    <div class="lock-error" id="lockError">密码错误，请重试</div>
+  </div>
+</div>
+
+<script>
+const PWD_HASH = '95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56';
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+async function unlock() {
+  const input = document.getElementById('pwdInput').value;
+  const hash = await sha256(input);
+  if (hash === PWD_HASH) {
+    sessionStorage.setItem('unlocked', '1');
+    document.getElementById('lockScreen').style.display = 'none';
+    document.querySelector('.content').style.display = 'block';
+  } else {
+    document.getElementById('lockError').style.display = 'block';
+  }
+}
+if (sessionStorage.getItem('unlocked') === '1') {
+  document.getElementById('lockScreen').style.display = 'none';
+  document.querySelector('.content').style.display = 'block';
+}
+</script>
+
+<!-- Content -->
+<div class="content">
+
+<!-- Hero -->
+<div class="hero">
+  <h1>💼 Vincent 副业增收计划 2026</h1>
+  <p>从月入¥22k到一人公司：基于AI技能树的系统化变现路径</p>
+  <div class="tags">
+    <span class="hero-tag">🎯 边赚边成长</span>
+    <span class="hero-tag">🚀 为创业铺路</span>
+    <span class="hero-tag">🤖 AI赛道</span>
+  </div>
+</div>
+
+<!-- Core Moat -->
+<div class="section">
+  <div class="section-title">🛡️ 你的核心护城河</div>
+  <div class="moat-card">
+    <h3>多数开发者只会写脚本，少数懂AI，极少数两者都会还能对接企业系统</h3>
+    <div class="moat-formula">
+      AI Agent开发 + 浏览器自动化 + 企业API对接 + 华为背景<br>
+      = 「端到端企业AI自动化解决方案」<br>
+      <span style="color:var(--green)">↑ 这个交集就是你的定价权</span>
+    </div>
+  </div>
+</div>
+
+<!-- Skill Matrix -->
+<div class="section">
+  <div class="section-title">📊 技能变现矩阵</div>
+  <div class="skill-table-wrap">
+    <table>
+      <thead>
+        <tr><th>技能</th><th>市场需求</th><th>时薪预估</th><th>起步周期</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🤖 AI Agent开发</td><td>🔥 极高</td><td>¥300-800/h</td><td>2-4周</td></tr>
+        <tr><td>🐍 Python脚本自动化</td><td>高</td><td>¥150-400/h</td><td>1-2周</td></tr>
+        <tr><td>🌐 浏览器自动化/RPA</td><td>中高</td><td>¥200-500/h</td><td>2-3周</td></tr>
+        <tr><td>🔌 API测试/评审</td><td>中</td><td>¥200-400/h</td><td>1周</td></tr>
+        <tr><td>🎓 AI工具培训/咨询</td><td>中高</td><td>¥500-1500/h</td><td>4-8周</td></tr>
+        <tr><td>✍️ 技术写作/教程</td><td>中</td><td>¥100-500/h</td><td>4-12周</td></tr>
+        <tr><td>⚙️ IDE工具定制</td><td>中</td><td>¥300-600/h</td><td>4-8周</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Competitive Edge -->
+<div class="section">
+  <div class="section-title">🏆 与竞品对比</div>
+  <div class="skill-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr><th>维度</th><th>Vincent</th><th>普通Python开发者</th><th>AI算法工程师</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>AI Agent开发</td><td style="color:var(--green)">✅ 实战(Hermes)</td><td>❌ 不会</td><td>✅ 偏模型</td></tr>
+        <tr><td>浏览器自动化</td><td style="color:var(--green)">✅ CDP/反爬</td><td>❌ 不会</td><td>❌ 不会</td></tr>
+        <tr><td>企业API对接</td><td style="color:var(--green)">✅ 日常工作</td><td>⚠️ 部分</td><td>❌ 不会</td></tr>
+        <tr><td>全栈交付</td><td style="color:var(--green)">✅ 脚本到部署</td><td>⚠️ 偏后端</td><td>❌ 偏算法</td></tr>
+        <tr><td>企业沟通</td><td style="color:var(--green)">✅ 华为甲方视角</td><td>⚠️ 不确定</td><td>❌ 偏学术</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Path Cards -->
+<div class="section">
+  <div class="section-title">🛤️ 六条副业路径</div>
+
+  <!-- Path 1 -->
+  <div class="path-card">
+    <div class="path-header">
+      <div class="path-rank rank-gold">🥇</div>
+      <div class="path-title">AI Agent 定制开发</div>
+      <span class="path-badge badge-hot">🔥 核心赛道</span>
+    </div>
+    <div class="path-income">
+      <div class="income-item"><div class="label">起步月收</div><div class="value">¥2k-8k</div></div>
+      <div class="income-item"><div class="label">成熟月收</div><div class="value green">¥10k-30k</div></div>
+      <div class="income-item"><div class="label">冷启动</div><div class="value">2-4周</div></div>
+      <div class="income-item"><div class="label">周投入</div><div class="value">8-15h</div></div>
+    </div>
+    <div class="path-detail">
+      <p><span class="label-inline">做什么：</span>为企业定制AI工作流Agent——客服机器人、数据分析Agent、自动化报告生成。用Hermes技术栈快速搭MVP→验证→交付</p>
+      <p><span class="label-inline">典型项目：</span>电商客服AI Agent ¥5k-20k/个 | 数据分析Agent ¥8k-30k/个</p>
+      <p><span class="label-inline">目标客户：</span>中小企业(50-200人)、SaaS创业公司、电商卖家</p>
+      <p><span class="label-inline">找第一批客户：</span>程序员客栈/码市挂标签 → 即刻/V2EX发案例帖 → 华为同事转介绍（最靠谱的第一单）</p>
+      <p><span class="label-inline">匹配度：</span>⭐⭐⭐⭐⭐ 核心技能直接复用</p>
+    </div>
+  </div>
+
+  <!-- Path 2 -->
+  <div class="path-card">
+    <div class="path-header">
+      <div class="path-rank rank-silver">🥈</div>
+      <div class="path-title">跨境电商数据自动化</div>
+      <span class="path-badge badge-blue">🌊 细分蓝海</span>
+    </div>
+    <div class="path-income">
+      <div class="income-item"><div class="label">起步月收</div><div class="value">¥1k-5k</div></div>
+      <div class="income-item"><div class="label">成熟月收</div><div class="value green">¥10k-20k</div></div>
+      <div class="income-item"><div class="label">冷启动</div><div class="value">2-4周</div></div>
+      <div class="income-item"><div class="label">周投入</div><div class="value">8-12h</div></div>
+    </div>
+    <div class="path-detail">
+      <p><span class="label-inline">做什么：</span>为Amazon/Shopee/Temu卖家提供数据抓取+分析自动化——竞品价格监控、评论情感分析、库存预警、选品报告</p>
+      <p><span class="label-inline">典型报价：</span>竞品监控系统 ¥3k-8k一次性 + ¥500-1500/月维护</p>
+      <p><span class="label-inline">找第一批客户：</span>卖家微信群/知识星球 → 跨境知道/雨果网写软文 → 深圳跨境电商公司面谈</p>
+      <p><span class="label-inline">匹配度：</span>⭐⭐⭐⭐⭐ 浏览器自动化+Python+AI完美匹配</p>
+    </div>
+  </div>
+
+  <!-- Path 3 -->
+  <div class="path-card">
+    <div class="path-header">
+      <div class="path-rank rank-bronze">🥉</div>
+      <div class="path-title">AI 企业培训</div>
+      <span class="path-badge badge-purple">🎓 高单价</span>
+    </div>
+    <div class="path-income">
+      <div class="income-item"><div class="label">起步月收</div><div class="value">¥0-5k</div></div>
+      <div class="income-item"><div class="label">成熟月收</div><div class="value green">¥5k-15k</div></div>
+      <div class="income-item"><div class="label">冷启动</div><div class="value">4-8周</div></div>
+      <div class="income-item"><div class="label">周投入</div><div class="value">4-8h</div></div>
+    </div>
+    <div class="path-detail">
+      <p><span class="label-inline">做什么：</span>为企业IT团队做AI工具培训——Claude Code使用、AI Agent搭建、提示工程。华为背景=天然信任背书</p>
+      <p><span class="label-inline">单场报价：</span>¥2k-5k/半日，¥5k-10k/全日</p>
+      <p><span class="label-inline">找第一批客户：</span>华为同事圈跨部门培训 → 活动行发免费试听课 → 在行/知乎付费咨询 → B站教学视频引流</p>
+      <p><span class="label-inline">匹配度：</span>⭐⭐⭐⭐ 演讲兴趣加分，需打磨表达能力</p>
+    </div>
+  </div>
+
+  <!-- Path 4 -->
+  <div class="path-card">
+    <div class="path-header">
+      <div class="path-rank rank-normal">4️⃣</div>
+      <div class="path-title">API测试/技术评审咨询</div>
+      <span class="path-badge badge-green">⚡ 最快变现</span>
+    </div>
+    <div class="path-income">
+      <div class="income-item"><div class="label">起步月收</div><div class="value">¥1k-4k</div></div>
+      <div class="income-item"><div class="label">成熟月收</div><div class="value green">¥5k-12k</div></div>
+      <div class="income-item"><div class="label">冷启动</div><div class="value">1-2周</div></div>
+      <div class="income-item"><div class="label">周投入</div><div class="value">5-8h</div></div>
+    </div>
+    <div class="path-detail">
+      <p><span class="label-inline">做什么：</span>为SaaS公司/创业团队提供API参数评审、接口测试、安全审查。日常工作直接复用，零学习成本</p>
+      <p><span class="label-inline">报价：</span>按时 ¥200-400/h | 按项目 API评审报告 ¥2k-5k/份</p>
+      <p><span class="label-inline">找第一批客户：</span>程序员客栈挂「API测试/评审」→ Upwork/Fiverr英文接单 → 领英联系SaaS创业CTO</p>
+      <p><span class="label-inline">匹配度：</span>⭐⭐⭐⭐⭐ 日常工作直接复用，启动最快</p>
+    </div>
+  </div>
+
+  <!-- Path 5 -->
+  <div class="path-card">
+    <div class="path-header">
+      <div class="path-rank rank-normal">5️⃣</div>
+      <div class="path-title">技术内容创作</div>
+      <span class="path-badge badge-amber" style="background:#fef3c7;color:#d97706">📝 长尾复利</span>
+    </div>
+    <div class="path-income">
+      <div class="income-item"><div class="label">起步月收</div><div class="value">¥0-500</div></div>
+      <div class="income-item"><div class="label">成熟月收</div><div class="value green">¥2k-10k</div></div>
+      <div class="income-item"><div class="label">冷启动</div><div class="value">4-12周</div></div>
+      <div class="income-item"><div class="label">周投入</div><div class="value">5-10h</div></div>
+    </div>
+    <div class="path-detail">
+      <p><span class="label-inline">做什么：</span>写AI/自动化/Python教程，发到CSDN、掘金、知乎。做「AI Agent开发实战」付费专栏（小报童/知识星球）</p>
+      <p><span class="label-inline">收入模式：</span>CSDN付费专栏 ¥9.9-99/份 | 小报童 ¥99/年，500订阅=¥50k/年</p>
+      <p><span class="label-inline">找第一批读者：</span>CSDN持续产出 → 知乎回答「程序员如何做副业」→ GitHub开源教学项目引流</p>
+      <p><span class="label-inline">特点：</span>前3个月几乎无收入，但做一次卖多次，有复利效应</p>
+    </div>
+  </div>
+
+  <!-- Path 6 -->
+  <div class="path-card">
+    <div class="path-header">
+      <div class="path-rank rank-normal">6️⃣</div>
+      <div class="path-title">开源工具 → SaaS</div>
+      <span class="path-badge badge-purple">🚀 一人公司雏形</span>
+    </div>
+    <div class="path-income">
+      <div class="income-item"><div class="label">起步月收</div><div class="value">¥0-1k</div></div>
+      <div class="income-item"><div class="label">成熟月收</div><div class="value green">¥5k-30k</div></div>
+      <div class="income-item"><div class="label">冷启动</div><div class="value">8-16周</div></div>
+      <div class="income-item"><div class="label">周投入</div><div class="value">10-20h</div></div>
+    </div>
+    <div class="path-detail">
+      <p><span class="label-inline">做什么：</span>把Hermes Agent的某个模块打包成独立SaaS。如「网页监控助手」¥9/月、「AI数据采集器」¥29/月</p>
+      <p><span class="label-inline">路径：</span>开源核心功能 → Product Hunt发布 → 积累用户 → 推出付费版</p>
+      <p><span class="label-inline">为什么最值得：</span>产品化后边际成本趋零，写一次卖N次。Hermes本身就是最好的Showcase</p>
+      <p><span class="label-inline">匹配度：</span>⭐⭐⭐⭐⭐ 最完整的能力释放</p>
+    </div>
+  </div>
+</div>
+
+<!-- Strategy -->
+<div class="section">
+  <div class="section-title">🗺️ 推荐策略：多路径并行</div>
+  <div class="strategy-flow">
+    <div class="flow-item">
+      <div class="flow-dot dot-main"></div>
+      <div class="flow-content">
+        <div class="flow-label">主线（重点投入）— AI Agent定制开发</div>
+        <div class="flow-desc">核心赛道，Hermes经验直接复用，天花板最高</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-dot dot-fast"></div>
+      <div class="flow-content">
+        <div class="flow-label">快钱（低门槛先赚）— API测试评审</div>
+        <div class="flow-desc">1-2周就能接到第一单，最快验证「我能靠这个赚钱」</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-dot dot-long"></div>
+      <div class="flow-content">
+        <div class="flow-label">长线（复利积累）— 技术内容创作</div>
+        <div class="flow-desc">为AI Agent主线引流，写一次卖多次</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-dot dot-strategic"></div>
+      <div class="flow-content">
+        <div class="flow-label">战略（一人公司）— 开源工具→SaaS</div>
+        <div class="flow-desc">把副业经验产品化，终极目标</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 30-Day Plan -->
+<div class="section">
+  <div class="section-title">📅 前30天行动计划</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-time">第1周</div>
+      <div class="tl-title">铺地基</div>
+      <div class="tl-desc">程序员客栈/码市注册，挂「AI Agent开发」「Python自动化」「API测试」三标签 → CSDN发第一篇案例文 → 整理3个脱敏项目case</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">第2周</div>
+      <div class="tl-title">开始接触市场</div>
+      <div class="tl-desc">即刻/V2EX发案例帖引流 → 接第一个API评审小单（¥500-1000练手）→ 建GitHub repo</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">第3周</div>
+      <div class="tl-title">主动出击</div>
+      <div class="tl-desc">主动联系3-5个潜在客户（前同事/卖家群/创业者）→ 做免费Demo给意向客户 → 知乎发第一篇长文</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">第4周</div>
+      <div class="tl-title">争取第一单</div>
+      <div class="tl-desc">跟进意向客户，争取签第一单 → 复盘哪些渠道有效 → 搭建个人网站/作品集</div>
+    </div>
+  </div>
+  <div class="moat-card" style="margin-top:16px">
+    <h3 style="color:var(--green)">💰 第一个月能赚到钱吗？</h3>
+    <p style="font-size:0.9rem;margin-top:8px"><strong>大概率能。</strong>API评审冷启动仅1-2周，¥500-2000小单容易接到。如果前同事有Agent需求，第3-4周可能签下¥3k-8k首单。</p>
+    <p style="font-size:0.85rem;color:var(--text-light);margin-top:6px">保守估计：¥500-3,000 / 乐观估计：¥3,000-10,000</p>
+  </div>
+</div>
+
+<!-- 90-Day Goal -->
+<div class="section">
+  <div class="section-title">🎯 90天目标</div>
+  <div class="skill-table-wrap">
+    <table>
+      <thead><tr><th>时间</th><th>目标</th><th>衡量指标</th></tr></thead>
+      <tbody>
+        <tr><td>30天</td><td>接到2-3单（含API评审）</td><td style="color:var(--green);font-weight:600">收入¥1k-5k</td></tr>
+        <tr><td>60天</td><td>稳定每月2-3个Agent项目</td><td style="color:var(--green);font-weight:600">收入¥3k-10k</td></tr>
+        <tr><td>90天</td><td>积累5+客户，有复购</td><td style="color:var(--green);font-weight:600">收入¥5k-15k</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- One Person Company -->
+<div class="section">
+  <div class="section-title">🏢 一人公司路线图</div>
+  <div class="company-roadmap">
+    <div class="roadmap-step">
+      <span class="roadmap-phase" style="background:#dbeafe;color:#2563eb">现在 · 副业起步</span>
+      <div class="tl-title" style="margin-top:6px">用AI能力接第一批客户 → 验证什么需求是真实的</div>
+    </div>
+    <div class="roadmap-step">
+      <span class="roadmap-phase" style="background:#d1fae5;color:#059669">6个月 · 产品化探索</span>
+      <div class="tl-title" style="margin-top:6px">把重复的需求产品化 → 做成模板/工具/课程</div>
+    </div>
+    <div class="roadmap-step">
+      <span class="roadmap-phase" style="background:#fef3c7;color:#d97706">12个月 · 推出SaaS</span>
+      <div class="tl-title" style="margin-top:6px">开源1-2个AI自动化小工具 → 推出付费版 ¥9-99/月</div>
+    </div>
+    <div class="roadmap-step">
+      <span class="roadmap-phase" style="background:#ede9fe;color:#7c3aed">24个月 · 全职自由</span>
+      <div class="tl-title" style="margin-top:6px">MRR≥¥2万 → 可考虑离职全职 → 边旅行边远程维护</div>
+    </div>
+  </div>
+  <div class="moat-card" style="background:#fef3c7;border-color:#fde68a">
+    <h3 style="color:#92400e">⚖️ 关键决策点</h3>
+    <p style="font-size:0.9rem;color:#78350f">当<strong>副业收入连续3个月≥¥1.5万</strong>时，认真考虑是否全职。</p>
+  </div>
+</div>
+
+<!-- Today Actions -->
+<div class="section">
+  <div class="section-title">🚀 今天就能做的3件事</div>
+  <div class="action-card">
+    <h4>1. 注册程序员客栈/码市</h4>
+    <span class="time">⏱️ 30分钟</span>
+    <p>实名认证 + 「AI Agent开发」「Python自动化」「API测试」三个技能标签</p>
+  </div>
+  <div class="action-card">
+    <h4>2. CSDN发第一篇案例文章</h4>
+    <span class="time">⏱️ 1小时</span>
+    <p>主题：「我用Python+AI Agent自动化了XX」— 用脱敏的Hermes项目做素材</p>
+  </div>
+  <div class="action-card">
+    <h4>3. 整理个人作品集</h4>
+    <span class="time">⏱️ 1小时</span>
+    <p>从Hermes项目中脱敏3个case，写一页portfolio，放到GitHub Pages</p>
+  </div>
+</div>
+
+<!-- Risks -->
+<div class="section">
+  <div class="section-title">⚠️ 风险与对策</div>
+  <div class="risk-grid">
+    <div class="risk-item">
+      <div class="risk-icon">🏥</div>
+      <div class="risk-text"><strong>健康透支</strong>996已经很累，副业每周不超20h，至少1天完全休息</div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-icon">💕</div>
+      <div class="risk-text"><strong>女友不满</strong>周末至少半天完全陪巾巾</div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-icon">📋</div>
+      <div class="risk-text"><strong>竞业协议</strong>不碰华为业务相关，不做竞品</div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-icon">💰</div>
+      <div class="risk-text"><strong>客户不付款</strong>大项目分阶段付款，定金≥30%</div>
+    </div>
+  </div>
+</div>
+
+<!-- Platform Directory -->
+<div class="section">
+  <div class="section-title">📱 接单与引流平台速查</div>
+  <div class="platform-grid">
+    <div class="platform-card"><div class="name">程序员客栈</div><div class="desc">AI/Python接单</div></div>
+    <div class="platform-card"><div class="name">码市</div><div class="desc">技术外包</div></div>
+    <div class="platform-card"><div class="name">Upwork</div><div class="desc">海外接单 $50-150/h</div></div>
+    <div class="platform-card"><div class="name">Fiverr</div><div class="desc">标准化服务</div></div>
+    <div class="platform-card"><div class="name">CSDN</div><div class="desc">付费专栏</div></div>
+    <div class="platform-card"><div class="name">知乎</div><div class="desc">深度长文引流</div></div>
+    <div class="platform-card"><div class="name">小报童</div><div class="desc">订阅制专栏</div></div>
+    <div class="platform-card"><div class="name">即刻</div><div class="desc">短内容引流</div></div>
+  </div>
+</div>
+
+<!-- Core Philosophy -->
+<div class="section">
+  <div class="moat-card" style="text-align:center;padding:36px 24px">
+    <h3 style="font-size:1.1rem">💡 核心理念</h3>
+    <p style="font-size:1rem;margin-top:12px;line-height:1.8">
+      不要等「准备好」再开始。<br>
+      先用最小成本测试市场反馈。<br>
+      <strong style="color:var(--primary)">赚到第一个¥500，比写出完美的商业计划书重要100倍。</strong>
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  生成于 2026-06-14 | 💼 副业增收计划 v1.0<br>
+  基于 Vincent 技能树分析 · 💼小职 × 💰CFO
+</div>
+
+</div>
+</body>
+</html>
