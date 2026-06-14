@@ -59,6 +59,38 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 .score-num { width:30px; font-size:12px; font-weight:600; color:var(--primary); flex-shrink:0; }
 .total-score { text-align:right; color:var(--primary); font-weight:bold; margin-top:6px; font-size:13px; }
 .decision-card { border-left:4px solid var(--primary); }
+/* Leaderboard */
+.leaderboard { min-width:700px; font-size:12px; }
+.leaderboard th { position:sticky; top:0; background:#f3f4f6; z-index:1; }
+.leaderboard th.sortable { cursor:pointer; user-select:none; }
+.leaderboard th.sortable:hover { background:#e9d5ff; color:var(--primary); }
+.leaderboard th.sortable::after { content:" ↕"; font-size:10px; opacity:0.5; }
+.leaderboard th.sortable.sorted-asc::after { content:" ↑"; opacity:1; color:var(--primary); }
+.leaderboard th.sortable.sorted-desc::after { content:" ↓"; opacity:1; color:var(--primary); }
+.leaderboard .loc-name { white-space:nowrap; }
+.leaderboard .total-cell { font-size:14px; text-align:center; white-space:nowrap; }
+.rank-1 td { background:linear-gradient(90deg,#fef9c3,transparent); }
+.rank-2 td { background:linear-gradient(90deg,#f1f5f9,transparent); }
+.rank-3 td { background:linear-gradient(90deg,#fef3c7,transparent); }
+.lb-legend { text-align:center; color:#9ca3af; font-size:11px; margin:8px 0 16px; }
+.lb-highlights { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px; }
+.hl-card { background:#fff; border-radius:10px; padding:12px 8px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,0.06); border-top:3px solid #e5e7eb; }
+.hl-icon { font-size:24px; margin-bottom:4px; }
+.hl-title { font-size:11px; color:#6b7280; font-weight:600; }
+.hl-loc { font-size:14px; font-weight:700; color:var(--primary); margin:2px 0; }
+.hl-desc { font-size:11px; color:#6b7280; line-height:1.4; }
+.hl-best { border-top-color:#fbbf24; }
+.hl-cheap { border-top-color:#34d399; }
+.hl-view { border-top-color:#60a5fa; }
+.hl-private { border-top-color:#a78bfa; }
+.lb-chart { margin-top:8px; }
+.bar-row { display:flex; align-items:center; gap:8px; margin:5px 0; }
+.bar-label { width:90px; font-size:12px; text-align:right; flex-shrink:0; white-space:nowrap; }
+.bar-track { flex:1; height:24px; background:#f3f4f6; border-radius:12px; overflow:hidden; position:relative; min-width:100px; }
+.bar-fill { height:100%; border-radius:12px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px; font-size:12px; font-weight:700; color:#fff; background:linear-gradient(90deg,#a78bfa,var(--primary)); transition:width 0.5s ease; min-width:30px; }
+.bar-gold { background:linear-gradient(90deg,#fbbf24,#f59e0b); }
+.bar-silver { background:linear-gradient(90deg,#cbd5e1,#94a3b8); }
+.bar-bronze { background:linear-gradient(90deg,#d97706,#b45309); }
 @media(max-width:600px) {
   #report { padding:8px; }
   .img-grid { grid-template-columns:repeat(2,1fr); }
@@ -68,6 +100,8 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
   th, td { padding:4px 6px; }
   .score-label { width:60px; font-size:11px; }
   .funnel { display:flex; flex-wrap:wrap; justify-content:center; }
+  .lb-highlights { grid-template-columns:repeat(2,1fr); }
+  .bar-label { width:70px; font-size:11px; }
 }
 </style>
 </head>
@@ -653,12 +687,69 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <tr><td><span class="badge bg">🤫最小众</span></td><td><b>八面山/关山</b></td><td>开发度极低，游客稀少，开车直达山顶</td><td>¥2.5-6k</td></tr>
 </table></div></div>
 <div class="info"><b>📌 策略提醒：</b><br>1. 等巾巾7月定了旅游目的地后排除该地，再从Top 8锁定<br>2. 7/15前订机票/住宿<br>3. 高海拔（香格/四姑娘）提前一周吃红景天<br>4. 求婚黄金时段：日落前1h（约17:00-18:00）</div>
+
+<h2>七、汇总排行榜</h2>
+<div class="card"><div class="card-title">🏆 8大地点 · 7维度终极PK</div>
+<div class="scroll-x"><table class="leaderboard">
+<tr><th onclick="sortTable(0)" class="sortable">排名</th><th onclick="sortTable(1)" class="sortable">目的地</th><th onclick="sortTable(2)" class="sortable">🌿草甸</th><th onclick="sortTable(3)" class="sortable">🏔️远景</th><th onclick="sortTable(4)" class="sortable">🔒隐私</th><th onclick="sortTable(5)" class="sortable">✈️交通</th><th onclick="sortTable(6)" class="sortable">💰预算</th><th onclick="sortTable(7)" class="sortable">🌡️天气</th><th onclick="sortTable(8)" class="sortable">📊总分</th></tr>
+<tr class="rank-1"><td data-val="1">🥇 1</td><td data-val="大理" class="loc-name"><b>大理·洱海</b><br><span class="tag">综合最优</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="32" class="total-cell"><b>32</b>/35</td></tr>
+<tr class="rank-2"><td data-val="2">🥈 2</td><td data-val="丽江" class="loc-name"><b>丽江·玉龙雪山</b><br><span class="tag">雪山草甸</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="30" class="total-cell"><b>30</b>/35</td></tr>
+<tr class="rank-3"><td data-val="3">🥉 3</td><td data-val="乌蒙" class="loc-name"><b>贵州·乌蒙大草原</b><br><span class="tag">性价比王</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="28" class="total-cell"><b>28</b>/35</td></tr>
+<tr><td data-val="4">4️⃣ 4</td><td data-val="香格" class="loc-name"><b>香格里拉·纳帕海</b><br><span class="tag">极致远景</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="27" class="total-cell"><b>27</b>/35</td></tr>
+<tr><td data-val="5">5️⃣ 5</td><td data-val="关山" class="loc-name"><b>关山草原</b><br><span class="tag">陕西秘境</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="26" class="total-cell"><b>26</b>/35</td></tr>
+<tr><td data-val="6">6️⃣ 6</td><td data-val="八面" class="loc-name"><b>湘西·八面山</b><br><span class="tag">湖南小瑞士</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="25" class="total-cell"><b>25</b>/35</td></tr>
+<tr><td data-val="7">7️⃣ 7</td><td data-val="四姑" class="loc-name"><b>四姑娘山</b><br><span class="tag">画面震撼</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="2"><span class="star">⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="2"><span class="star">⭐⭐</span></td><td data-val="24" class="total-cell"><b>24</b>/35</td></tr>
+<tr><td data-val="8">8️⃣ 8</td><td data-val="乌兰" class="loc-name"><b>乌兰布统·坝上</b><br><span class="tag">北方草原</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="5"><span class="star">⭐⭐⭐⭐⭐</span></td><td data-val="2"><span class="star">⭐⭐</span></td><td data-val="3"><span class="star">⭐⭐⭐</span></td><td data-val="4"><span class="star">⭐⭐⭐⭐</span></td><td data-val="24" class="total-cell"><b>24</b>/35</td></tr>
+</table></div>
+
+<div class="lb-legend">
+<span>💡 点击表头可排序 · 维度满分⭐5 · 总分满分35</span>
+</div>
+
+<div class="lb-highlights">
+<div class="hl-card hl-best"><div class="hl-icon">🏆</div><div class="hl-title">综合冠军</div><div class="hl-loc">大理·洱海</div><div class="hl-desc">交通/草甸/远景全⭐5，无短板水桶选手</div></div>
+<div class="hl-card hl-cheap"><div class="hl-icon">💰</div><div class="hl-title">最省钱</div><div class="hl-loc">乌蒙大草原</div><div class="hl-desc">¥3k搞定，隐私满分，天气最稳</div></div>
+<div class="hl-card hl-view"><div class="hl-icon">🏔️</div><div class="hl-title">最震撼</div><div class="hl-loc">香格里拉 / 四姑娘山</div><div class="hl-desc">雪山+草甸同框，画面天花板（注意高反）</div></div>
+<div class="hl-card hl-private"><div class="hl-icon">🤫</div><div class="hl-title">最私密</div><div class="hl-loc">关山 / 八面山 / 乌蒙</div><div class="hl-desc">人迹罕至，草甸广阔独享</div></div>
+</div>
+
+<div class="lb-chart">
+<div class="card-title">📊 总分可视化</div>
+<div class="bar-row"><span class="bar-label">🥇 大理</span><div class="bar-track"><div class="bar-fill bar-gold" style="width:91%">32</div></div></div>
+<div class="bar-row"><span class="bar-label">🥈 丽江</span><div class="bar-track"><div class="bar-fill bar-silver" style="width:86%">30</div></div></div>
+<div class="bar-row"><span class="bar-label">🥉 乌蒙</span><div class="bar-track"><div class="bar-fill bar-bronze" style="width:80%">28</div></div></div>
+<div class="bar-row"><span class="bar-label">4 香格里拉</span><div class="bar-track"><div class="bar-fill" style="width:77%">27</div></div></div>
+<div class="bar-row"><span class="bar-label">5 关山</span><div class="bar-track"><div class="bar-fill" style="width:74%">26</div></div></div>
+<div class="bar-row"><span class="bar-label">6 八面山</span><div class="bar-track"><div class="bar-fill" style="width:71%">25</div></div></div>
+<div class="bar-row"><span class="bar-label">7 四姑娘山</span><div class="bar-track"><div class="bar-fill" style="width:69%">24</div></div></div>
+<div class="bar-row"><span class="bar-label">8 乌兰布统</span><div class="bar-track"><div class="bar-fill" style="width:69%">24</div></div></div>
+</div>
+</div>
 </div>
 <script>
 const HASH="95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56";
 async function sha256(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");}
 async function doUnlock(){const v=document.getElementById("pwdInput").value;const h=await sha256(v);if(h===HASH){sessionStorage.setItem("u","1");document.getElementById("lockScreen").style.display="none";document.getElementById("report").style.display="block";}else{document.getElementById("pwdError").style.display="block";}}
 if(sessionStorage.getItem("u")==="1"){document.getElementById("lockScreen").style.display="none";document.getElementById("report").style.display="block";}
+function sortTable(colIdx){
+var tbl=document.querySelector(".leaderboard");
+if(!tbl)return;
+var rows=Array.from(tbl.querySelectorAll("tr")).slice(1);
+var ths=tbl.querySelectorAll("th");
+var th=ths[colIdx];
+var isAsc=th.classList.contains("sorted-asc");
+ths.forEach(function(t){t.classList.remove("sorted-asc","sorted-desc");});
+th.classList.add(isAsc?"sorted-desc":"sorted-asc");
+rows.sort(function(a,b){
+var va=a.cells[colIdx].getAttribute("data-val")||a.cells[colIdx].textContent.trim();
+var vb=b.cells[colIdx].getAttribute("data-val")||b.cells[colIdx].textContent.trim();
+var na=parseFloat(va),nb=parseFloat(vb);
+if(!isNaN(na)&&!isNaN(nb)){return isAsc?nb-na:na-nb;}
+return isAsc?vb.localeCompare(va):va.localeCompare(vb);
+});
+var tbody=tbl.querySelector("tr").parentNode;
+rows.forEach(function(r){tbody.appendChild(r);});
+}
 </script>
 </body>
 </html>
