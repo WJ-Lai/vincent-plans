@@ -38,15 +38,16 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; white-space:nowrap; }
 .bg { background:#dcfce7; color:#166534; }
 .by { background:#fef9c3; color:#854d0e; }
-.tag { display:inline-block; background:var(--primary); color:#fff; padding:1px 8px; border-radius:10px; font-size:11px; margin-left:4px; }
+.tag { display:inline-block; background:var(--primary); color:#fff; padding:1px 8px; border-radius:10px; font-size:11px; }
 .star { color:#f59e0b; letter-spacing:-1px; white-space:nowrap; }
 .info { background:var(--light); border-radius:8px; padding:10px 14px; margin:10px 0; font-size:13px; }
 .warn { background:#fef3c7; border-radius:8px; padding:10px 14px; margin:10px 0; font-size:13px; }
 .danger { background:#fee2e2; border-radius:8px; padding:10px 14px; margin:10px 0; font-size:13px; }
 .img-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:8px 0; }
-.img-cell { aspect-ratio:1; overflow:hidden; border-radius:8px; background:#f3f4f6; }
-.img-cell img { width:100%; height:100%; object-fit:cover; display:block; }
-.img-count { font-size:11px; color:#9ca3af; margin-top:4px; }
+.img-cell { aspect-ratio:1; overflow:hidden; border-radius:8px; background:#f3f4f6; position:relative; }
+.img-cell a { display:block; width:100%; height:100%; }
+.img-cell img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.2s; }
+.img-cell img:hover { transform:scale(1.05); }
 .funnel { text-align:center; padding:16px 8px; }
 .fs { display:inline-block; background:var(--light); color:var(--primary); padding:4px 10px; border-radius:16px; margin:3px; font-size:11px; white-space:nowrap; }
 .fs-final { background:var(--primary); color:#fff; }
@@ -57,8 +58,6 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 .score-fill { height:100%; background:linear-gradient(90deg,#a78bfa,var(--primary)); }
 .score-num { width:30px; font-size:12px; font-weight:600; color:var(--primary); flex-shrink:0; }
 .total-score { text-align:right; color:var(--primary); font-weight:bold; margin-top:6px; font-size:13px; }
-.xhs-link { font-size:12px; margin:3px 0; word-break:break-all; }
-.xhs-link a { color:var(--primary); }
 .decision-card { border-left:4px solid var(--primary); }
 @media(max-width:600px) {
   #report { padding:8px; }
@@ -73,7 +72,6 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 </style>
 </head>
 <body>
-
 <div id="lockScreen"><div>
 <h2>🔒 请输入密码</h2>
 <input type="password" id="pwdInput" placeholder="密码" autocomplete="off" onkeydown="if(event.key===&quot;Enter&quot;)doUnlock()">
@@ -82,11 +80,11 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div id="pwdError">密码错误</div>
 <div class="lock-hint">💡 提示：她的生日</div>
 </div></div>
-
 <div id="report" style="display:none">
 <div class="report-header"><h1>💍 高山草甸求婚地点调研</h1>
 <div class="subtitle">距8/29求婚日还有 <b>77天</b> · 深圳出发 · 3天2晚 · 高山草甸 · i人友好<br>
-📕 23轮搜索 · 1,070条笔记 · 212张实景图 · 32地点 → Top 8</div></div>
+📕 23轮搜索 · 1,070条笔记 · 65张实景图 · 32地点 → Top 8<br>
+<span style="font-size:11px;color:#9ca3af">💡 点击图片可跳转小红书原文</span></div></div>
 <h2>一、核心需求</h2><div class="scroll-x"><table>
 <tr><th>维度</th><th>要求</th></tr>
 <tr><td>🎯 场景</td><td>高山草甸，地势略高，远景好看，画面只有两人</td></tr>
@@ -98,10 +96,14 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 </table></div>
 <h2>二、筛选漏斗 — 从32到8</h2>
 <div class="funnel">
-<span class="fs">🔍 32个候选</span><span class="fa">→</span>
-<span class="fs">✈️ 交通≤8h → 22</span><span class="fa">→</span>
-<span class="fs">🌿 确为草甸 → 18</span><span class="fa">→</span>
-<span class="fs">🌡️ 8月适宜 → 16</span><span class="fa">→</span>
+<span class="fs">🔍 32个候选</span>
+<span class="fa">→</span>
+<span class="fs">✈️ 交通≤8h → 22</span>
+<span class="fa">→</span>
+<span class="fs">🌿 确为草甸 → 18</span>
+<span class="fa">→</span>
+<span class="fs">🌡️ 8月适宜 → 16</span>
+<span class="fa">→</span>
 <span class="fs fs-final">🏆 Top 8</span>
 </div>
 <div class="card"><div class="card-title">❌ 被排除的24个地点</div><div class="scroll-x"><table><tr><th>地点</th><th>区域</th><th>排除原因</th></tr>
@@ -124,65 +126,65 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
-<td style="white-space:nowrap">¥5,300-8,300</td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
-<td><b>32/35</b></td></tr>
+<td style="white-space:nowrap">¥5,300-8,300</td>
 <tr><td>🥈</td><td><b>丽江·玉龙雪山</b></td>
 <td><span class="tag">雪山草甸</span></td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
-<td style="white-space:nowrap">¥4,800-7,300</td>
 <td><span class="star">⭐⭐⭐</span></td>
-<td><b>30/35</b></td></tr>
+<td style="white-space:nowrap">¥4,800-7,300</td>
 <tr><td>🥉</td><td><b>贵州·乌蒙大草原</b></td>
 <td><span class="tag">性价比王</span></td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐</span></td>
-<td style="white-space:nowrap">¥3,000-4,100 🏆最低</td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
-<td><b>28/35</b></td></tr>
+<td style="white-space:nowrap">¥3,000-4,100 🏆最低</td>
 <tr><td>4️⃣</td><td><b>香格里拉·纳帕海</b></td>
 <td><span class="tag">极致远景</span></td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
-<td style="white-space:nowrap">¥5,000-7,500</td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
-<td><b>27/35</b></td></tr>
+<td style="white-space:nowrap">¥5,000-7,500</td>
 <tr><td>5️⃣</td><td><b>关山草原</b></td>
 <td><span class="tag">陕西秘境</span></td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐</span></td>
-<td style="white-space:nowrap">¥4,000-6,000</td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
-<td><b>26/35</b></td></tr>
+<td style="white-space:nowrap">¥4,000-6,000</td>
 <tr><td>6️⃣</td><td><b>湘西·八面山</b></td>
 <td><span class="tag">湖南小瑞士</span></td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐</span></td>
-<td style="white-space:nowrap">¥2,500-4,500</td>
 <td><span class="star">⭐⭐⭐</span></td>
-<td><b>25/35</b></td></tr>
+<td style="white-space:nowrap">¥2,500-4,500</td>
 <tr><td>7️⃣</td><td><b>四姑娘山</b></td>
 <td><span class="tag">画面震撼</span></td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐</span></td>
-<td style="white-space:nowrap">¥4,750-6,900</td>
 <td><span class="star">⭐⭐</span></td>
-<td><b>24/35</b></td></tr>
+<td style="white-space:nowrap">¥4,750-6,900</td>
 <tr><td>8️⃣</td><td><b>乌兰布统·坝上草原</b></td>
 <td><span class="tag">北方草原</span></td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐⭐⭐</span></td>
 <td><span class="star">⭐⭐</span></td>
-<td style="white-space:nowrap">¥5,000-8,000</td>
-<td><span class="star">⭐⭐⭐⭐</span></td>
-<td><b>24/35</b></td></tr>
+<div class="card"><div class="scroll-x"><table class="overview-table">
+<tr><th>#</th><th>目的地</th><th>特色</th><th>草甸</th><th>远景</th><th>交通</th><th>预算</th><th>天气</th><th>总分</th></tr>
+<tr><td>🥇</td><td><b>大理·洱海</b></td><td><span class="tag">综合最优</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td style="white-space:nowrap">¥5,300-8,300</td><td><span class="star">⭐⭐⭐⭐</span></td><td><b>32/35</b></td></tr>
+<tr><td>🥈</td><td><b>丽江·玉龙雪山</b></td><td><span class="tag">雪山草甸</span></td><td><span class="star">⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td style="white-space:nowrap">¥4,800-7,300</td><td><span class="star">⭐⭐⭐</span></td><td><b>30/35</b></td></tr>
+<tr><td>🥉</td><td><b>贵州·乌蒙大草原</b></td><td><span class="tag">性价比王</span></td><td><span class="star">⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐</span></td><td style="white-space:nowrap">¥3,000-4,100 🏆最低</td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td><b>28/35</b></td></tr>
+<tr><td>4️⃣</td><td><b>香格里拉·纳帕海</b></td><td><span class="tag">极致远景</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐⭐</span></td><td style="white-space:nowrap">¥5,000-7,500</td><td><span class="star">⭐⭐⭐⭐</span></td><td><b>27/35</b></td></tr>
+<tr><td>5️⃣</td><td><b>关山草原</b></td><td><span class="tag">陕西秘境</span></td><td><span class="star">⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐</span></td><td style="white-space:nowrap">¥4,000-6,000</td><td><span class="star">⭐⭐⭐⭐</span></td><td><b>26/35</b></td></tr>
+<tr><td>6️⃣</td><td><b>湘西·八面山</b></td><td><span class="tag">湖南小瑞士</span></td><td><span class="star">⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐</span></td><td style="white-space:nowrap">¥2,500-4,500</td><td><span class="star">⭐⭐⭐</span></td><td><b>25/35</b></td></tr>
+<tr><td>7️⃣</td><td><b>四姑娘山</b></td><td><span class="tag">画面震撼</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐</span></td><td style="white-space:nowrap">¥4,750-6,900</td><td><span class="star">⭐⭐</span></td><td><b>24/35</b></td></tr>
+<tr><td>8️⃣</td><td><b>乌兰布统·坝上草原</b></td><td><span class="tag">北方草原</span></td><td><span class="star">⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐⭐⭐</span></td><td><span class="star">⭐⭐</span></td><td style="white-space:nowrap">¥5,000-8,000</td><td><span class="star">⭐⭐⭐⭐</span></td><td><b>24/35</b></td></tr>
 </table></div></div>
 <h2>四、逐地点深度分析</h2>
 <div class="loc-section">
@@ -193,18 +195,18 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <p>📍 <b>云想山(海拔2100m)</b></p>
 <p>📍 <b>海舌公园</b></p>
 <p class="muted">面朝洱海背靠苍山，草坪开阔，日落金色光线绝美。生态廊道精华段游客少。</p></div>
-<div class="card"><div class="card-title">📸 小红书实景（8张）</div>
+<div class="card"><div class="card-title">📸 小红书实景（9张 · 点击跳转原文）</div>
 <div class="img-grid">
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/298f12922593ca461b82c0940f990583/notes_pre_post/1040g3k03214aappd7o005pbdo0ofellpl3modqg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142208/4b19cbce99527fcc094dcb33a4851a46/spectrum/1040g34o320gll6h6mo805oh44jr41bk8s0hok5o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142208/f31c79146d1657897cd39371cd1b2774/notes_pre_post/1040g3k831vk23isb2s705pm0o5dne6ufg7if6m8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142208/62ab6149e54f54b3f1b7231be5639870/spectrum/1040g0k0321a55sshn0105pjekguhomgo3enputg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/c2bdc89a11cf6823dc63fbd368a8144d/notes_pre_post/1040g3k831lejodlqkq0047s6n41gglqne716l08!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/e24fed7975a6c4269e264d8c8e35888f/spectrum/1040g34o320sb14vnms105oh44jr41bk8fp0hi7g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142208/663d1e37d36a35bfeb7b1801708f81ac/notes_pre_post/1040g3k031olvj6id6g0g4a5egum24cbjc5qojuo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g34o317gtlfr10q0g5nebpkd089e66gpppo0?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=b71050ffab03287483713b64941b39cf&t=6a2eb5f4&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-</div>
-<div class="img-count">📷 共39张可选 · 来源：小红书搜索</div></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/688df4ad0000000023023470" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142224/016f5f43510e3c1770bf209e9de161bc/1040g2sg31km9t67biu804a3vmpp69fkvaoad5p8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="在洱海被求婚啦！！！！" title="在洱海被求婚啦！！！！" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a0746110000000010001c00" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/a6d1d26414a43bfd6fb903ef4bcaf883/note_pre_post_uhdr/1040g3r83206m8lghm0c05n6l21elgmlcqms2e90!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="为了海利娅女神来一趟大理" title="为了海利娅女神来一趟大理" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/683330620000000021002d56" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/a0506ac5da95404b3bed251e79e50d3b/1040g2sg31htlnbmgjie04a3pecsjfhnbscskk4g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="💍在苍山洱海的见证下 我说我愿意" title="💍在苍山洱海的见证下 我说我愿意" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/68c972dd000000000e00e3be" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/3ecf1621c27478790ba5ab6a4451b66b/notes_pre_post/1040g3k831mgd96calia05ndgaevg83mbu9b4dd8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="💍｜ 𝑰 𝒔𝒂𝒊𝒅 𝒚𝒆𝒔 在大理" title="💍｜ 𝑰 𝒔𝒂𝒊𝒅 𝒚𝒆𝒔 在大理" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/674d7d3800000000070311a3" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142223/7e9b5b9d35fca44f66105b28091dc3e4/1040g00831atbotjhni004bklkupjkd6j6hdss5g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="在金色苍山和蔚蓝洱海见证下 我被求婚啦！" title="在金色苍山和蔚蓝洱海见证下 我被求婚啦！" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/68921b39000000002302d89b" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/37ffb30293e9be9ac492434281642790/notes_pre_post/1040g3k031kqba8r1j23049agsacdj0g93j011eo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="我在天门山被求婚啦💍！苍山为证，落日为媒。" title="我在天门山被求婚啦💍！苍山为证，落日为媒。" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/69350e18000000001e014e77" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142223/7e9a50a48b82c2ad2b938d65d26e038d/notes_pre_post/1040g3k031ppfo1lvju2g4a0dgouirp8q6jvvhtg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="我被求婚了！！！在大理最美的蓝调时刻～" title="我被求婚了！！！在大理最美的蓝调时刻～" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/69c0b99c000000002301db94" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/7993d605c73f43c76297bf909e8a7762/notes_pre_post/1040g3k031u1ss6206u004a5d9lqg24euln8imk0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="在大理拍了上百对求婚了" title="在大理拍了上百对求婚了" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a1d4fd00000000038020fce" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/e24fed7975a6c4269e264d8c8e35888f/spectrum/1040g34o320sb14vnms105oh44jr41bk8fp0hi7g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="感谢信任🙏🏻我们只做大理本地求婚策划" title="感谢信任🙏🏻我们只做大理本地求婚策划" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+</div></div>
 <div class="card"><div class="card-title">✈️ 交通</div><p>✈️ 深圳直飞大理2.5h，周五晚可达。往返¥3,000-4,000/2人</p></div>
 <div class="card"><div class="card-title">🏨 住宿参考</div><div class="scroll-x"><table><tr><th>酒店</th><th>价格</th><th>备注</th></tr>
 <tr><td>洱海天域英迪格</td><td>¥800-1,200/晚</td><td>海景步行到草坪</td></tr>
@@ -224,31 +226,13 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div class="card"><div class="card-title">🔒 隐私 / i人友好度</div>
 <p>才村码头人流少。云想山非主流。8月底暑假尾声游客锐减。</p>
 <p>评分：<span class="star">⭐⭐⭐⭐</span></p></div>
-<div class="card"><div class="card-title">🔗 小红书原文</div>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/688df4ad0000000023023470" target="_blank" rel="noopener">在洱海被求婚啦！！！！</a> ❤️210</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6a0746110000000010001c00" target="_blank" rel="noopener">为了海利娅女神来一趟大理</a> ❤️177</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/683330620000000021002d56" target="_blank" rel="noopener">💍在苍山洱海的见证下 我说我愿意</a> ❤️158</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/68c972dd000000000e00e3be" target="_blank" rel="noopener">💍｜ 𝑰 𝒔𝒂𝒊𝒅 𝒚𝒆𝒔 在大理</a> ❤️58</p>
-</div>
 <div class="card"><div class="card-title">📊 多维评分</div>
-<div class="score-row"><span class="score-label">草甸景观</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">远景震撼</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">隐私干净</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">交通便利</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">预算友好</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">天气稳定</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
 <div class="total-score">总分：32/35</div></div>
 <div class="info">✅ 雨天B方案：古城/喜洲古镇/海景民宿室内</div>
 </div>
@@ -259,18 +243,15 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <p>📍 <b>蓝月谷湖畔草坪</b></p>
 <p>📍 <b>云杉坪高山草甸</b></p>
 <p class="muted">雪山脚草甸，极致震撼。蓝月谷湖水碧蓝+草甸+雪山三重背景。</p></div>
-<div class="card"><div class="card-title">📸 小红书实景（8张）</div>
+<div class="card"><div class="card-title">📸 小红书实景（6张 · 点击跳转原文）</div>
 <div class="img-grid">
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/019686528e99e95af623e4bdaa3891ad/notes_pre_post/1040g3k031pkjtaej4s3g5n7hrcuk9ipc7jqce7o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/68a7fd7ffdedd4920d9b126129068a4f/notes_pre_post/1040g3k03202h1p4q2g005pijf3cgueqcjfl6jn0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/84fa9b2314aae9884368534e6fd49e9b/notes_pre_post/1040g3k831qeguiuc7ga05n9k9mk5ls4mqbut338!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/3891625321d7f431c3f6baa901c64be3/notes_pre_post/1040g3k831i4n7oac7akg5p5k0fa2k5f9mam18mg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/6d1217f355b052d02f33fdb19fe9461f/notes_pre_post/1040g3k031p82d5to2s0049vmn60u5bk53bdp4ko!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/bc5869f7692589b0fe1153a627f3d0a2/notes_pre_post/1040g3k831h5864q4jch0496ri7sl2rjqs64ms98!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/0589c92912cf87aa9ffd410a61719ab5/notes_pre_post/1040g3k031ilp4ehf144g4bq9k17evb7bq49sfm8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142210/65bfdbf72273a40156b5527e87dc4f27/notes_pre_post/1040g3k031upl2ara3q1049v65fef7rj7hm74kkg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-</div>
-<div class="img-count">📷 共12张可选 · 来源：小红书搜索</div></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/69a980f2000000002603e169" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/5062de4f0180b436c2bebbae38563856/notes_pre_post/1040g3k831tb6nf1cla905ohgl21k1bn8331t9j8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="丽江拍大经幡绝佳之地，还有其他惊喜！" title="丽江拍大经幡绝佳之地，还有其他惊喜！" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/690883960000000003023d36" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/28aa26bf1e2f366164a086a6748e4a4f/1040g00831oeql482mm0g40ml0nvqqripp48rq7o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="再看一遍还是很幸福的丽江vlog🏔️Day2" title="再看一遍还是很幸福的丽江vlog🏔️Day2" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a2bff150000000022024f96" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/5ad4d1cfc09d0e474a253c9c0c8356d8/notes_pre_post/1040g3k8321al3la874605q91bsftufk2572gchg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="00后情侣勇闯丽江办婚礼✨1.5w成功下车！" title="00后情侣勇闯丽江办婚礼✨1.5w成功下车！" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66fdee09000000001b0206be" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142223/4a3416c88acd9d750257b9529061440d/1040g008318flhkqn3k6g5n4kkhrk0g21q15ugg8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="特别分享🏔 | 在玉龙雪山下被求婚了！！!" title="特别分享🏔 | 在玉龙雪山下被求婚了！！!" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a2e8b76000000001700a4f2" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/afff1553f6fdc7a1a9bf7449d0cc4a49/1040g2sg321d4es5dnee05pil30thoi0bm43ddn8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="丽江目的地婚礼" title="丽江目的地婚礼" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a2e5f76000000002201651f" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/1c1963e057a4551599016c1078211c22/1040g2sg321cuorcnne7049362sviecdv8bman50!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="🇮🇹✈️回国旅游之云南💐 第三站·丽江⛰️" title="🇮🇹✈️回国旅游之云南💐 第三站·丽江⛰️" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+</div></div>
 <div class="card"><div class="card-title">✈️ 交通</div><p>✈️ 深圳直飞丽江2.5h，机场到古城30min。往返¥3,000-4,000/2人</p></div>
 <div class="card"><div class="card-title">🏨 住宿参考</div><div class="scroll-x"><table><tr><th>酒店</th><th>价格</th><th>备注</th></tr>
 <tr><td>丽江古城民宿</td><td>¥250-500/晚</td><td>古城内步行便利</td></tr>
@@ -289,31 +270,13 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div class="card"><div class="card-title">🔒 隐私 / i人友好度</div>
 <p>甘海子非主流路线人少。蓝月谷清晨游客少。</p>
 <p>评分：<span class="star">⭐⭐⭐⭐</span></p></div>
-<div class="card"><div class="card-title">🔗 小红书原文</div>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/69a980f2000000002603e169" target="_blank" rel="noopener">丽江拍大经幡绝佳之地，还有其他惊喜！</a> ❤️874</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/693b76cf000000001e0054ad" target="_blank" rel="noopener">丽江婚纱照贵与便宜的区别：什么破照片敢2W？</a> ❤️272</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/690883960000000003023d36" target="_blank" rel="noopener">再看一遍还是很幸福的丽江vlog🏔️Day2</a> ❤️139</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6a2bff150000000022024f96" target="_blank" rel="noopener">00后情侣勇闯丽江办婚礼✨1.5w成功下车！</a> ❤️37</p>
-</div>
 <div class="card"><div class="card-title">📊 多维评分</div>
-<div class="score-row"><span class="score-label">草甸景观</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">远景震撼</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">隐私干净</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">交通便利</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">预算友好</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">天气稳定</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
 <div class="total-score">总分：30/35</div></div>
 <div class="info">✅ 雨天B方案：古城/千古情演出/民宿</div>
 </div>
@@ -325,18 +288,17 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <p>📍 <b>观佛台日出云海</b></p>
 <p>📍 <b>故渊坪</b></p>
 <p class="muted">贵州最高草原，10万亩高山草甸，8月野花盛开。远景乌蒙山脉连绵。</p></div>
-<div class="card"><div class="card-title">📸 小红书实景（8张）</div>
+<div class="card"><div class="card-title">📸 小红书实景（8张 · 点击跳转原文）</div>
 <div class="img-grid">
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/b085269d971c30f0eb2c7a737e90e1e2/notes_pre_post/1040g3k831jlg1l9i30005nladr908mqb7nh0o40!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/06ff435ea46790a22dc50c5fd47ac693/spectrum/1040g0k031vv118iu56005o1oflj0bvntr0luadg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/85aa2573cac96a4746db18cf24b783ef/notes_pre_post/1040g3k831jeeal5kiu704a34lkfb8534j64mi2g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/f5d51a39ab473eb2203e899c8a16175c/spectrum/1040g0k031vaufk1e40005pjngppgu739gvmrea0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/notes_pre_post/1040g3k031i95hbug7c205okesj2oc0q4gqu5u38?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=af247e3297f880d6e79bd6338ad87c45&t=6a2eb8dc&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/0038bc1360ee4083be962e34c6ab1621/spectrum/1040g34o3153ih4er0k0g5n462me4drk3uqijl2o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/9f00a2a8106ea47780e5fbf65c7d3d65/notes_pre_post/1040g3k031kmgopst34e05nq4eaq08rp4g9pem8g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/9e45d13803b2127b136970330b682d6c/spectrum/1040g34o31rajiijbgm005n4k9hl481buckpj848!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-</div>
-<div class="img-count">📷 共45张可选 · 来源：小红书搜索</div></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/696f8a130000000022020412" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/6a9009393e664c4654cde6a98cae84db/notes_pre_post/1040g3k831rijl9k4isb05n0khgg196i5htmtflo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="贵州冷门秘境🫀龙里大地之心" title="贵州冷门秘境🫀龙里大地之心" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/667f8eba000000001d017620" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/2aa44632ebf7599acc609001b60429c2/1040g008314k8da5hme5g5or3gqnnqolpie5t94g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="小众景点-贵州毕节·阿西里西大草原" title="小众景点-贵州毕节·阿西里西大草原" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/68a347c7000000001d006999" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/b163e0b10da10c9af2e50f411c8c66b5/notes_pre_post/1040g3k831lb4hrodks704bj44krsjioav5po28g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="贵州阿勒泰｜龙里草原" title="贵州阿勒泰｜龙里草原" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6850eee0000000002100da49" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/80445da0dd9d220501557fbad44c3a40/notes_pre_post/1040g3k831iqlssqi14kg4a5i64egtjp5o2i1hsg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="龙里油画大草原" title="龙里油画大草原" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/686c5963000000002400f555" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/b085269d971c30f0eb2c7a737e90e1e2/notes_pre_post/1040g3k831jlg1l9i30005nladr908mqb7nh0o40!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="贵阳龙里油画大草原～误入宫崎骏的夏天" title="贵阳龙里油画大草原～误入宫崎骏的夏天" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/69db121e000000001a031c3d" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/0dc149a60e43cfc6f5339636993f8892/1040g008321bhqcl5na005nv1hdbg8l138k88i18!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="龙里大地之心" title="龙里大地之心" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/688e2e8d0000000004000d55" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/9f00a2a8106ea47780e5fbf65c7d3d65/notes_pre_post/1040g3k031kmgopst34e05nq4eaq08rp4g9pem8g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="高山草甸平替版之“百草坪”" title="高山草甸平替版之“百草坪”" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66b31c02000000001e01ed7b" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/32b1d05f23c72af8f9c0f3e6de36a1ae/1040g0083166jbbdt0k704a0h8f660sn9n2c2g5o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="贵州旅行 | 龙里油画大草原" title="贵州旅行 | 龙里油画大草原" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+</div></div>
 <div class="card"><div class="card-title">✈️ 交通</div><p>🚄 深圳北→贵阳北高铁4h ¥400/人 → 租车3h。单程约7h，3天可行</p></div>
 <div class="card"><div class="card-title">🏨 住宿参考</div><div class="scroll-x"><table><tr><th>酒店</th><th>价格</th><th>备注</th></tr>
 <tr><td>乌蒙帐篷酒店</td><td>¥300-500/晚</td><td>草原内推门即景</td></tr>
@@ -355,31 +317,13 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div class="card"><div class="card-title">🔒 隐私 / i人友好度</div>
 <p>开发度低，非网红。百草坪巨大，走远完全没人。私密性满分。</p>
 <p>评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div>
-<div class="card"><div class="card-title">🔗 小红书原文</div>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/696f8a130000000022020412" target="_blank" rel="noopener">贵州冷门秘境🫀龙里大地之心</a> ❤️1326</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/68a347c7000000001d006999" target="_blank" rel="noopener">贵州阿勒泰｜龙里草原</a> ❤️340</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6850eee0000000002100da49" target="_blank" rel="noopener">龙里油画大草原</a> ❤️258</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/686c5963000000002400f555" target="_blank" rel="noopener">贵阳龙里油画大草原～误入宫崎骏的夏天</a> ❤️244</p>
-</div>
 <div class="card"><div class="card-title">📊 多维评分</div>
-<div class="score-row"><span class="score-label">草甸景观</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">远景震撼</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">隐私干净</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">交通便利</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">预算友好</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">天气稳定</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
 <div class="total-score">总分：28/35</div></div>
 <div class="warn">⚠️ 雨天B方案有限：帐篷室内/盘州城区</div>
 </div>
@@ -389,19 +333,16 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <p>📍 <b>纳帕海环湖草甸(3300m)</b></p>
 <p>📍 <b>石卡雪山蓝月山谷</b></p>
 <p>📍 <b>依拉草原</b></p>
-<p class="muted">纳帕海是季节性高山湖泊+草甸，8月水草丰美。远景石卡雪山+梅里雪山方向。</p></div>
-<div class="card"><div class="card-title">📸 小红书实景（8张）</div>
+<p class="muted">季节性高山湖泊+草甸，8月水草丰美。远景石卡雪山+梅里雪山方向。</p></div>
+<div class="card"><div class="card-title">📸 小红书实景（6张 · 点击跳转原文）</div>
 <div class="img-grid">
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/2d921a24a85a4624d581888eebdc4d80/notes_pre_post/1040g3k8321ct03b07k705qefhf5skre6gegr570!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/e24fed7975a6c4269e264d8c8e35888f/spectrum/1040g34o320sb14vnms105oh44jr41bk8fp0hi7g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/5062de4f0180b436c2bebbae38563856/notes_pre_post/1040g3k831tb6nf1cla905ohgl21k1bn8331t9j8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/298f12922593ca461b82c0940f990583/notes_pre_post/1040g3k03214aappd7o005pbdo0ofellpl3modqg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/7993d605c73f43c76297bf909e8a7762/notes_pre_post/1040g3k031u1ss6206u004a5d9lqg24euln8imk0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/3ecf1621c27478790ba5ab6a4451b66b/notes_pre_post/1040g3k831mgd96calia05ndgaevg83mbu9b4dd8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/7f30c73eff52c1d4539668cdcc4730e1/notes_pre_post/1040g3k031u533vha2u1048nd25g14nuj686doco!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/a5faabd53a4bffa9907bd0562b4d67d8/notes_pre_post/1040g3k831f4a75n0mi9g5oth5hn9tdbudeogpjo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-</div>
-<div class="img-count">📷 共15张可选 · 来源：小红书搜索</div></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a169be600000000370347e9" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/9e7b02e3c90c8532b2899877ab7b6b84/notes_uhdr/1040g3qo320loocn65m705nhhitug8b8i4d2k9mo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="这里不是瑞士，是香格里拉的老药山！！！" title="这里不是瑞士，是香格里拉的老药山！！！" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/687fa5300000000010025068" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/bb53d4e511f8592f0e3ba94c482bba6c/1040g00831k8avled2a4g4a6fv6oorfrnl8f7n0o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="我在纳帕海被求婚啦!💍" title="我在纳帕海被求婚啦!💍" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/676153d80000000014026de0" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142223/4abd4e0c2f948ec0312effcb2d72b492/1040g00831bgnn7i8gc004buvre57af72mgbfup8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="在梅里雪山脚下拍求婚是什么体验？" title="在梅里雪山脚下拍求婚是什么体验？" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66bee524000000000d031b99" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/a296e18de5c8d06a0627f11340ee32b6/1040g008316i3m7jf1a005n1j0nqhfgeleio90j8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="在纳帕海被求婚啦！上天都为我们祝福❤️" title="在纳帕海被求婚啦！上天都为我们祝福❤️" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a225c090000000007029f4c" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/0cdbe5d57bfa7081fd2c37b6471ca880/1040g008321179okmnoo05noka1708fc0m7mqk3g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="香格里拉| 老药山徒步" title="香格里拉| 老药山徒步" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/67d7afaa0000000006028093" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/a5faabd53a4bffa9907bd0562b4d67d8/notes_pre_post/1040g3k831f4a75n0mi9g5oth5hn9tdbudeogpjo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="见证梅里雪山下的婚礼" title="见证梅里雪山下的婚礼" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+</div></div>
 <div class="card"><div class="card-title">✈️ 交通</div><p>✈️ 深圳直飞迪庆3h。或丽江转大巴2h。往返¥3,500-5,000/2人</p></div>
 <div class="card"><div class="card-title">🏨 住宿参考</div><div class="scroll-x"><table><tr><th>酒店</th><th>价格</th><th>备注</th></tr>
 <tr><td>松赞林卡酒店</td><td>¥1,200-2,000/晚</td><td>藏式奢华</td></tr>
@@ -420,31 +361,13 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div class="card"><div class="card-title">🔒 隐私 / i人友好度</div>
 <p>纳帕海环湖路多入口，非主景区段无人。</p>
 <p>评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div>
-<div class="card"><div class="card-title">🔗 小红书原文</div>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6a169be600000000370347e9" target="_blank" rel="noopener">这里不是瑞士，是香格里拉的老药山！！！</a> ❤️449</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/687fa5300000000010025068" target="_blank" rel="noopener">我在纳帕海被求婚啦!💍</a> ❤️99</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/66bee524000000000d031b99" target="_blank" rel="noopener">在纳帕海被求婚啦！上天都为我们祝福❤️</a> ❤️38</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6a225c090000000007029f4c" target="_blank" rel="noopener">香格里拉| 老药山徒步</a> ❤️23</p>
-</div>
 <div class="card"><div class="card-title">📊 多维评分</div>
-<div class="score-row"><span class="score-label">草甸景观</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">远景震撼</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">隐私干净</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">交通便利</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">预算友好</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">天气稳定</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
 <div class="total-score">总分：27/35</div></div>
 <div class="info">✅ 雨天B方案：古城/松赞林寺/室内</div>
 </div>
@@ -455,18 +378,19 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <p>📍 <b>秋菊草甸</b></p>
 <p>📍 <b>神龙峡谷</b></p>
 <p class="muted">陕西唯一高山草原，欧式田园风光，牛羊散布，小溪穿过。</p></div>
-<div class="card"><div class="card-title">📸 小红书实景（8张）</div>
+<div class="card"><div class="card-title">📸 小红书实景（10张 · 点击跳转原文）</div>
 <div class="img-grid">
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/65df198fe7fb0d8b00ada6e0a8667890/notes_pre_post/1040g3k031olvj6id6g0g4a5egum24cbjc5qojuo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g0k031fq9qkghnk005o68besg9acvnjjebb0?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=6aed8c7326c5b4b3bb78d4d3659a6ba8&t=6a2eb939&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/98ce5454517c0023e6d11a8e3d3f1429/notes_pre_post/1040g3k0321c385vqne0g5od83ee40vc83ooctuo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g0k031m5tdlehku005o68besg9acvgbkvt1g?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=0c2ea9c82d637da9a4e9e3a81ca73880&t=6a2eb93e&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/e184ddc3436e262f6f0c5d091c25137b/notes_pre_post/1040g3k831kur7hn5j4704bb8jg4u8o47es95ag0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/243709de83d8ad15e816cbdc6b6ec331/spectrum/1040g34o31d2q667v0e805pmt95i7cctmk3j49f0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/206cbc8e36d8a918a017e7387ce093bd/notes_pre_post/1040g3k031kr4rc6uiu00499u8ll9bc8kcon0n6g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/2cd005d2ce213aad541a8c8553f213d8/notes_pre_post/1040g3k8321b9s6g2no705pq1bmn7dlqvinaajc0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-</div>
-<div class="img-count">📷 共18张可选 · 来源：小红书搜索</div></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/667b9f3c000000001c0227f1" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/f11dc866eebe86b275644d311cea7c55/1040g008314gh6slv680049fo5tsnsakqtnjc9io!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="6月的关山牧场已经美到另一个level…" title="6月的关山牧场已经美到另一个level…" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6662bc3d000000001303daa3" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/877039bb16f4e339eed60bbe9ef613e1/1040g2sg313vngl8b1m705n25rdgkntlukvll120!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="关山牧场，西安周边拍星好去处" title="关山牧场，西安周边拍星好去处" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/68ad8148000000001b036d34" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/186ae8467b62e930301bd76b237412d0/notes_pre_post/1040g3k031ll40k365o005nr99bf09f0rrb2fns8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="live）暴雨🌦后的关山草原美到封神！！！！！" title="live）暴雨🌦后的关山草原美到封神！！！！！" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a1b7345000000003502dd87" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/ad82bc9af14c414f31f901ddb22ffcc3/notes_uhdr/1040g3qg320qg1rnalc005nih8a9g9eaq19adlno!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="2026年5月30日陕西宝鸡陇关山草原实况" title="2026年5月30日陕西宝鸡陇关山草原实况" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6896b35400000000220211b6" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/e184ddc3436e262f6f0c5d091c25137b/notes_pre_post/1040g3k831kur7hn5j4704bb8jg4u8o47es95ag0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="别再被骗了🆘关山牧场真实体验大揭秘 ‼️" title="别再被骗了🆘关山牧场真实体验大揭秘 ‼️" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a0ade6500000000360023c9" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/535bf0209f6780780b6196bc84e17ed6/1040g2sg320a9o1ld5ce04all356a7fv79asgbcg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="关山牧场" title="关山牧场" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66b78f82000000000503b40a" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/9accc82aaafea1c5bfb90ca2b1bd0977/1040g2sg316augcfu1a604busftses3i73c5ebmo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="关山牧场节假日一定（no）要来" title="关山牧场节假日一定（no）要来" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66688f640000000006005b41" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/0a8e707293b6665d97bdb49d4c4f8d3d/1040g2sg313tpnsb8ie705n8j77p4ernquvak2c0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="陕西版的阿勒泰～关山草原" title="陕西版的阿勒泰～关山草原" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/69f704c8000000001a02eeeb" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/eeba6caa96c98be307cc99733e538291/1040g00831vmspfacjq205pqjnugn36shsrchmp0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="关山草原别来了" title="关山草原别来了" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a1d61f10000000037036ee8" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/5cdefe5dbf68bc9f602ffcd6e75658c9/1040g2sg320sc63jenke0400qml3med129tclbto!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="关山牧场嘴真严" title="关山牧场嘴真严" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+</div></div>
 <div class="card"><div class="card-title">✈️ 交通</div><p>✈️ 深圳飞西安2.5h → 自驾3h。单程约6-7h，3天可行</p></div>
 <div class="card"><div class="card-title">🏨 住宿参考</div><div class="scroll-x"><table><tr><th>酒店</th><th>价格</th><th>备注</th></tr>
 <tr><td>关山草原度假村</td><td>¥300-600/晚</td><td>景区内</td></tr>
@@ -485,31 +409,13 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div class="card"><div class="card-title">🔒 隐私 / i人友好度</div>
 <p>景区面积大，非主流旅游地。核心区外围可独享。</p>
 <p>评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div>
-<div class="card"><div class="card-title">🔗 小红书原文</div>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/667b9f3c000000001c0227f1" target="_blank" rel="noopener">6月的关山牧场已经美到另一个level…</a> ❤️1461</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6662bc3d000000001303daa3" target="_blank" rel="noopener">关山牧场，西安周边拍星好去处</a> ❤️360</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/68ad8148000000001b036d34" target="_blank" rel="noopener">live）暴雨🌦后的关山草原美到封神！！！！！</a> ❤️302</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6a1b7345000000003502dd87" target="_blank" rel="noopener">2026年5月30日陕西宝鸡陇关山草原实况</a> ❤️213</p>
-</div>
 <div class="card"><div class="card-title">📊 多维评分</div>
-<div class="score-row"><span class="score-label">草甸景观</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">远景震撼</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">隐私干净</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">交通便利</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">预算友好</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">天气稳定</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
 <div class="total-score">总分：26/35</div></div>
 <div class="warn">⚠️ 雨天B方案有限：县城/室内</div>
 </div>
@@ -520,18 +426,19 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <p>📍 <b>空中草原</b></p>
 <p>📍 <b>日出观景台</b></p>
 <p class="muted">山顶平台草甸，《海蒂和爷爷》同款山坡。日出云海绝佳。</p></div>
-<div class="card"><div class="card-title">📸 小红书实景（8张）</div>
+<div class="card"><div class="card-title">📸 小红书实景（10张 · 点击跳转原文）</div>
 <div class="img-grid">
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/9f1db273839f1a87e8b8a02efaccde50/notes_pre_post/1040g3k831ho2vehd3sd05of4r03k1boiokucgig!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/678cb5834b4bc0ed2df76c00888c0887/spectrum/1040g34o316n9ip02jk0g4013a41g1vktbdbrcfg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/notes_pre_post/1040g3k031ja4okh22o505osj1f1picg0q69dh0o?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=97736c31e34f39aeea17d3b7ff4f6b7f&t=6a2eb908&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g34o316n9ip02jk0g4013a41g1vktbdbrcfg?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=87573a8cca8186af076c1ae3c0629621&t=6a2eb90e&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/1dcbbc75fafba1d190eb02abc16b709c/notes_pre_post/1040g3k031vlkru7sia005odqv63oc6eopm6d898!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/612c7d27035fee706b2aa4f0d3832fe6/spectrum/1040g34o320pfdf7tlce05o7ri75g84pult3tg3o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/566015b0e67acd2f4e23f1561fd3979b/notes_pre_post/1040g3k831fic429d0c505o59sv20br1sjm412vg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g0k031c1bk8f60e3g5nrrsvhgbpv7il4vgp8?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=c5ee40181f6443fa924e03281d975ea0&t=6a2eb90e&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-</div>
-<div class="img-count">📷 共33张可选 · 来源：小红书搜索</div></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66aa787a0000000005032f9f" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/488ed51a22f1574c79d660008529c5f0/1040g2sg315uogehm0u8g4a61joimbdb440pbnm8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="武功山人挤人，不如来八面山" title="武功山人挤人，不如来八面山" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/68858a210000000011002523" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/2382d0716fbc305faa0915d23204005d/1040g00831ke1rfs43qdg5pj1m3i3cue65q7f50o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="📍湘西·八面山" title="📍湘西·八面山" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/68459411000000002100be36" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/ba0fb0815a7c50a549b2c1664525c336/notes_pre_post/1040g3k031ifkd2ejg80049v8mcsurti0qb4ajpg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="不是新疆去不起，而是湘西八面山更有性价比" title="不是新疆去不起，而是湘西八面山更有性价比" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66c43981000000001d038204" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/678cb5834b4bc0ed2df76c00888c0887/spectrum/1040g34o316n9ip02jk0g4013a41g1vktbdbrcfg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="夏日清凉 去湘西八面山露营吧" title="夏日清凉 去湘西八面山露营吧" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/682d7e90000000002102eba6" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/9f1db273839f1a87e8b8a02efaccde50/notes_pre_post/1040g3k831ho2vehd3sd05of4r03k1boiokucgig!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="2025-05-20  湘西八面山" title="2025-05-20  湘西八面山" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66c1848e000000001e01eac0" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/7a3f53823809489da6e46c5a00f65a9b/1040g2sg316klljlh0s7049vnaemr4fhgbr7a3qg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="湘西阿勒泰！八面山" title="湘西阿勒泰！八面山" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66aa2ef30000000027010022" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/cb120135fb231dc403e2bd758f504c48/1040g2sg315tsf2j3ha7047j8ra0fprmtcp7sf0o!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="🍃北京出发：绝美小众避暑胜地-湘西八面山" title="🍃北京出发：绝美小众避暑胜地-湘西八面山" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66c467d4000000001f01e3a2" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/7e796e12767ff46be6add8c93e93b8b9/1040g2sg316nftcn2gucg5pjeqr80u1bslg7crf0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="避暑八面山，憧憬魅力湘西" title="避暑八面山，憧憬魅力湘西" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/68a9d489000000001c00f6fc" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/20fcf1829dc193e9589238ce5d724e1e/notes_pre_post/1040g3k831lhgqf18lodg46255mat6mq4u8epmag!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="湘西八面山" title="湘西八面山" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6a2d57030000000017029355" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/8d31b5f97110e6acf660c2cf47db01df/spectrum/1040g0k0321bv0rqg6s0049niqr0l8hv0mpinko0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="八面山徒步Vlog｜高山草甸露营，看日出云海" title="八面山徒步Vlog｜高山草甸露营，看日出云海" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+</div></div>
 <div class="card"><div class="card-title">✈️ 交通</div><p>✈️ 深圳飞张家界2h → 自驾2h到龙山。单程约6-7h</p></div>
 <div class="card"><div class="card-title">🏨 住宿参考</div><div class="scroll-x"><table><tr><th>酒店</th><th>价格</th><th>备注</th></tr>
 <tr><td>八面山帐篷营地</td><td>¥200-400/晚</td><td>山顶看星空</td></tr>
@@ -550,31 +457,13 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div class="card"><div class="card-title">🔒 隐私 / i人友好度</div>
 <p>开发度极低，游客稀少。山顶草甸广阔，开车直达。</p>
 <p>评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div>
-<div class="card"><div class="card-title">🔗 小红书原文</div>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/66aa787a0000000005032f9f" target="_blank" rel="noopener">武功山人挤人，不如来八面山</a> ❤️463</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/68858a210000000011002523" target="_blank" rel="noopener">📍湘西·八面山</a> ❤️137</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/68a49b1e000000001c030a07" target="_blank" rel="noopener">🐎奔赴八面山 | 云端草原撒野指南</a> ❤️132</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/68459411000000002100be36" target="_blank" rel="noopener">不是新疆去不起，而是湘西八面山更有性价比</a> ❤️106</p>
-</div>
 <div class="card"><div class="card-title">📊 多维评分</div>
-<div class="score-row"><span class="score-label">草甸景观</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">远景震撼</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">隐私干净</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">交通便利</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">预算友好</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">天气稳定</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
 <div class="total-score">总分：25/35</div></div>
 <div class="warn">⚠️ 雨天B方案有限：县城/帐篷室内</div>
 </div>
@@ -585,18 +474,15 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <p>📍 <b>长坪沟·枯树滩</b></p>
 <p>📍 <b>猫鼻梁观景台</b></p>
 <p class="muted">幺妹峰背景大草甸，8月野花盛开。主峰正对面草地+雪山+溪流同框。</p></div>
-<div class="card"><div class="card-title">📸 小红书实景（8张）</div>
+<div class="card"><div class="card-title">📸 小红书实景（6张 · 点击跳转原文）</div>
 <div class="img-grid">
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/notes_pre_post/1040g3k831idsip4inm705q0a5p2m4mdmphe9lb0?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=83ac2478a1c188cab520c2a032fad8c2&t=6a2eb617&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/7b937c199dd95115fb5e5e5b19a39e5a/spectrum/1040g34o31sjhh4n35c405n9dk0ok6ct5941515g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/1d7aa3141eb91c347513ed4f9b410aff/notes_pre_post/1040g3k0320bimt1368005o4s4ld0bqlhtavh3tg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/46dc2221062ace699ac4bf0f9c108c4e/notes_pre_post/1040g3k831kij8qdmj6705n9sqmo4mog33e06h18!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/989b9de657d1ae2e63ba329ab7173b41/notes_pre_post/1040g3k031o266f714u6g4a40k2g938pkt71icno!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/b124a4f1d8dc7409161cb850ba247c6b/notes_pre_post/1040g3k031nhkbje25i5g48fa6qr7h39e189t7so!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/52446c3a8a76bb5f392cc67406a81a7f/notes_pre_post/1040g3k831qpujv8u74e05o2ohel0927uuv82k7g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142209/727d4358ebc6c2874dfc56a0bfad84c9/notes_pre_post/1040g3k031ma082r4lm104a7m7naq0q4seu156f0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-</div>
-<div class="img-count">📷 共20张可选 · 来源：小红书搜索</div></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6695e2630000000003025f26" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/1e3479ab5a82573254b9252f2180bcee/1040g2sg315a2452ahe005oe0153416rco1euvfg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="我在四姑娘山求婚啦！" title="我在四姑娘山求婚啦！" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/69f604c90000000038021d0b" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/b7f2b22aabd2572a224e21c7a2350141/1040g00831vlu2gc2jq1g5okv596oc37to5imnf8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="不知道5.2四姑娘山求婚这对情侣能不能刷到" title="不知道5.2四姑娘山求婚这对情侣能不能刷到" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/665ea1a80000000006005898" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142220/663807b6bae39a6995a0f5ae015af4c1/1040g008313k3f7olhe0049ku71nrpp55ai22chg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="暂停上学🎒｜在四姑娘山被求个婚" title="暂停上学🎒｜在四姑娘山被求个婚" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66338be3000000001e03951e" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142223/c6ca28043e2c224c3510406922151bc5/1040g008312a0gripho1040j61qnllvo2prmgqko!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="哦莫，是不是第一个在四姑娘山被求婚的女生" title="哦莫，是不是第一个在四姑娘山被求婚的女生" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/684be29100000000120022c7" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142221/e5b5d831d1c42b0b787ae59a70c94a10/notes_pre_post/1040g3k031ilp4ehf144g4bq9k17evb7bq49sfm8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="是我喜欢的雪山求婚❤️四姑娘山⛰️" title="是我喜欢的雪山求婚❤️四姑娘山⛰️" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/671e342e000000001b01090c" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142220/fd55be7c7042537b7e38bc05478188f0/1040g2sg319f60ttr627049vnkd26phhne1etci0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="在四姑娘山我被求婚啦" title="在四姑娘山我被求婚啦" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+</div></div>
 <div class="card"><div class="card-title">✈️ 交通</div><p>✈️ 深圳飞成都2.5h → 自驾4h。单程7h+，周五晚需住成都。实际游玩仅1.5天</p></div>
 <div class="card"><div class="card-title">🏨 住宿参考</div><div class="scroll-x"><table><tr><th>酒店</th><th>价格</th><th>备注</th></tr>
 <tr><td>圣地·映像酒店</td><td>¥400-700/晚</td><td>镇上最好</td></tr>
@@ -615,31 +501,13 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div class="card"><div class="card-title">🔒 隐私 / i人友好度</div>
 <p>双桥沟站点分散。长坪沟需徒步游客少。私密性优秀。</p>
 <p>评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div>
-<div class="card"><div class="card-title">🔗 小红书原文</div>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6695e2630000000003025f26" target="_blank" rel="noopener">我在四姑娘山求婚啦！</a> ❤️2.7万</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/69f604c90000000038021d0b" target="_blank" rel="noopener">不知道5.2四姑娘山求婚这对情侣能不能刷到</a> ❤️358</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/665ea1a80000000006005898" target="_blank" rel="noopener">暂停上学🎒｜在四姑娘山被求个婚</a> ❤️149</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/66338be3000000001e03951e" target="_blank" rel="noopener">哦莫，是不是第一个在四姑娘山被求婚的女生</a> ❤️104</p>
-</div>
 <div class="card"><div class="card-title">📊 多维评分</div>
-<div class="score-row"><span class="score-label">草甸景观</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">远景震撼</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">隐私干净</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">交通便利</span>
-<div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
-<span class="score-num">2/5</span></div>
-<div class="score-row"><span class="score-label">预算友好</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">天气稳定</span>
-<div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
-<span class="score-num">2/5</span></div>
+<div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:40%"></div></div><span class="score-num">2/5</span></div>
+<div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:40%"></div></div><span class="score-num">2/5</span></div>
 <div class="total-score">总分：24/35</div></div>
 <div class="danger">❌ 雨天几乎无B方案</div>
 </div>
@@ -650,18 +518,19 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <p>📍 <b>将军泡子</b></p>
 <p>📍 <b>公主湖草甸</b></p>
 <p class="muted">欧式草原风光，8月底开始进入金秋。丘陵起伏+白桦林+湖泊。</p></div>
-<div class="card"><div class="card-title">📸 小红书实景（8张）</div>
+<div class="card"><div class="card-title">📸 小红书实景（10张 · 点击跳转原文）</div>
 <div class="img-grid">
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/f1006c9164e0bf13495765d696cf512a/notes_pre_post/1040g3k831justfdtiad04a5fjl6qqnsd7hatotg!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g0k031foqe856gc005pj8ug20ubuts29h0pg?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=52de0baba9f7161617a34bcbb4de4e46&t=6a2eb926&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/7d880eb1c52fbb34496150a5ee8c9a30/notes_pre_post/1040g3k0321bnvoncn24g5qg4ltr0g600purve68!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-na-i11.xhscdn.com/spectrum/1040g34o31k416dsc36805olpimi6o690pjar9k8?imageView2/1/h/132/w/480/format/jpg&ap=5&sc=HOT_QRY&sign=d7577a5fc9b6b3bb609aa6a9f08e74c3&t=6a2eb926&origin=0" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/a2404c66e6c36f0d2d5bbb83eb249b18/notes_pre_post/1040g3k831iv16p8b1ieg49nr73r0gdlt1n117p0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/a3a1cafcbf57096931516a81fae5a1da/spectrum/1040g34o31jqt9ujmig305nvcf05gbv21a442odo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/70ea28e97b2c428efab3e8aea0639a55/notes_pre_post/1040g3k0320tc7hbe7k0g5q48h6ea6gkm50c0qe8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-<div class="img-cell"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/def2063b534b5900763d0035372ecd07/notes_pre_post/1040g3k831iiuefdrg8s05p5bieck81f6g2jacho!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.style.display=&quot;none&quot;"></div>
-</div>
-<div class="img-count">📷 共30张可选 · 来源：小红书搜索</div></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/667541e3000000001f006f9f" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/8382ede7ed4cefdb6887ec8fea8df864/1040g008314a6h4u8ls505ndp430094npd3t6qjo!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="乌兰布统 新疆平替～北京出发周末游" title="乌兰布统 新疆平替～北京出发周末游" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/669cd6320000000025007467" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/88dc4e67581d70b4dc64f59869762d3f/1040g2sg315grceucgq705o7jqb90951ovt7p090!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="📍承德｜围场坝上草原" title="📍承德｜围场坝上草原" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6879cc56000000002400c94b" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/9d68c5e64f44609557019b82b8af0131/notes_pre_post/1040g3k831k2jh9f92ob048va727t5nn89jjmero!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="从唐山自驾出发，塞罕坝-乌兰布统-达达线" title="从唐山自驾出发，塞罕坝-乌兰布统-达达线" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/659abebf0000000010012b8a" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/8f3de1c5be51c2d5d666ea35cb40f34b/1040g00830tkpd9n3ko0g5p5arfuqmkktet9jdr8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="乌兰布统跨年❄️美到我尖叫" title="乌兰布统跨年❄️美到我尖叫" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/68308a7a0000000012002566" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/bcf5e46eea5b9138a94d19fea7e35c31/notes_pre_post/1040g3k831hr2vv7l3obg494r951s8jdhbvqfqb0!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="从乌兰布统回来啦！端午节 北京出发自驾" title="从乌兰布统回来啦！端午节 北京出发自驾" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/685fa9c80000000023004c29" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/4a0ba417310e9b1bf60dfb09c98522c0/notes_pre_post/1040g3k831j93mvfmj0k05pu924fjlif4546k15g!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="坝上草原3天2晚小众玩法！" title="坝上草原3天2晚小众玩法！" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/6699028d0000000003025a26" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/a586489cb678c127bf5aecb0d30af9be/1040g2sg315d3plv6iodg5nflf88g9ad0i5an7j8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="乌兰布统草原旅拍踩雷" title="乌兰布统草原旅拍踩雷" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66876f93000000000302446a" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/d177fba5fc1f377530e616f18a3425c6/1040g008314rujhm3ha005od9qh541vda0lk3tn8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="乌兰布统 里面最喜欢的景点" title="乌兰布统 里面最喜欢的景点" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/688f6a9c000000002303aceb" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/1a18fda89bdc1461eda78c068d7b5090/1040g2sg31kno016u2uhg49as7e9uggomfsg23h8!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="🐎北京周末2天1夜，解锁坝上草原免费路线" title="🐎北京周末2天1夜，解锁坝上草原免费路线" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+<div class="img-cell"><a href="https://www.xiaohongshu.com/explore/66bc6ad40000000009016aba" target="_blank" rel="noopener noreferrer"><img src="https://sns-webpic-qc.xhscdn.com/202606142222/ee9c1244f30b5194e03a5aafc9452a52/1040g008316fm4jhoio6g5p4p988qmld0tnntq88!nc_n_webp_mw_1" loading="lazy" referrerpolicy="no-referrer" alt="追梦坝上草原" title="追梦坝上草原" onerror="this.parentElement.parentElement.style.display=&quot;none&quot;"></a></div>
+</div></div>
 <div class="card"><div class="card-title">✈️ 交通</div><p>✈️ 深圳飞北京3.5h → 自驾4h。单程8h，3天勉强可行</p></div>
 <div class="card"><div class="card-title">🏨 住宿参考</div><div class="scroll-x"><table><tr><th>酒店</th><th>价格</th><th>备注</th></tr>
 <tr><td>乌兰布统草原度假村</td><td>¥400-800/晚</td><td>景区内</td></tr>
@@ -681,31 +550,13 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 <div class="card"><div class="card-title">🔒 隐私 / i人友好度</div>
 <p>草原面积巨大，非主景区完全无人。日出时分最佳。</p>
 <p>评分：<span class="star">⭐⭐⭐⭐⭐</span></p></div>
-<div class="card"><div class="card-title">🔗 小红书原文</div>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/667541e3000000001f006f9f" target="_blank" rel="noopener">乌兰布统 新疆平替～北京出发周末游</a> ❤️2264</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/669cd6320000000025007467" target="_blank" rel="noopener">📍承德｜围场坝上草原</a> ❤️501</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/68844dfe0000000017037f27" target="_blank" rel="noopener">北京出发｜乌兰布统塞罕坝周末两日游攻略</a> ❤️406</p>
-<p class="xhs-link">📕 <a href="https://www.xiaohongshu.com/explore/6879cc56000000002400c94b" target="_blank" rel="noopener">从唐山自驾出发，塞罕坝-乌兰布统-达达线</a> ❤️391</p>
-</div>
 <div class="card"><div class="card-title">📊 多维评分</div>
-<div class="score-row"><span class="score-label">草甸景观</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">远景震撼</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
-<div class="score-row"><span class="score-label">隐私干净</span>
-<div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
-<span class="score-num">5/5</span></div>
-<div class="score-row"><span class="score-label">交通便利</span>
-<div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
-<span class="score-num">2/5</span></div>
-<div class="score-row"><span class="score-label">预算友好</span>
-<div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
-<span class="score-num">3/5</span></div>
-<div class="score-row"><span class="score-label">天气稳定</span>
-<div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
-<span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">草甸景观</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">远景震撼</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
+<div class="score-row"><span class="score-label">隐私干净</span><div class="score-bar"><div class="score-fill" style="width:100%"></div></div><span class="score-num">5/5</span></div>
+<div class="score-row"><span class="score-label">交通便利</span><div class="score-bar"><div class="score-fill" style="width:40%"></div></div><span class="score-num">2/5</span></div>
+<div class="score-row"><span class="score-label">预算友好</span><div class="score-bar"><div class="score-fill" style="width:60%"></div></div><span class="score-num">3/5</span></div>
+<div class="score-row"><span class="score-label">天气稳定</span><div class="score-bar"><div class="score-fill" style="width:80%"></div></div><span class="score-num">4/5</span></div>
 <div class="total-score">总分：24/35</div></div>
 <div class="info">✅ 雨天B方案：室内/古北水镇</div>
 </div>
@@ -803,7 +654,6 @@ td { padding:6px 8px; border-bottom:1px solid #f3f4f6; }
 </table></div></div>
 <div class="info"><b>📌 策略提醒：</b><br>1. 等巾巾7月定了旅游目的地后排除该地，再从Top 8锁定<br>2. 7/15前订机票/住宿<br>3. 高海拔（香格/四姑娘）提前一周吃红景天<br>4. 求婚黄金时段：日落前1h（约17:00-18:00）</div>
 </div>
-
 <script>
 const HASH="95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56";
 async function sha256(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");}
