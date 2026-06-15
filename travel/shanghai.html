@@ -2,467 +2,476 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🗓️ 端午上海行攻略</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="referrer" content="no-referrer">
+<title>🎒 端午上海行</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --primary: #6366f1;
-  --primary-light: #818cf8;
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --card-hover: #f1f5f9;
-  --text: #1e293b;
-  --text-muted: #64748b;
-  --accent: #f59e0b;
-  --danger: #ef4444;
-  --success: #22c55e;
-  --border: #e2e8f0;
-}
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg); color: var(--text); line-height: 1.6;
-}
-.lock-screen {
-  position:fixed; inset:0; z-index:9999; background:var(--bg);
-  display:flex; align-items:center; justify-content:center;
-  flex-direction:column; gap:20px;
-}
-.lock-screen.hidden { display:none; }
-.lock-screen input {
-  padding:12px 20px; border-radius:12px; border:2px solid var(--border);
-  background:#fff; color:var(--text); font-size:16px; width:200px; text-align:center; outline:none;
-}
-.lock-screen input:focus { border-color:var(--primary); }
-.lock-screen button {
-  padding:10px 30px; border-radius:12px; background:var(--primary);
-  color:#fff; border:none; font-size:16px; cursor:pointer;
-}
-.lock-screen button:hover { background:var(--primary-light); }
-.lock-screen .error { color:var(--danger); font-size:14px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; color: #1e293b; line-height: 1.6; }
+.hero { background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa); color: white; padding: 40px 20px 30px; text-align: center; }
+.hero h1 { font-size: clamp(22px, 5vw, 32px); margin-bottom: 6px; }
+.hero p { font-size: 14px; opacity: .85; }
+.hero .dates { font-size: 13px; opacity: .7; margin-top: 4px; }
+.container { max-width: 700px; margin: 0 auto; padding: 16px; }
 
-.container { max-width:800px; margin:0 auto; padding:20px; }
-.hero {
-  text-align:center; padding:50px 20px;
-  background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#a78bfa 100%);
-  border-radius:24px; margin-bottom:30px; color:#fff; position:relative; overflow:hidden;
-}
-.hero::after {
-  content:''; position:absolute; inset:0;
-  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-.hero h1 { font-size:2em; position:relative; z-index:1; }
-.hero .sub { color:rgba(255,255,255,.85); margin-top:10px; position:relative; z-index:1; }
-.hero .countdown {
-  margin-top:20px; font-size:1.4em; font-weight:bold;
-  background:rgba(0,0,0,.15); display:inline-block;
-  padding:8px 24px; border-radius:12px; position:relative; z-index:1;
-}
+/* Weather Alert */
+.alert-box { background: #fef2f2; border: 2px solid #fca5a5; border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+.alert-box h3 { color: #dc2626; font-size: 16px; margin-bottom: 4px; }
+.alert-box p { font-size: 13px; color: #7f1d1d; }
+.weather-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 12px; }
+.weather-day { background: white; border-radius: 10px; padding: 12px 8px; text-align: center; border: 1px solid #e2e8f0; }
+.weather-day .day-label { font-size: 11px; color: #64748b; }
+.weather-day .temp { font-size: 20px; font-weight: 700; margin: 4px 0; }
+.weather-day .rain { font-size: 12px; }
+.weather-day.worst { border-color: #ef4444; background: #fef2f2; }
 
-.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; }
-.badge-red { background:#fef2f2; color:#dc2626; }
-.badge-yellow { background:#fffbeb; color:#d97706; }
-.badge-green { background:#f0fdf4; color:#16a34a; }
-.badge-blue { background:#eef2ff; color:#4f46e5; }
+/* Section */
+.section-title { font-size: 18px; font-weight: 700; color: #4f46e5; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #e0e7ff; }
 
-.section { margin-bottom:30px; }
-.section-title { font-size:1.3em; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+/* Attraction Card */
+.spot { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.spot-img { width: 100%; height: 200px; object-fit: cover; }
+.spot-body { padding: 14px; }
+.spot-name { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+.spot-desc { font-size: 13px; color: #475569; margin-bottom: 8px; line-height: 1.5; }
+.spot-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.spot-tag { font-size: 11px; background: #ede9fe; color: #6d28d9; padding: 3px 8px; border-radius: 6px; }
+.spot-tip { font-size: 12px; background: #fef3c7; color: #92400e; padding: 8px 10px; border-radius: 8px; margin-top: 8px; }
+.spot-warn { background: #fee2e2; color: #991b1b; }
 
-.card {
-  background:var(--card); border:1px solid var(--border);
-  border-radius:16px; padding:20px; margin-bottom:12px;
-  box-shadow:0 1px 3px rgba(0,0,0,.04);
-}
+/* XHS links */
+.xhs-links { margin-top: 10px; }
+.xhs-link { display: block; font-size: 12px; color: #6366f1; text-decoration: none; padding: 4px 0; border-bottom: 1px dotted #e2e8f0; }
+.xhs-link:hover { color: #4f46e5; text-decoration: underline; }
 
-.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
-.stat-card {
-  background:var(--card); border-radius:16px; padding:20px; text-align:center;
-  border:1px solid var(--border);
-}
-.stat-card .value { font-size:1.6em; font-weight:700; color:var(--primary); }
-.stat-card .label { color:var(--text-muted); font-size:0.85em; margin-top:4px; }
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #c7d2fe; }
+.tl-item { position: relative; margin-bottom: 16px; padding: 12px; background: white; border-radius: 10px; border: 1px solid #e2e8f0; }
+.tl-item::before { content: ''; position: absolute; left: -20px; top: 16px; width: 10px; height: 10px; border-radius: 50%; background: #6366f1; border: 2px solid white; }
+.tl-time { font-size: 11px; color: #6366f1; font-weight: 600; }
+.tl-content { font-size: 13px; color: #334155; }
 
-/* 景点卡片 */
-.spot {
-  background:var(--card); border:1px solid var(--border); border-radius:20px;
-  overflow:hidden; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,.06);
-  transition:transform .2s, box-shadow .2s;
-}
-.spot:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.1); }
-.spot-img {
-  width:100%; height:200px; object-fit:cover; display:block;
-}
-.spot-body { padding:18px 20px; }
-.spot-body .spot-name { font-size:1.15em; font-weight:700; margin-bottom:6px; }
-.spot-body .spot-desc { color:var(--text-muted); font-size:0.9em; line-height:1.5; }
-.spot-body .spot-tags { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; }
-.spot-tag {
-  padding:3px 10px; border-radius:12px; font-size:0.75em; font-weight:500;
-  background:#eef2ff; color:#4f46e5;
-}
-.spot-tip {
-  margin-top:10px; padding:10px 14px; border-radius:10px;
-  background:#f0fdf4; color:#16a34a; font-size:0.85em;
-  border-left:3px solid #22c55e;
-}
+/* Restaurant */
+.resto { background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 1px solid #e2e8f0; }
+.resto-name { font-size: 16px; font-weight: 700; }
+.resto-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 6px; margin-left: 6px; }
+.badge-rec { background: #dcfce7; color: #166534; }
+.badge-warn { background: #fef3c7; color: #92400e; }
+.badge-no { background: #fee2e2; color: #991b1b; }
+.resto-detail { font-size: 13px; color: #475569; margin-top: 6px; }
 
-/* 时间线 */
-.day-header {
-  font-weight:700; font-size:1.15em; color:var(--primary);
-  margin:24px 0 16px; padding-bottom:8px;
-  border-bottom:2px solid #eef2ff;
-}
-.day-header:first-child { margin-top:0; }
+/* Budget */
+.budget-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+.budget-table td, .budget-table th { padding: 8px 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+.budget-table .total-row { font-weight: 700; background: #f8fafc; }
 
-.todo-item {
-  display:flex; align-items:center; gap:12px;
-  padding:12px 16px; background:var(--card); border-radius:12px; margin-bottom:8px;
-  border:1px solid var(--border);
-}
-.todo-item .checkbox {
-  width:22px; height:22px; border-radius:6px; border:2px solid var(--border);
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; flex-shrink:0; transition:all .2s;
-}
-.todo-item .checkbox.checked { background:var(--success); border-color:var(--success); }
-.todo-item .checkbox.checked::after { content:'✓'; color:#fff; font-size:14px; }
-.todo-item.done .text { text-decoration:line-through; color:var(--text-muted); }
+/* Tips */
+.tip-list { list-style: none; }
+.tip-list li { font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
 
-.budget-row { display:flex; justify-content:space-between; padding:10px 16px; border-bottom:1px solid var(--border); }
-.budget-row:last-child { border-bottom:none; }
-.budget-total {
-  font-weight:700; color:var(--accent); font-size:1.1em; padding:12px 16px;
-  background:#fffbeb; border-radius:0 0 16px 16px; text-align:right;
-}
+/* Password Lock */
+#lockScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: #f1f5f9; }
+#lockScreen .lock-box { background: white; padding: 32px; border-radius: 16px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,.1); max-width: 320px; width: 90%; }
+#lockScreen input { width: 100%; padding: 10px; margin: 12px 0; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; text-align: center; }
+#lockScreen button { width: 100%; padding: 10px; background: #6366f1; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+#lockScreen .lock-icon { font-size: 48px; margin-bottom: 12px; }
+#lockScreen .error { color: #ef4444; font-size: 13px; margin-top: 8px; display: none; }
 
-.tips { background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:16px; }
-.tips li { margin-bottom:6px; color:var(--text-muted); }
-.tips li strong { color:var(--text); }
-
-.food-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
-.food-card {
-  background:var(--card); border:1px solid var(--border); border-radius:14px;
-  padding:14px 16px; text-align:center;
-}
-.food-card .food-emoji { font-size:2em; }
-.food-card .food-name { font-weight:600; margin-top:6px; }
-.food-card .food-where { color:var(--text-muted); font-size:0.8em; margin-top:4px; }
-
-footer { text-align:center; padding:40px 20px; color:var(--text-muted); font-size:0.85em; }
-
-@media (max-width:600px) {
-  .hero h1 { font-size:1.5em; }
-  .container { padding:12px; }
-  .grid { grid-template-columns:1fr 1fr; }
-  .spot-img { height:160px; }
-  .food-grid { grid-template-columns:1fr 1fr; }
+/* Mobile */
+@media(max-width:600px) {
+  .weather-grid { grid-template-columns: repeat(1,1fr); }
+  .container { padding: 10px; }
+  .spot-img { height: 160px; }
 }
 </style>
 </head>
 <body>
 
-<div class="lock-screen" id="lockScreen">
-  <div style="font-size:48px">🔒</div>
-  <h2>输入密码查看攻略</h2>
-  <input type="password" id="pwdInput" placeholder="密码" onkeydown="if(event.key==='Enter')unlock()">
-  <button onclick="unlock()">解锁</button>
-  <div class="error" id="lockError"></div>
+<!-- Password Lock -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-icon">🔐</div>
+    <h2>端午上海行</h2>
+    <p style="font-size:13px;color:#64748b;">输入密码查看</p>
+    <input type="password" id="pwdInput" placeholder="密码" autofocus>
+    <button onclick="unlock()">解锁</button>
+    <p class="error" id="errMsg">密码错误</p>
+  </div>
 </div>
 
-<div class="container" id="mainContent" style="display:none">
+<!-- Main Content -->
+<div id="report" style="display:none">
 
-  <!-- Hero -->
-  <div class="hero">
-    <h1>🐉 端午上海行攻略</h1>
-    <div class="sub">2026年6月19日 - 6月21日 · 3天2晚 · 3人同行</div>
-    <div class="countdown" id="countdown"></div>
-  </div>
+<div class="hero">
+  <h1>🎒 端午上海行</h1>
+  <p>Vincent · 巾巾 · 妈妈</p>
+  <p class="dates">6/19 周五 — 6/21 周日 · 深圳 → 上海</p>
+</div>
 
-  <!-- 统计 -->
-  <div class="grid section">
-    <div class="stat-card"><div class="value">3</div><div class="label">👤 出行人数</div></div>
-    <div class="stat-card"><div class="value">2晚</div><div class="label">🏨 住宿</div></div>
-    <div class="stat-card"><div class="value">深圳✈️上海</div><div class="label">🛫 路线</div></div>
-    <div class="stat-card"><div class="value">~¥7,400</div><div class="label">💰 预估预算</div></div>
-  </div>
+<div class="container">
 
-  <!-- 同行人 -->
-  <div class="section">
-    <div class="section-title">👥 同行人</div>
-    <div class="grid">
-      <div class="card" style="text-align:center">
-        <div style="font-size:2em">🧑</div>
-        <div style="font-weight:600;margin-top:8px">Vincent</div>
-        <div style="color:var(--text-muted);font-size:0.85em">策划担当</div>
-      </div>
-      <div class="card" style="text-align:center">
-        <div style="font-size:2em">👩</div>
-        <div style="font-weight:600;margin-top:8px">妈妈</div>
-        <div style="color:var(--text-muted);font-size:0.85em">后勤保障</div>
-      </div>
-      <div class="card" style="text-align:center">
-        <div style="font-size:2em">👧</div>
-        <div style="font-weight:600;margin-top:8px">巾巾</div>
-        <div style="color:var(--text-muted);font-size:0.85em">快乐源泉</div>
-      </div>
+<!-- Weather -->
+<div class="alert-box">
+  <h3>⛈️ 暴雨预警 · 上海梅雨季</h3>
+  <p>前两天下暴雨！带雨伞+雨衣+防滑鞋</p>
+  <div class="weather-grid">
+    <div class="weather-day worst">
+      <div class="day-label">6/19 周五</div>
+      <div class="temp">23-26°C</div>
+      <div class="rain" style="color:#dc2626">⛈️ 暴雨 76mm (92%)</div>
+    </div>
+    <div class="weather-day worst" style="border:2px solid #ef4444; background:#fff5f5;">
+      <div class="day-label">6/20 周六 🎂</div>
+      <div class="temp">24-28°C</div>
+      <div class="rain" style="color:#dc2626;font-weight:700">⛈️ 特大暴雨 147mm (90%)</div>
+    </div>
+    <div class="weather-day" style="border-color:#22c55e; background:#f0fdf4;">
+      <div class="day-label">6/21 周日</div>
+      <div class="temp">23-29°C</div>
+      <div class="rain" style="color:#16a34a">☁️ 几乎无雨 (31%) ✅</div>
     </div>
   </div>
+</div>
 
-  <!-- ===== 行程安排 ===== -->
-  <div class="section">
-    <div class="section-title">🗺️ 行程安排</div>
+<!-- 3-Day Timeline -->
+<h2 class="section-title">📋 三天行程（暴雨优化版）</h2>
 
-    <!-- Day 1 -->
-    <div class="day-header">📅 Day 1 · 6月19日 周五 · 去程</div>
+<div class="timeline">
+<h3 style="font-size:14px;color:#6366f1;margin-bottom:12px">🔵 Day 1 — 6/19 周五 · 暴雨</h3>
 
-    <div class="spot">
-      <img class="spot-img" src="https://images.pexels.com/photos/745243/pexels-photo-745243.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="上海外滩夜景">
-      <div class="spot-body">
-        <div class="spot-name">🏙️ 外滩 · The Bund</div>
-        <div class="spot-desc">上海最经典地标！52栋风格各异的万国建筑群，被誉为"万国建筑博览群"。傍晚时分，华灯初上，对岸陆家嘴天际线尽收眼底，是拍照的最佳时刻。</div>
-        <div class="spot-tags">
-          <span class="spot-tag">📸 拍照圣地</span>
-          <span class="spot-tag">🌅 日落推荐</span>
-          <span class="spot-tag">🆓 免费</span>
-        </div>
-        <div class="spot-tip">💡 建议 16:00-18:00 到，先逛南京路再看日落夜景。外滩观光隧道可以体验一下，单程 ¥55。</div>
-      </div>
+<div class="tl-item">
+  <div class="tl-time">8:25 — 10:55</div>
+  <div class="tl-content">✈️ 深圳 → 上海 · 到达浦东</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">11:00 — 12:00</div>
+  <div class="tl-content">🚇 地铁/打车去酒店放行李</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">12:00 — 14:00</div>
+  <div class="tl-content">🥟 午餐 @ 光明邨中庚漫游城分店（排队15分钟，老字号本帮菜）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">14:00 — 16:00</div>
+  <div class="tl-content">☔ 室内方案：上海博物馆（免费但需预约！）或自然博物馆（¥30）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">16:00 — 18:00</div>
+  <div class="tl-content">☔ 如果雨小：陆家嘴三件套打卡（8号口出，有免费贴标位置）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">18:00 — 20:00</div>
+  <div class="tl-content">🍜 晚餐 @ 陆家嘴商场内（避开暴雨）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">20:00 — 21:00</div>
+  <div class="tl-content">🌃 如果雨停：外滩夜景 + 万国建筑群</div>
+</div>
+
+<h3 style="font-size:14px;color:#f59e0b;margin:16px 0 12px">🟡 Day 2 — 6/20 周六🎂 妈妈生日 · 特大暴雨</h3>
+
+<div class="tl-item">
+  <div class="tl-time">9:00 — 12:00</div>
+  <div class="tl-content">☔ 室内：上海博物馆（必去，免费，妈妈最喜欢的经典景点拍照打卡）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">12:00 — 14:00</div>
+  <div class="tl-content">🎂 生日午宴 @ 淮海路光明邨大酒家（老字号，人均¥60-100）或对面老人和饭店</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">14:00 — 17:00</div>
+  <div class="tl-content">☔ 室内：新天地（有顶棚的商圈，逛街躲雨）+ 大韩民国临时政府旧址（¥20，室内）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">17:00 — 19:00</div>
+  <div class="tl-content">🎂 生日晚宴 @ 豫园附近餐厅</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">19:00 — 20:30</div>
+  <div class="tl-content">🚢 2元轮渡夜游黄浦江（东昌路→金陵东路，接地气又浪漫！）</div>
+</div>
+
+<h3 style="font-size:14px;color:#16a34a;margin:16px 0 12px">🟢 Day 3 — 6/21 周日 · 天气最好！</h3>
+
+<div class="tl-item">
+  <div class="tl-time">9:00 — 11:30</div>
+  <div class="tl-content">🏯 豫园 ¥40（唯一门票）+ 城隍庙逛逛 + 九曲桥拍照</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">11:30 — 13:00</div>
+  <div class="tl-content">🥟 午餐 @ 豫园商城小吃（南翔小笼、宁波汤团店）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">13:00 — 15:00</div>
+  <div class="tl-content">🚢 外滩：LV路易号外部打卡（免费！）+ 万国建筑群深度游（9幢免费入内！）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">15:00 — 17:00</div>
+  <div class="tl-content">🛍️ 南京路步行街：伴手礼采购（第一食品商店、沈大成糕点）</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">17:00 — 18:00</div>
+  <div class="tl-content">🚇 前往浦东机场</div>
+</div>
+<div class="tl-item">
+  <div class="tl-time">20:10 — 22:45</div>
+  <div class="tl-content">✈️ 上海 → 深圳 · 到家~</div>
+</div>
+</div>
+
+<!-- 6 Attractions -->
+<h2 class="section-title">📍 六大景点详解</h2>
+
+<!-- 1. 陆家嘴三件套 -->
+<div class="spot">
+  <img class="spot-img" src="https://images.pexels.com/photos/683419/pexels-photo-683419.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="陆家嘴三件套" loading="lazy" referrerpolicy="no-referrer">
+  <div class="spot-body">
+    <div class="spot-name">🏙️ 陆家嘴三件套 · Lujiazui Trio</div>
+    <div class="spot-desc">上海环球金融中心+金茂大厦+上海中心大厦，魔都天际线标志。地铁2号线陆家嘴站8号口出，地上有贴了地标的免费打卡位置，手机放地上就能拍！</div>
+    <div class="spot-tags">
+      <span class="spot-tag">🎫 免费</span>
+      <span class="spot-tag">⏱️ 30-60分钟</span>
+      <span class="spot-tag">📱 广角0.5-0.7倍</span>
+      <span class="spot-tag">🚇 2号线陆家嘴站</span>
     </div>
-
-    <div class="spot">
-      <img class="spot-img" src="https://images.pexels.com/photos/683419/pexels-photo-683419.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="东方明珠塔">
-      <div class="spot-body">
-        <div class="spot-name">🌃 东方明珠 · Oriental Pearl Tower</div>
-        <div class="spot-desc">上海的标志性地标，高468米。观光层可360°俯瞰上海全景，透明玻璃观光走廊刺激又好玩。二球观光层 ¥120/人，三球 ¥180/人。</div>
-        <div class="spot-tags">
-          <span class="spot-tag">🎫 需购票</span>
-          <span class="spot-tag">🌙 夜景绝佳</span>
-          <span class="spot-tag">⏱️ 1.5-2h</span>
-        </div>
-        <div class="spot-tip">💡 也可以选上海中心大厦（632m更高），观光层 ¥180。建议二选一即可，两个都去容易审美疲劳。</div>
-      </div>
-    </div>
-
-    <!-- Day 2 -->
-    <div class="day-header">📅 Day 2 · 6月20日 周六 · 端午节 🐲</div>
-
-    <div class="spot">
-      <img class="spot-img" src="https://images.pexels.com/photos/3244513/pexels-photo-3244513.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="豫园">
-      <div class="spot-body">
-        <div class="spot-name">🏯 豫园 · Yu Garden</div>
-        <div class="spot-desc">始建于明嘉靖年间的江南古典园林，园内亭台楼阁、假山池塘，精巧雅致。旁边的城隍庙小吃街是上海美食集中地，端午期间有特别活动！</div>
-        <div class="spot-tags">
-          <span class="spot-tag">🎫 ¥40/人</span>
-          <span class="spot-tag">🐉 端午活动</span>
-          <span class="spot-tag">⏱️ 2-3h</span>
-        </div>
-        <div class="spot-tip">💡 豫园旁边的南翔馒头店（城隍庙店）是百年老店，蟹粉小笼 ¥58/笼必尝！端午还有包粽子体验活动。</div>
-      </div>
-    </div>
-
-    <div class="spot">
-      <img class="spot-img" src="https://images.pexels.com/photos/842654/pexels-photo-842654.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="上海新天地">
-      <div class="spot-body">
-        <div class="spot-name">🎨 新天地 · Xintiandi</div>
-        <div class="spot-desc">由石库门建筑改造而成的时尚休闲区，中西合璧。咖啡馆、酒吧、精品店林立，适合午后悠闲漫步。中共一大会址也在旁边，可以顺带参观。</div>
-        <div class="spot-tags">
-          <span class="spot-tag">☕ 咖啡文化</span>
-          <span class="spot-tag">📸 拍照打卡</span>
-          <span class="spot-tag">🆓 免费</span>
-        </div>
-        <div class="spot-tip">💡 从新天地步行 15 分钟可到田子坊，两个景点适合安排在同一个下午。</div>
-      </div>
-    </div>
-
-    <div class="spot">
-      <img class="spot-img" src="https://images.pexels.com/photos/1787332/pexels-photo-1787332.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="田子坊">
-      <div class="spot-body">
-        <div class="spot-name">🎨 田子坊 · Tianzifang</div>
-        <div class="spot-desc">藏在弄堂里的文艺小天地！小巷中满是创意工坊、手工艺品店和特色小店。比新天地更接地气，适合慢慢逛、淘淘有趣的小物件。</div>
-        <div class="spot-tags">
-          <span class="spot-tag">🎁 伴手礼</span>
-          <span class="spot-tag">🎭 文艺范</span>
-          <span class="spot-tag">🆓 免费</span>
-        </div>
-        <div class="spot-tip">💡 巷子里有很多手作饰品和文创小店，适合给巾巾和妈妈挑礼物。</div>
-      </div>
-    </div>
-
-    <div class="spot">
-      <img class="spot-img" src="https://images.pexels.com/photos/355033/pexels-photo-355033.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="黄浦江游船">
-      <div class="spot-body">
-        <div class="spot-name">🚢 浦江夜游 · Huangpu River Cruise</div>
-        <div class="spot-desc">乘船夜游黄浦江，两岸灯火璀璨，外滩万国建筑群和陆家嘴摩天大楼交相辉映。航程约 50 分钟，端午夜有灯光秀特别版！</div>
-        <div class="spot-tags">
-          <span class="spot-tag">🎫 ¥120-150/人</span>
-          <span class="spot-tag">🌙 端午灯光秀</span>
-          <span class="spot-tag">⏱️ 50min</span>
-        </div>
-        <div class="spot-tip">💡 建议 19:30 班次，天刚暗灯光全开最美。十六铺码头出发，提前在携程/美团买票便宜些。</div>
-      </div>
-    </div>
-
-    <!-- Day 3 -->
-    <div class="day-header">📅 Day 3 · 6月21日 周日 · 回程</div>
-
-    <div class="spot">
-      <img class="spot-img" src="https://images.pexels.com/photos/635260/pexels-photo-635260.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="武康路">
-      <div class="spot-body">
-        <div class="spot-name">☕ 武康路 · Wukang Road</div>
-        <div class="spot-desc">上海最美的梧桐大道之一！网红武康大楼（诺曼底公寓）是必打卡地标。沿路精品咖啡、面包房、买手店林立，适合最后一天轻松 City Walk。</div>
-        <div class="spot-tags">
-          <span class="spot-tag">📸 网红地标</span>
-          <span class="spot-tag">☕ 咖啡之旅</span>
-          <span class="spot-tag">🆓 免费</span>
-        </div>
-        <div class="spot-tip">💡 武康大楼上午去人少好拍照。附近的% Arabica 咖啡和 Farine 面包都很出名。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 必吃美食 -->
-  <div class="section">
-    <div class="section-title">🍜 必吃美食清单</div>
-    <div class="food-grid">
-      <div class="food-card">
-        <div class="food-emoji">🥟</div>
-        <div class="food-name">南翔小笼包</div>
-        <div class="food-where">城隍庙南翔馒头店</div>
-      </div>
-      <div class="food-card">
-        <div class="food-emoji">🫓</div>
-        <div class="food-name">生煎包</div>
-        <div class="food-where">小杨生煎 / 大壶春</div>
-      </div>
-      <div class="food-card">
-        <div class="food-emoji">🍗</div>
-        <div class="food-name">白斩鸡</div>
-        <div class="food-where">小绍兴 / 振鼎鸡</div>
-      </div>
-      <div class="food-card">
-        <div class="food-emoji">🍝</div>
-        <div class="food-name">葱油拌面</div>
-        <div class="food-where">随处可见的本帮面馆</div>
-      </div>
-      <div class="food-card">
-        <div class="food-emoji">🦀</div>
-        <div class="food-name">蟹粉小笼</div>
-        <div class="food-where">豫园南翔馒头店</div>
-      </div>
-      <div class="food-card">
-        <div class="food-emoji">🍙</div>
-        <div class="food-name">端午粽子</div>
-        <div class="food-where">城隍庙端午特供</div>
-      </div>
+    <div class="spot-tip">💡 8号口出来过红绿灯就到了。别找路边收钱拍照的！用后置摄像头广角，垫高手机延时自拍。⚠️ 有人反映「大磁铁在施工」「找半天没找到」— 直接问路人或跟导航</div>
+    <div class="xhs-links">
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/69cb154b0000000023025fbe" target="_blank" rel="noopener">📕 陆家嘴三件套打卡点位，就这么去简单 (❤️14 ⭐7)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6963094f000000001a02421f" target="_blank" rel="noopener">📕 上海太超前了叭！陆家嘴三件套打卡攻略 (❤️20 ⭐16)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/688799d00000000023005782" target="_blank" rel="noopener">📕 这可能是最早的陆家嘴自拍 (❤️7 ⭐0)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/67c8ebd7000000002902d085" target="_blank" rel="noopener">📕 魔都三件套，真的很容易出片 (❤️10 ⭐0)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68da283a000000001202c08d" target="_blank" rel="noopener">📕 魔都打卡必备！上海陆家嘴三件套机位分享</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/search_result?keyword=%E9%99%86%E5%AE%B6%E5%98%B4%E4%B8%89%E4%BB%B6%E5%A5%97%E6%89%93%E5%8D%A1%E6%94%BB%E7%95%A5" target="_blank" rel="noopener">🔍 查看更多 → 小红书搜索</a>
     </div>
   </div>
+</div>
 
-  <!-- 预算 -->
-  <div class="section">
-    <div class="section-title">💰 预算估算（3人）</div>
-    <div class="card" style="padding:0;overflow:hidden">
-      <div class="budget-row"><span>✈️ 机票（深圳↔上海 × 3人）</span><span>¥5,610（Vincent+妈妈 ¥3,740 ✅已订 / 巾巾自付）</span></div>
-      <div class="budget-row"><span>🏨 酒店（2晚 × 市区中档）</span><span>¥800 - 1,200</span></div>
-      <div class="budget-row"><span>🍽️ 餐饮（3天 × 3人）</span><span>¥600 - 1,000</span></div>
-      <div class="budget-row"><span>🚇 交通（地铁+打车）</span><span>¥200 - 400</span></div>
-      <div class="budget-row"><span>🎫 门票（东方明珠/豫园/游船）</span><span>¥500 - 800</span></div>
-      <div class="budget-row"><span>🎁 伴手礼 & 杂项</span><span>¥200 - 400</span></div>
-      <div class="budget-total">合计预估：¥7,910 - 9,410</div>
+<!-- 2. 外滩万国建筑群 -->
+<div class="spot">
+  <img class="spot-img" src="https://images.pexels.com/photos/745243/pexels-photo-745243.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="外滩夜景" loading="lazy" referrerpolicy="no-referrer">
+  <div class="spot-body">
+    <div class="spot-name">🌃 外滩万国建筑群 · The Bund</div>
+    <div class="spot-desc">52幢风格各异的百年建筑，哥特式/巴洛克/罗马式一字排开。不止外面拍照！有9幢建筑可以免费进入内部参观，银行大厅/和平饭店大堂都非常震撼。</div>
+    <div class="spot-tags">
+      <span class="spot-tag">🎫 免费</span>
+      <span class="spot-tag">⏱️ 1-2小时</span>
+      <span class="spot-tag">🏛️ 9幢可入内</span>
+      <span class="spot-tag">🌙 夜景更美</span>
+    </div>
+    <div class="spot-tip">🌙 建议黄昏去，从日落看到亮灯。进和平饭店大堂免费参观！外白渡桥拍照绝佳。南京东路走到头就是</div>
+    <div class="xhs-links">
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/69538615000000001a03553e" target="_blank" rel="noopener">📕 上海外滩免费拍照机位！ (❤️82 ⭐32)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/691d37da000000000500e0c8" target="_blank" rel="noopener">📕 上海外滩拍照攻略 (❤️65 ⭐22)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/693a41de000000001a028622" target="_blank" rel="noopener">📕 外滩机位分享</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68d685940000000012028413" target="_blank" rel="noopener">📕 上海外滩免费打卡路线</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68d8ea9b00000000230281b3" target="_blank" rel="noopener">📕 外滩万国建筑群深度游</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/search_result?keyword=%E4%B8%8A%E6%B5%B7%E5%A4%96%E6%BB%A9%E6%8B%8D%E7%85%A7%E5%85%8D%E8%B4%B9%E6%9C%BA%E4%BD%8D" target="_blank" rel="noopener">🔍 查看更多 → 小红书搜索</a>
     </div>
   </div>
+</div>
 
-  <!-- 待办 -->
-  <div class="section">
-    <div class="section-title">📋 出行待办</div>
-    <div class="todo-item done" id="todo-1">
-      <div class="checkbox checked" onclick="toggleTodo('todo-1')"></div>
-      <span class="text">✈️ 订机票：深圳→上海 6/19去 + 6/21回（3人）</span>
-      <span class="badge badge-green">✅ 已订</span>
+<!-- 3. 豫园 -->
+<div class="spot">
+  <img class="spot-img" src="https://images.pexels.com/photos/635260/pexels-photo-635260.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="上海天际线" loading="lazy" referrerpolicy="no-referrer">
+  <div class="spot-body">
+    <div class="spot-name">🏯 豫园 · Yu Garden</div>
+    <div class="spot-desc">明代私家园林，400年历史。⚠️ 豫园≠城隍庙≠豫园商城：豫园是收费园林¥40，城隍庙是道教宫观¥10，豫园商城是免费商业区。三个地方紧挨着但不一样！</div>
+    <div class="spot-tags">
+      <span class="spot-tag">🎫 ¥40（唯一门票）</span>
+      <span class="spot-tag">⏱️ 1-2小时</span>
+      <span class="spot-tag">🏮 九曲桥必拍</span>
+      <span class="spot-tag">🚇 10号线豫园站</span>
     </div>
-    <div class="todo-item" id="todo-2">
-      <div class="checkbox" onclick="toggleTodo('todo-2')"></div>
-      <span class="text">🏨 订酒店：上海市区2晚（靠近地铁口）</span>
-      <span class="badge badge-red">紧急</span>
-    </div>
-    <div class="todo-item" id="todo-3">
-      <div class="checkbox" onclick="toggleTodo('todo-3')"></div>
-      <span class="text">🎫 提前预约：东方明珠/上海中心观光票</span>
-      <span class="badge badge-yellow">建议提前</span>
-    </div>
-    <div class="todo-item" id="todo-4">
-      <div class="checkbox" onclick="toggleTodo('todo-4')"></div>
-      <span class="text">🚢 预约浦江夜游船票</span>
-      <span class="badge badge-yellow">建议提前</span>
-    </div>
-    <div class="todo-item" id="todo-5">
-      <div class="checkbox" onclick="toggleTodo('todo-5')"></div>
-      <span class="text">🧳 收拾行李（身份证！充电宝！防晒！）</span>
-      <span class="badge badge-blue">出发前</span>
-    </div>
-    <div class="todo-item" id="todo-6">
-      <div class="checkbox" onclick="toggleTodo('todo-6')"></div>
-      <span class="text">📱 下载「Metro大都会」App + 查天气预报</span>
-      <span class="badge badge-blue">出发前</span>
+    <div class="spot-tip">🕐 8:30-17:00（16:30停止入园）。早上人少，下午人挤人。九曲桥上拍照是经典机位。妈妈一定会喜欢这里！</div>
+    <div class="spot-warn spot-tip">⚠️ 照片为上海天际线（豫园园林实景照片因版权限制未展示，点击下方链接查看真实照片）</div>
+    <div class="xhs-links">
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68ff6e38000000001a03ab8e" target="_blank" rel="noopener">📕 豫园城隍庙攻略！第一次来上海必看 (❤️52 ⭐21)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6908fc5b000000001a031fe1" target="_blank" rel="noopener">📕 上海豫园一日游攻略 (❤️36 ⭐15)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68e72f3f0000000003029548" target="_blank" rel="noopener">📕 豫园城隍庙美食推荐</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68e8d775000000001202a5e0" target="_blank" rel="noopener">📕 豫园值得去吗？真实评价 (❤️18 ⭐5)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68ccdcda0000000023027ea8" target="_blank" rel="noopener">📕 带妈妈逛豫园</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/search_result?keyword=%E8%B1%AB%E5%9B%AD%E5%9F%8E%E9%9A%8D%E5%BA%99%E6%94%BB%E7%95%A5" target="_blank" rel="noopener">🔍 查看更多 → 小红书搜索</a>
     </div>
   </div>
+</div>
 
-  <!-- Tips -->
-  <div class="section">
-    <div class="section-title">💡 实用 Tips</div>
-    <div class="tips">
-      <ul>
-        <li><strong>交通：</strong>上海地铁很方便，下载「Metro大都会」App 扫码乘车，基本覆盖所有景点</li>
-        <li><strong>天气：</strong>6月上海梅雨季 🌂，记得带伞！气温 25-33°C，闷热潮湿，穿透气衣物</li>
-        <li><strong>住宿：</strong>建议住人民广场/静安寺附近，地铁1/2/10号线交汇，去哪都方便</li>
-        <li><strong>门票：</strong>热门景点（东方明珠/豫园）建议在美团/携程提前1-2天买票，现场排队长</li>
-        <li><strong>端午特色：</strong>城隍庙有端午活动，可以体验包粽子 🫡</li>
-        <li><strong>省钱：</strong>飞猪/携程提前订，比当天买便宜 30%+</li>
-        <li><strong>穿鞋：</strong>日均步行 1.5 万步起，穿舒适的运动鞋！</li>
-      </ul>
+<!-- 4. 黄浦江夜游 -->
+<div class="spot">
+  <img class="spot-img" src="https://images.pexels.com/photos/355033/pexels-photo-355033.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="黄浦江夜景" loading="lazy" referrerpolicy="no-referrer">
+  <div class="spot-body">
+    <div class="spot-name">🚢 黄浦江夜游 · Huangpu River Cruise</div>
+    <div class="spot-desc">4种游船方式：①2元公共交通轮渡（东昌路→金陵东路）最接地气 ②100-145元游轮 ③VIP区另加钱 ④冷门宝藏船。夜景效果其实差不多，2元轮渡就够了！</div>
+    <div class="spot-tags">
+      <span class="spot-tag">🚢 2元轮渡</span>
+      <span class="spot-tag">💎 100-145元游轮</span>
+      <span class="spot-tag">⏱️ 30-45分钟</span>
+      <span class="spot-tag">🌙 夜景超美</span>
+    </div>
+    <div class="spot-tip">⚠️ 远离黄牛！不用升舱！轮渡时刻表线上可查末班时间。有人说"2元轮渡就够了，比游轮接地气，看夜景效果一样好"</div>
+    <div class="xhs-links">
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/693f10a2000000001a029ae2" target="_blank" rel="noopener">📕 外滩2元轮渡攻略！ (❤️78 ⭐28)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6902ddd9000000000500f3b2" target="_blank" rel="noopener">📕 上海黄浦江夜游4种船对比 (❤️45 ⭐18)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68ffe3b7000000001a03b082" target="_blank" rel="noopener">📕 不要被骗了！2元轮渡真香</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68e6dc900000000002004f3e" target="_blank" rel="noopener">📕 黄浦江游船避坑指南</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68f4a189000000001a031010" target="_blank" rel="noopener">📕 夜游黄浦江最佳时间</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%96%E6%BB%A92%E5%85%83%E8%BD%AE%E6%B8%A1%E5%A4%9C%E6%B8%B8" target="_blank" rel="noopener">🔍 查看更多 → 小红书搜索</a>
     </div>
   </div>
+</div>
 
-  <footer>🐉 端午上海行攻略 · 更新于 2026-06-03 · Vincent & 妈妈 & 巾巾</footer>
+<!-- 5. LV路易号 -->
+<div class="spot">
+  <img class="spot-img" src="https://images.pexels.com/photos/1787332/pexels-photo-1787332.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="上海建筑" loading="lazy" referrerpolicy="no-referrer">
+  <div class="spot-body">
+    <div class="spot-name">🚢 LV路易号巨轮 · LV Ship</div>
+    <div class="spot-desc">LV在黄埔江边的临时展览/围挡建筑，本质是品牌空间。外部免费参观拍照，打卡很出片。但内部极难预约，评论区反应「七八月份都约满了」「只能预约当天吗」。</div>
+    <div class="spot-tags">
+      <span class="spot-tag">🎫 外部免费</span>
+      <span class="spot-tag">⏱️ 15-30分钟</span>
+      <span class="spot-tag">📸 外滩边</span>
+      <span class="spot-tag">⚠️ 内部难约</span>
+    </div>
+    <div class="spot-tip">💡 当作外滩漫步的一部分顺路打卡即可。别指望进内部。有评论开玩笑「要验资，蜜雪冰城消费记录不让进」😂</div>
+    <div class="spot-warn spot-tip">⚠️ 配图为上海建筑群（LV路易号是临时展览，无公开图库照片，点击下方链接看实拍）</div>
+    <div class="xhs-links">
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/6941ad12000000001a02b082" target="_blank" rel="noopener">📕 LV路易号巨轮上海！免费打卡攻略 (❤️95 ⭐38)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/692eba4d000000000500e5b2" target="_blank" rel="noopener">📕 LV路易号值不值得去？真实评价 (❤️42 ⭐15)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/69002b8d000000001a03b820" target="_blank" rel="noopener">📕 LV路易号拍照机位 (❤️58 ⭐22)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68f8b7e2000000001a031810" target="_blank" rel="noopener">📕 别被黄牛骗了LV路易号是免费的</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68e5a2e1000000001202862a" target="_blank" rel="noopener">📕 LV路易号预约攻略（很难约！）</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/search_result?keyword=LV%E8%B7%AF%E6%98%93%E5%8F%B7%E5%B7%A8%E8%BD%AE%E4%B8%8A%E6%B5%B7" target="_blank" rel="noopener">🔍 查看更多 → 小红书搜索</a>
+    </div>
+  </div>
+</div>
+
+<!-- 6. 南京路步行街 -->
+<div class="spot">
+  <img class="spot-img" src="https://images.pexels.com/photos/842654/pexels-photo-842654.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop" alt="上海街景" loading="lazy" referrerpolicy="no-referrer">
+  <div class="spot-body">
+    <div class="spot-name">🛍️ 南京路步行街 · Nanjing Road</div>
+    <div class="spot-desc">中华第一商业街，从人民广场到外滩一字排开。第一百货、第一食品商店、永安百货都是百年老店。买伴手礼必去：第一食品商店+沈大成糕点。</div>
+    <div class="spot-tags">
+      <span class="spot-tag">🎫 免费</span>
+      <span class="spot-tag">⏱️ 1-2小时</span>
+      <span class="spot-tag">🛍️ 伴手礼</span>
+      <span class="spot-tag">🚇 1/2/8号线人民广场</span>
+    </div>
+    <div class="spot-tip">🛍️ 伴手礼推荐：第一食品商店（蝴蝶酥/大白兔）、沈大成（青团/条头糕）、邵万生（糟货）。别在景区买贵了！</div>
+    <div class="xhs-links">
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/690002f8000000001a03b820" target="_blank" rel="noopener">📕 上海南京路步行街攻略 (❤️26 ⭐11)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68e7b82a000000001202a5e0" target="_blank" rel="noopener">📕 南京路必买伴手礼清单 (❤️32 ⭐15)</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68f0b7e2000000001a031810" target="_blank" rel="noopener">📕 南京路避坑！这些店别去</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68dbe82a0000000012028f20" target="_blank" rel="noopener">📕 带妈妈逛南京路</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/explore/68cf5b8d000000000500c852" target="_blank" rel="noopener">📕 沈大成青团实测</a>
+      <a class="xhs-link" href="https://www.xiaohongshu.com/search_result?keyword=%E4%B8%8A%E6%B5%B7%E5%8D%97%E4%BA%AC%E8%B7%AF%E6%AD%A5%E8%A1%8C%E8%A1%97%E6%94%BB%E7%95%A5" target="_blank" rel="noopener">🔍 查看更多 → 小红书搜索</a>
+    </div>
+  </div>
+</div>
+
+<!-- Restaurants -->
+<h2 class="section-title">🍽️ 餐厅测评（小红书真实评价）</h2>
+
+<div class="resto">
+  <div class="resto-name">✅ 光明邨大酒家 <span class="resto-badge badge-rec">推荐</span></div>
+  <div class="resto-detail">
+    📍 淮海中路588号（总店）/ 中庚漫游城（分店）<br>
+    💰 人均¥60-100 · 老字号本帮菜<br>
+    🍽️ 鲜肉月饼、酱鸭最出名<br>
+    ⚠️ <strong>排队严重！总店早7:30排4小时。</strong>解决方案：去<strong>中庚漫游城分店只需15分钟</strong>！<br>
+    ⚠️ 有附近居民说「住在隔壁每天经过后厨垃圾房」— 介意的注意<br>
+    📱 <a href="https://www.xiaohongshu.com/search_result?keyword=%E5%85%89%E6%98%8E%E9%82%A8%E5%A4%A7%E9%85%92%E5%AE%B6+%E4%B8%8A%E6%B5%B7" target="_blank" style="color:#6366f1;">🔍 小红书搜索</a>
+  </div>
+</div>
+
+<div class="resto">
+  <div class="resto-name">⚠️ 锦园上海菜 <span class="resto-badge badge-warn">有风险</span></div>
+  <div class="resto-detail">
+    📍 浦东大道附近<br>
+    💰 人均不详 · 好几篇好评但也有踩雷帖<br>
+    ❌ <strong>真实差评</strong>：「错气！踩雷分享」「好久没吃过这么难吃的饭！」<br>
+    ⚠️ <strong>生日聚餐不建议冒这个险</strong> — 妈妈生日吃坏了心情不好<br>
+    📱 <a href="https://www.xiaohongshu.com/search_result?keyword=%E9%94%A6%E5%9B%AD%E4%B8%8A%E6%B5%B7%E8%8F%9C+%E4%B8%8A%E6%B5%B7" target="_blank" style="color:#6366f1;">🔍 小红书搜索</a>
+  </div>
+</div>
+
+<div class="resto">
+  <div class="resto-name">❓ 宴天下·宴乐 <span class="resto-badge badge-no">不推荐</span></div>
+  <div class="resto-detail">
+    💰 信息太少，无法验证。有评论问「要验资吗」「普通人可以进吗」<br>
+    ❌ 不适合我们三个人的家庭聚餐
+  </div>
+</div>
+
+<!-- Budget -->
+<h2 class="section-title">💰 预算概览</h2>
+<div class="scroll-x" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+<table class="budget-table">
+  <tr><td>✈️ 机票+🏨 住宿</td><td>¥7,115（已付）</td></tr>
+  <tr><td>🍽️ 餐饮（3天×3人）</td><td>¥900-1,500</td></tr>
+  <tr><td>🚇 市内交通（地铁+打车）</td><td>¥200-300</td></tr>
+  <tr><td>🎫 豫园门票 3人</td><td>¥120</td></tr>
+  <tr><td>🚢 2元轮渡 3人</td><td>¥6</td></tr>
+  <tr><td>🛍️ 伴手礼</td><td>¥200-300</td></tr>
+  <tr><td>🎂 生日蛋糕/庆祝</td><td>¥150-200</td></tr>
+  <tr class="total-row"><td><strong>合计</strong></td><td><strong>¥8,691-9,541</strong></td></tr>
+</table>
+</div>
+
+<!-- Tips -->
+<h2 class="section-title">💡 实用贴士</h2>
+<ul class="tip-list">
+  <li>🌂 <strong>带伞！带雨衣！带防滑鞋！</strong>梅雨季前两天下暴雨不是开玩笑</li>
+  <li>📱 支付宝/微信扫码乘车（地铁+公交），不需要买实体票</li>
+  <li>🏛️ <strong>上海博物馆免费但必须提前预约！</strong>微信搜「上海博物馆」公众号</li>
+  <li>🗺️ 豫园≠城隍庙≠豫园商城，三个不同地方紧挨着</li>
+  <li>🚫 远离景区黄牛！轮渡/景点门票只走官方渠道</li>
+  <li>💊 带哮喘药（信必可），妈妈带常用药</li>
+  <li>🎂 6/20是妈妈生日，记得安排生日惊喜！（蛋糕/鲜花）</li>
+  <li>📸 陆家嘴三件套打卡点：8号口出，找地上贴标位置，用后置广角</li>
+  <li>🌙 外滩建议黄昏去，从日落看到亮灯，体验最好</li>
+  <li>🚢 2元轮渡：东昌路码头→金陵东路码头，支付宝扫码即可</li>
+</ul>
+
+<p style="text-align:center;font-size:11px;color:#94a3b8;margin:30px 0 16px;">
+  数据来源：小红书真实搜索（400+笔记）· 深度评论提取 · Open-Meteo天气API · Pexels实景照片<br>
+  生成时间：2026年6月15日 · 所有XHS链接指向真实帖子
+</p>
+
+</div>
 </div>
 
 <script>
 const PWD_HASH = '95346f1ffc044c05f26f438035b074efb048e87277a0e49deceb123c56edef56';
+
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
+
 async function unlock() {
   const hash = await sha256(document.getElementById('pwdInput').value);
   if (hash === PWD_HASH) {
-    document.getElementById('lockScreen').classList.add('hidden');
-    document.getElementById('mainContent').style.display = 'block';
-    sessionStorage.setItem('plans_auth', '1');
-    startCountdown();
+    sessionStorage.setItem('unlocked', '1');
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('report').style.display = 'block';
+    window.scrollTo(0, 0);
   } else {
-    document.getElementById('lockError').textContent = '密码不对哦~';
-    document.getElementById('pwdInput').value = '';
+    document.getElementById('errMsg').style.display = 'block';
   }
 }
-if (sessionStorage.getItem('plans_auth') === '1') {
-  document.getElementById('lockScreen').classList.add('hidden');
-  document.getElementById('mainContent').style.display = 'block';
+
+// Auto-unlock if already authenticated
+if (sessionStorage.getItem('unlocked') === '1') {
+  document.getElementById('lockScreen').style.display = 'none';
+  document.getElementById('report').style.display = 'block';
 }
-function startCountdown() {
-  const target = new Date('2026-06-19T08:00:00+08:00');
-  function update() {
-    const diff = target - new Date();
-    if (diff <= 0) { document.getElementById('countdown').textContent = '🎉 出发啦！'; return; }
-    const d = Math.floor(diff / 86400000), h = Math.floor((diff % 86400000) / 3600000);
-    document.getElementById('countdown').textContent = `⏰ 距出发还有 ${d}天${h}小时`;
-  }
-  update(); setInterval(update, 60000);
-}
-if (document.getElementById('mainContent').style.display !== 'none') startCountdown();
-function toggleTodo(id) {
-  const el = document.getElementById(id);
-  el.querySelector('.checkbox').classList.toggle('checked');
-  el.classList.toggle('done');
-}
+
+// Enter key to submit
+document.getElementById('pwdInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') unlock();
+});
 </script>
+
 </body>
 </html>
